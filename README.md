@@ -1,6 +1,10 @@
 # EMOS - Electronics Materials Operating System
 
-<img src="images/logo_name.svg" width="600" height="200">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="images/logo_name_dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="images/logo_name.svg">
+  <img src="images/logo_name.svg" width="600" height="200" alt="EMOS - Electronics Materials Operating System">
+</picture>
 
 A modern web-based platform for electronics materials science research and analysis, featuring an intuitive interface for materials exploration, AI-powered analysis, and integrated computational tools.
 
