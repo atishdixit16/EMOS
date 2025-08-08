@@ -10,8 +10,52 @@ const chatInput = document.getElementById('chatInput');
 const sendMessage = document.getElementById('sendMessage');
 const chatMessages = document.getElementById('chatMessages');
 
+// Feature class mapping for dynamic loading
+const featureClasses = {
+    1: 'MaterialSearchFeature',
+    2: 'MaterialGenerationFeature', 
+    3: 'DatabaseExtractorFeature',
+    4: 'Feature4',
+    5: 'Feature5',
+    6: 'Feature6',
+    7: 'Feature7',
+    8: 'Feature8',
+    9: 'DeviceSynthesizabilityFeature',
+    10: 'InterfaceCalculationFeature',
+    11: 'Feature11',
+    12: 'Feature12',
+    13: 'Feature13',
+    14: 'Feature14',
+    15: 'Feature15',
+    16: 'Feature16'
+};
+
+// Feature file paths for dynamic loading
+const featureFiles = {
+    1: '/Features/Materials_Exploration/MaterialSearch.js',
+    2: '/Features/Materials_Exploration/MaterialGeneration.js',
+    3: '/Features/Materials_Exploration/DatabaseExtractor.js',
+    4: '/Features/GenericFeatures.js',
+    5: '/Features/GenericFeatures.js',
+    6: '/Features/GenericFeatures.js',
+    7: '/Features/GenericFeatures.js',
+    8: '/Features/GenericFeatures.js',
+    9: '/Features/Electronics_Application/DeviceSynthesizability.js',
+    10: '/Features/Electronics_Application/InterfaceCalculation.js',
+    11: '/Features/GenericFeatures.js',
+    12: '/Features/GenericFeatures.js',
+    13: '/Features/GenericFeatures.js',
+    14: '/Features/GenericFeatures.js',
+    15: '/Features/GenericFeatures.js',
+    16: '/Features/GenericFeatures.js'
+};
+
+// Global feature instances storage
+window.features = {};
+let currentFeatureInstance = null;
+
 // Functions
-function showFeatureView(featureNumber, featureName, featureDesc) {
+async function showFeatureView(featureNumber, featureName, featureDesc) {
     // Hide other views
     operatingArea.classList.add('hidden');
     llmView.classList.add('hidden');
@@ -19,15 +63,8 @@ function showFeatureView(featureNumber, featureName, featureDesc) {
     // Show feature view
     featureView.classList.remove('hidden');
     
-    // Update feature information in the view
-    document.getElementById('featureTitle').textContent = featureName;
-    document.getElementById('featureSubtitle').textContent = featureDesc;
-    document.getElementById('currentFeature').textContent = featureName;
-    document.getElementById('processingFeature').textContent = featureName;
-    document.getElementById('outputFeature').textContent = featureName;
-    
-    // Reset processing state
-    resetProcessing();
+    // Load and initialize the specific feature module
+    await loadFeatureModule(parseInt(featureNumber), featureName, featureDesc);
     
     // Add visual feedback to the clicked button
     featureButtons.forEach(btn => btn.style.transform = 'scale(1)');
@@ -38,6 +75,144 @@ function showFeatureView(featureNumber, featureName, featureDesc) {
             clickedButton.style.transform = 'scale(1)';
         }, 150);
     }
+}
+
+// Load and initialize a feature module
+async function loadFeatureModule(featureId, featureName, featureDesc) {
+    try {
+        // Check if we need to load the BaseFeature first
+        if (!window.BaseFeature) {
+            await loadScript('/Features/BaseFeature.js');
+        }
+        
+        // Load the specific feature if available
+        if (featureFiles[featureId] && featureClasses[featureId]) {
+            // Check if the feature class is already loaded
+            if (!window[featureClasses[featureId]]) {
+                await loadScript(featureFiles[featureId]);
+            }
+            
+            // Create feature instance and initialize
+            const FeatureClass = window[featureClasses[featureId]];
+            currentFeatureInstance = new FeatureClass();
+            window.features[featureId] = currentFeatureInstance;
+            
+            // Replace the feature view content with the specific feature's interface
+            featureView.innerHTML = currentFeatureInstance.createFeatureHTML();
+            
+        } else {
+            // Fallback to generic processing view for features not yet implemented
+            console.log(`Feature ${featureId} not implemented, using fallback`);
+            featureView.innerHTML = createGenericFeatureView(featureName, featureDesc);
+        }
+    } catch (error) {
+        console.error('Error loading feature module:', error);
+        featureView.innerHTML = createGenericFeatureView(featureName, featureDesc);
+    }
+}
+
+// Helper function to load scripts dynamically
+function loadScript(src) {
+    return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = src;
+        script.onload = () => {
+            console.log(`${src} loaded successfully`);
+            resolve();
+        };
+        script.onerror = () => {
+            console.error(`Failed to load ${src}`);
+            reject(new Error(`Failed to load ${src}`));
+        };
+        document.head.appendChild(script);
+    });
+}
+
+// Create generic feature view for fallback
+function createGenericFeatureView(featureName, featureDesc) {
+    return `
+        <div class="feature-header">
+            <div class="feature-title-section">
+                <h3><span id="featureTitle">${featureName}</span> Processing</h3>
+                <p class="feature-subtitle" id="featureSubtitle">${featureDesc}</p>
+            </div>
+            <button class="close-feature" id="closeFeature">×</button>
+        </div>
+        <div class="process-section">
+            <h3>Inputs</h3>
+            <div class="process-content" id="inputsContent">
+                <p>Configure your input parameters for ${featureName}</p>
+                <div class="input-controls">
+                    <label>Parameter 1: <input type="text" placeholder="Enter value"></label>
+                    <label>Parameter 2: <input type="text" placeholder="Enter value"></label>
+                    <label>Parameter 3: <input type="text" placeholder="Enter value"></label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="process-section">
+            <h3>Processing</h3>
+            <div class="process-content" id="processingContent">
+                <p>Processing ${featureName}...</p>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <button class="process-btn" onclick="startGenericProcessing()">Start Processing</button>
+            </div>
+        </div>
+        
+        <div class="process-section">
+            <h3>Outputs</h3>
+            <div class="process-content" id="outputsContent">
+                <p>Results for ${featureName}</p>
+                <div class="output-display">
+                    <div class="output-item">
+                        <strong>Result 1:</strong> <span>Pending...</span>
+                    </div>
+                    <div class="output-item">
+                        <strong>Result 2:</strong> <span>Pending...</span>
+                    </div>
+                    <div class="output-item">
+                        <strong>Result 3:</strong> <span>Pending...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// Generic processing function for fallback features
+function startGenericProcessing() {
+    const progressFill = document.querySelector('.progress-fill');
+    const processBtn = document.querySelector('.process-btn');
+    const outputItems = document.querySelectorAll('.output-item span');
+    
+    // Disable button and show processing
+    processBtn.disabled = true;
+    processBtn.textContent = 'Processing...';
+    
+    // Animate progress bar
+    progressFill.style.width = '100%';
+    
+    // Simulate processing time and update outputs
+    setTimeout(() => {
+        outputItems[0].textContent = 'Analysis complete - 98.5% accuracy';
+        setTimeout(() => {
+            outputItems[1].textContent = 'Processing finished successfully';
+            setTimeout(() => {
+                outputItems[2].textContent = 'Results generated and saved';
+                
+                // Re-enable button
+                processBtn.disabled = false;
+                processBtn.textContent = 'Start Processing';
+                
+                // Reset progress for next use
+                setTimeout(() => {
+                    progressFill.style.width = '0%';
+                }, 1000);
+            }, 800);
+        }, 600);
+    }, 2000);
 }
 
 function showLLMView() {
@@ -67,6 +242,11 @@ function showWelcomeView() {
     
     // Show operating area
     operatingArea.classList.remove('hidden');
+    
+    // Clean up current feature instance
+    if (currentFeatureInstance) {
+        currentFeatureInstance = null;
+    }
 }
 
 // Chat functionality
@@ -202,9 +382,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Close feature functionality
-    if (closeFeature) {
-        closeFeature.addEventListener('click', showWelcomeView);
-    }
+    document.addEventListener('click', (e) => {
+        if (e.target.id === 'closeFeature' || e.target.classList.contains('close-feature')) {
+            showWelcomeView();
+        }
+    });
 
     // Close chat functionality
     if (closeChat) {
