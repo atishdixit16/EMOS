@@ -176,6 +176,11 @@ class BaseFeature {
         }
     }
 
+    // Simulate processing for features that don't have complex processing
+    async simulateProcessing() {
+        return new Promise(resolve => setTimeout(resolve, 1500));
+    }
+
     // Override in subclasses for specific processing logic
     async processFeature() {
         return {

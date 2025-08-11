@@ -15,39 +15,39 @@ const featureClasses = {
     1: 'MaterialSearchFeature',
     2: 'MaterialGenerationFeature', 
     3: 'DatabaseExtractorFeature',
-    4: 'Feature4',
-    5: 'Feature5',
-    6: 'Feature6',
-    7: 'Feature7',
-    8: 'Feature8',
+    4: 'Feature4_AdvancedAnalysis',
+    5: 'Feature5_MaterialsOptimization',
+    6: 'Feature6_SimulationModeling',
+    7: 'Feature7_ComputationalMethods',
+    8: 'Feature8_StructurePropertyAnalysis',
     9: 'DeviceSynthesizabilityFeature',
     10: 'InterfaceCalculationFeature',
-    11: 'Feature11',
-    12: 'Feature12',
-    13: 'Feature13',
-    14: 'Feature14',
-    15: 'Feature15',
-    16: 'Feature16'
+    11: 'Feature11_ElectronicPropertyPrediction',
+    12: 'Feature12_BandStructureCalculation',
+    13: 'Feature13_ThermalManagementAnalysis',
+    14: 'Feature14_ReliabilityAssessment',
+    15: 'Feature15_ProcessIntegration',
+    16: 'Feature16_AdvancedCharacterization'
 };
 
 // Feature file paths for dynamic loading
 const featureFiles = {
-    1: '/Features/Materials_Exploration/MaterialSearch.js',
-    2: '/Features/Materials_Exploration/MaterialGeneration.js',
-    3: '/Features/Materials_Exploration/DatabaseExtractor.js',
-    4: '/Features/GenericFeatures.js',
-    5: '/Features/GenericFeatures.js',
-    6: '/Features/GenericFeatures.js',
-    7: '/Features/GenericFeatures.js',
-    8: '/Features/GenericFeatures.js',
-    9: '/Features/Electronics_Application/DeviceSynthesizability.js',
-    10: '/Features/Electronics_Application/InterfaceCalculation.js',
-    11: '/Features/GenericFeatures.js',
-    12: '/Features/GenericFeatures.js',
-    13: '/Features/GenericFeatures.js',
-    14: '/Features/GenericFeatures.js',
-    15: '/Features/GenericFeatures.js',
-    16: '/Features/GenericFeatures.js'
+    1: '/Features/Materials_Exploration/Material_Search/MaterialSearch.js',
+    2: '/Features/Materials_Exploration/Material_Generation/MaterialGeneration.js',
+    3: '/Features/Materials_Exploration/Database_Extractor/DatabaseExtractor.js',
+    4: '/Features/Materials_Exploration/Feature_4/Feature4_AdvancedAnalysis.js',
+    5: '/Features/Materials_Exploration/Feature_5/Feature5_MaterialsOptimization.js',
+    6: '/Features/Materials_Exploration/Feature_6/Feature6_SimulationModeling.js',
+    7: '/Features/Materials_Exploration/Feature_7/Feature7_ComputationalMethods.js',
+    8: '/Features/Materials_Exploration/Feature_8/Feature8_StructurePropertyAnalysis.js',
+    9: '/Features/Electronics_Application/Device_Synthesizability/DeviceSynthesizability.js',
+    10: '/Features/Electronics_Application/Interface_Calculation/InterfaceCalculation.js',
+    11: '/Features/Electronics_Application/Feature_11/Feature11_ElectronicPropertyPrediction.js',
+    12: '/Features/Electronics_Application/Feature_12/Feature12_BandStructureCalculation.js',
+    13: '/Features/Electronics_Application/Feature_13/Feature13_ThermalManagementAnalysis.js',
+    14: '/Features/Electronics_Application/Feature_14/Feature14_ReliabilityAssessment.js',
+    15: '/Features/Electronics_Application/Feature_15/Feature15_ProcessIntegration.js',
+    16: '/Features/Electronics_Application/Feature_16/Feature16_AdvancedCharacterization.js'
 };
 
 // Global feature instances storage
@@ -365,6 +365,14 @@ function resetProcessing() {
 
 // Initialize application
 document.addEventListener('DOMContentLoaded', () => {
+    // Load BaseFeature class first
+    const baseFeatureScript = document.createElement('script');
+    baseFeatureScript.src = 'Features/BaseFeature.js';
+    baseFeatureScript.onload = function() {
+        console.log('BaseFeature loaded successfully');
+    };
+    document.head.appendChild(baseFeatureScript);
+    
     // Feature button functionality - SINGLE EVENT LISTENER
     featureButtons.forEach(button => {
         button.addEventListener('click', function() {
