@@ -65,14 +65,14 @@ class DeviceSynthesizabilityFeature extends BaseFeature {
         const feasibilityScore = Math.floor(Math.random() * 40) + 60; // 60-100%
         const cost = Math.floor(Math.random() * 500) + 100; // $100-600
         const processTemp = Math.floor(Math.random() * 500) + 400; // 400-900°C
-        const yield = Math.floor(Math.random() * 30) + 70; // 70-100%
+        const yieldPercentage = Math.floor(Math.random() * 30) + 70; // 70-100%
         
         return {
             feasibility: `${feasibilityScore}% (${feasibilityScore > 80 ? 'High' : feasibilityScore > 60 ? 'Medium' : 'Low'})`,
             recommendedProcess: `${fabricationMethod.toUpperCase()} with 3-step annealing`,
             estimatedCost: `$${cost}/wafer`,
             processTemp: `${processTemp}°C`,
-            yieldPrediction: `${yield}%`
+            yieldPrediction: `${yieldPercentage}%`
         };
     }
 
