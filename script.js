@@ -15,19 +15,19 @@ const featureClasses = {
     1: 'MaterialSearchFeature',
     2: 'MaterialGenerationFeature', 
     3: 'DatabaseExtractorFeature',
-    4: 'Feature4_AdvancedAnalysis',
-    5: 'Feature5_MaterialsOptimization',
-    6: 'Feature6_SimulationModeling',
-    7: 'Feature7_ComputationalMethods',
-    8: 'Feature8_StructurePropertyAnalysis',
+    4: 'MaterialCharacterizationFeature',
+    5: 'DFTCalculationFeature',
+    6: 'CrystallographicAnalysisFeature',
+    7: 'QuantumMechanicsFeature',
+    8: 'TensorAnalysisFeature',
     9: 'DeviceSynthesizabilityFeature',
     10: 'InterfaceCalculationFeature',
-    11: 'Feature11_ElectronicPropertyPrediction',
-    12: 'Feature12_BandStructureCalculation',
-    13: 'Feature13_ThermalManagementAnalysis',
-    14: 'Feature14_ReliabilityAssessment',
-    15: 'Feature15_ProcessIntegration',
-    16: 'Feature16_AdvancedCharacterization'
+    11: 'PropertyPredictionFeature',
+    12: 'BandStructureFeature',
+    13: 'ThermalManagementFeature',
+    14: 'ReliabilityAssessmentFeature',
+    15: 'ProcessIntegrationFeature',
+    16: 'AdvancedCharacterizationFeature'
 };
 
 // Feature file paths for dynamic loading
@@ -35,19 +35,19 @@ const featureFiles = {
     1: '/Features/Materials_Exploration/Material_Search/MaterialSearch.js',
     2: '/Features/Materials_Exploration/Material_Generation/MaterialGeneration.js',
     3: '/Features/Materials_Exploration/Database_Extractor/DatabaseExtractor.js',
-    4: '/Features/Materials_Exploration/Feature_4/Feature4_AdvancedAnalysis.js',
-    5: '/Features/Materials_Exploration/Feature_5/Feature5_MaterialsOptimization.js',
-    6: '/Features/Materials_Exploration/Feature_6/Feature6_SimulationModeling.js',
-    7: '/Features/Materials_Exploration/Feature_7/Feature7_ComputationalMethods.js',
-    8: '/Features/Materials_Exploration/Feature_8/Feature8_StructurePropertyAnalysis.js',
+    4: '/Features/Materials_Exploration/Material_Characterization/MaterialCharacterization.js',
+    5: '/Features/Materials_Exploration/DFT_Calculation/DFTCalculation.js',
+    6: '/Features/Materials_Exploration/Crystallographic_Analysis/CrystallographicAnalysis.js',
+    7: '/Features/Materials_Exploration/Quantum_Mechanics/QuantumMechanics.js',
+    8: '/Features/Materials_Exploration/Tensor_Analysis/TensorAnalysis.js',
     9: '/Features/Electronics_Application/Device_Synthesizability/DeviceSynthesizability.js',
     10: '/Features/Electronics_Application/Interface_Calculation/InterfaceCalculation.js',
-    11: '/Features/Electronics_Application/Feature_11/Feature11_ElectronicPropertyPrediction.js',
-    12: '/Features/Electronics_Application/Feature_12/Feature12_BandStructureCalculation.js',
-    13: '/Features/Electronics_Application/Feature_13/Feature13_ThermalManagementAnalysis.js',
-    14: '/Features/Electronics_Application/Feature_14/Feature14_ReliabilityAssessment.js',
-    15: '/Features/Electronics_Application/Feature_15/Feature15_ProcessIntegration.js',
-    16: '/Features/Electronics_Application/Feature_16/Feature16_AdvancedCharacterization.js'
+    11: '/Features/Electronics_Application/Property_Prediction/PropertyPrediction.js',
+    12: '/Features/Electronics_Application/Band_Structure/BandStructure.js',
+    13: '/Features/Electronics_Application/Thermal_Management/ThermalManagement.js',
+    14: '/Features/Electronics_Application/Reliability_Assessment/ReliabilityAssessment.js',
+    15: '/Features/Electronics_Application/Process_Integration/ProcessIntegration.js',
+    16: '/Features/Electronics_Application/Advanced_Characterization/AdvancedCharacterization.js'
 };
 
 // Global feature instances storage
@@ -80,25 +80,35 @@ async function showFeatureView(featureNumber, featureName, featureDesc) {
 // Load and initialize a feature module
 async function loadFeatureModule(featureId, featureName, featureDesc) {
     try {
+        console.log(`Loading feature ${featureId}: ${featureName}`);
+        
         // Check if we need to load the BaseFeature first
         if (!window.BaseFeature) {
+            console.log('Loading BaseFeature...');
             await loadScript('/Features/BaseFeature.js');
         }
         
         // Load the specific feature if available
         if (featureFiles[featureId] && featureClasses[featureId]) {
+            console.log(`Feature file: ${featureFiles[featureId]}`);
+            console.log(`Feature class: ${featureClasses[featureId]}`);
+            
             // Check if the feature class is already loaded
             if (!window[featureClasses[featureId]]) {
+                console.log(`Loading feature script: ${featureFiles[featureId]}`);
                 await loadScript(featureFiles[featureId]);
             }
             
             // Create feature instance and initialize
             const FeatureClass = window[featureClasses[featureId]];
+            console.log(`Feature class found:`, FeatureClass);
+            
             currentFeatureInstance = new FeatureClass();
             window.features[featureId] = currentFeatureInstance;
             
             // Replace the feature view content with the specific feature's interface
             featureView.innerHTML = currentFeatureInstance.createFeatureHTML();
+            console.log('Feature HTML created successfully');
             
         } else {
             // Fallback to generic processing view for features not yet implemented
@@ -367,7 +377,7 @@ function resetProcessing() {
 document.addEventListener('DOMContentLoaded', () => {
     // Load BaseFeature class first
     const baseFeatureScript = document.createElement('script');
-    baseFeatureScript.src = 'Features/BaseFeature.js';
+    baseFeatureScript.src = '/Features/BaseFeature.js';
     baseFeatureScript.onload = function() {
         console.log('BaseFeature loaded successfully');
     };

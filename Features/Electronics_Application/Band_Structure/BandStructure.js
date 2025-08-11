@@ -1,7 +1,7 @@
-// Feature 12: Band Structure Calculation
-class Feature12_BandStructureCalculation extends BaseFeature {
+// Band Structure
+class BandStructureFeature extends BaseFeature {
     constructor() {
-        super(12, 'Feature 12', 'Band structure calculations and electronic transport property analysis');
+        super(12, 'Band Structure', 'Band structure calculations and electronic transport property analysis');
     }
 
     createInputsHTML() {
@@ -31,4 +31,4 @@ class Feature12_BandStructureCalculation extends BaseFeature {
     }
 }
 
-window.Feature12_BandStructureCalculation = Feature12_BandStructureCalculation;
+window.BandStructureFeature = BandStructureFeature;

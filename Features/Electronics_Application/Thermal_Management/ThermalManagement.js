@@ -1,7 +1,7 @@
-// Feature 13: Thermal Management Analysis
-class Feature13_ThermalManagementAnalysis extends BaseFeature {
+// Thermal Management
+class ThermalManagementFeature extends BaseFeature {
     constructor() {
-        super(13, 'Feature 13', 'Thermal management analysis for electronic device performance optimization');
+        super(13, 'Thermal Management', 'Thermal management analysis for electronic device performance optimization');
     }
 
     createInputsHTML() {
@@ -31,4 +31,4 @@ class Feature13_ThermalManagementAnalysis extends BaseFeature {
     }
 }
 
-window.Feature13_ThermalManagementAnalysis = Feature13_ThermalManagementAnalysis;
+window.ThermalManagementFeature = ThermalManagementFeature;

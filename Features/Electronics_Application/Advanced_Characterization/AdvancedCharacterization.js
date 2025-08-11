@@ -1,7 +1,7 @@
-// Feature 16: Advanced Characterization
-class Feature16_AdvancedCharacterization extends BaseFeature {
+// Advanced Characterization
+class AdvancedCharacterizationFeature extends BaseFeature {
     constructor() {
-        super(16, 'Feature 16', 'Advanced characterization techniques for electronic materials evaluation');
+        super(16, 'Advanced Characterization', 'Advanced characterization techniques for electronic materials evaluation');
     }
 
     createInputsHTML() {
@@ -32,4 +32,4 @@ class Feature16_AdvancedCharacterization extends BaseFeature {
     }
 }
 
-window.Feature16_AdvancedCharacterization = Feature16_AdvancedCharacterization;
+window.AdvancedCharacterizationFeature = AdvancedCharacterizationFeature;

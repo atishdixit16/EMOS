@@ -1,7 +1,7 @@
-// Feature 15: Process Integration
-class Feature15_ProcessIntegration extends BaseFeature {
+// Process Integration
+class ProcessIntegrationFeature extends BaseFeature {
     constructor() {
-        super(15, 'Feature 15', 'Process integration workflows for electronic device manufacturing');
+        super(15, 'Process Integration', 'Process integration workflows for electronic device manufacturing');
     }
 
     createInputsHTML() {
@@ -32,4 +32,4 @@ class Feature15_ProcessIntegration extends BaseFeature {
     }
 }
 
-window.Feature15_ProcessIntegration = Feature15_ProcessIntegration;
+window.ProcessIntegrationFeature = ProcessIntegrationFeature;

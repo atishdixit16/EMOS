@@ -1,7 +1,7 @@
-// Feature 11: Electronic Property Prediction
-class Feature11_ElectronicPropertyPrediction extends BaseFeature {
+// Property Prediction
+class PropertyPredictionFeature extends BaseFeature {
     constructor() {
-        super(11, 'Feature 11', 'Electronic property prediction and optimization for semiconductor applications');
+        super(11, 'Property Prediction', 'Electronic property prediction and optimization for semiconductor applications');
     }
 
     createInputsHTML() {
@@ -31,4 +31,4 @@ class Feature11_ElectronicPropertyPrediction extends BaseFeature {
     }
 }
 
-window.Feature11_ElectronicPropertyPrediction = Feature11_ElectronicPropertyPrediction;
+window.PropertyPredictionFeature = PropertyPredictionFeature;

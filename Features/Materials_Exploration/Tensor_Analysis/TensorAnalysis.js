@@ -1,7 +1,7 @@
-// Feature 8: Structure-Property Analysis
-class Feature8_StructurePropertyAnalysis extends BaseFeature {
+// Tensor Analysis
+class TensorAnalysisFeature extends BaseFeature {
     constructor() {
-        super(8, 'Feature 8', 'Comprehensive analysis tools for understanding material structure-property relationships');
+        super(8, 'Tensor Analysis', 'Comprehensive analysis tools for understanding material structure-property relationships');
     }
 
     createInputsHTML() {
@@ -31,4 +31,4 @@ class Feature8_StructurePropertyAnalysis extends BaseFeature {
     }
 }
 
-window.Feature8_StructurePropertyAnalysis = Feature8_StructurePropertyAnalysis;
+window.TensorAnalysisFeature = TensorAnalysisFeature;

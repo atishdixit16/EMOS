@@ -1,7 +1,7 @@
-// Feature 6: Simulation and Modeling
-class Feature6_SimulationModeling extends BaseFeature {
+// Crystallographic Analysis
+class CrystallographicAnalysisFeature extends BaseFeature {
     constructor() {
-        super(6, 'Feature 6', 'Simulation and modeling tools for predicting material behavior under various conditions');
+        super(6, 'Crystallographic Analysis', 'Simulation and modeling tools for predicting material behavior under various conditions');
     }
 
     createInputsHTML() {
@@ -31,4 +31,4 @@ class Feature6_SimulationModeling extends BaseFeature {
     }
 }
 
-window.Feature6_SimulationModeling = Feature6_SimulationModeling;
+window.CrystallographicAnalysisFeature = CrystallographicAnalysisFeature;

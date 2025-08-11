@@ -1,7 +1,7 @@
-// Feature 4: Advanced Analysis
-class Feature4_AdvancedAnalysis extends BaseFeature {
+// Material Characterization
+class MaterialCharacterizationFeature extends BaseFeature {
     constructor() {
-        super(4, 'Feature 4', 'Advanced materials analysis and characterization tools for comprehensive evaluation');
+        super(4, 'Material Characterization', 'Advanced materials analysis and characterization tools for comprehensive evaluation');
     }
 
     createInputsHTML() {
@@ -31,4 +31,4 @@ class Feature4_AdvancedAnalysis extends BaseFeature {
     }
 }
 
-window.Feature4_AdvancedAnalysis = Feature4_AdvancedAnalysis;
+window.MaterialCharacterizationFeature = MaterialCharacterizationFeature;

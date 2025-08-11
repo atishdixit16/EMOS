@@ -1,7 +1,7 @@
-// Feature 7: Computational Methods
-class Feature7_ComputationalMethods extends BaseFeature {
+// Quantum Mechanics
+class QuantumMechanicsFeature extends BaseFeature {
     constructor() {
-        super(7, 'Feature 7', 'Advanced computational methods for materials discovery and design');
+        super(7, 'Quantum Mechanics', 'Advanced computational methods for materials discovery and design');
     }
 
     createInputsHTML() {
@@ -31,4 +31,4 @@ class Feature7_ComputationalMethods extends BaseFeature {
     }
 }
 
-window.Feature7_ComputationalMethods = Feature7_ComputationalMethods;
+window.QuantumMechanicsFeature = QuantumMechanicsFeature;

@@ -1,7 +1,7 @@
-// Feature 5: Materials Optimization
-class Feature5_MaterialsOptimization extends BaseFeature {
+// DFT Calculation
+class DFTCalculationFeature extends BaseFeature {
     constructor() {
-        super(5, 'Feature 5', 'Materials optimization workflows for enhanced performance characteristics');
+        super(5, 'DFT Calculation', 'Materials optimization workflows for enhanced performance characteristics');
     }
 
     createInputsHTML() {
@@ -31,4 +31,4 @@ class Feature5_MaterialsOptimization extends BaseFeature {
     }
 }
 
-window.Feature5_MaterialsOptimization = Feature5_MaterialsOptimization;
+window.DFTCalculationFeature = DFTCalculationFeature;

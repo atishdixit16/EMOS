@@ -1,7 +1,7 @@
-// Feature 14: Reliability Assessment
-class Feature14_ReliabilityAssessment extends BaseFeature {
+// Reliability Assessment
+class ReliabilityAssessmentFeature extends BaseFeature {
     constructor() {
-        super(14, 'Feature 14', 'Reliability assessment and failure analysis for electronic materials');
+        super(14, 'Reliability Assessment', 'Reliability assessment and failure analysis for electronic materials');
     }
 
     createInputsHTML() {
@@ -31,4 +31,4 @@ class Feature14_ReliabilityAssessment extends BaseFeature {
     }
 }
 
-window.Feature14_ReliabilityAssessment = Feature14_ReliabilityAssessment;
+window.ReliabilityAssessmentFeature = ReliabilityAssessmentFeature;
