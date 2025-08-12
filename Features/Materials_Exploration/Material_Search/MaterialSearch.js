@@ -44,21 +44,13 @@ class MaterialSearchFeature extends BaseFeature {
     }
 
     async processFeature() {
-        const materialName = this.getInputValue(`materialName_${this.featureId}`);
-        const propertyType = this.getInputValue(`propertyType_${this.featureId}`);
-        const minValue = this.getInputValue(`minValue_${this.featureId}`);
-        const maxValue = this.getInputValue(`maxValue_${this.featureId}`);
-        const includeComposites = this.getInputValue(`includeComposites_${this.featureId}`);
-
-        // Simulate search results
-        const mockResults = {
-            materialsCount: Math.floor(Math.random() * 50) + 10,
-            topMatch: materialName || 'Silicon Carbide (SiC)',
-            propertyRange: `${minValue || '2.5'} - ${maxValue || '45.2'} GPa`,
+        // Simple fixed results for material search
+        return {
+            materialsCount: '42 materials found',
+            topMatch: 'Silicon Carbide (SiC)',
+            propertyRange: '2.5 - 45.2 GPa',
             downloadLink: 'search_results.csv (Ready)'
         };
-
-        return mockResults;
     }
 
     updateOutputs(results = null) {

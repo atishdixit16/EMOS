@@ -1,4 +1,4 @@
-// Advanced Characterization
+// Advanced Characterization Feature
 class AdvancedCharacterizationFeature extends BaseFeature {
     constructor() {
         super(16, 'Advanced Characterization', 'Advanced characterization techniques for electronic materials evaluation');
@@ -21,14 +21,38 @@ class AdvancedCharacterizationFeature extends BaseFeature {
         `;
     }
 
+    createOutputsHTML() {
+        return `
+            <p>Advanced characterization results and material quality assessment</p>
+            <div class="output-display" id="outputDisplay_${this.featureId}">
+                <div class="output-item">
+                    <strong>Characterization Status:</strong> <span id="characterizationStatus_${this.featureId}">Pending...</span>
+                </div>
+                <div class="output-item">
+                    <strong>Material Quality:</strong> <span id="materialQuality_${this.featureId}">Pending...</span>
+                </div>
+                <div class="output-item">
+                    <strong>Analysis Report:</strong> <span id="analysisReport_${this.featureId}">Pending...</span>
+                </div>
+            </div>
+        `;
+    }
+
     async processFeature() {
-        await this.simulateProcessing();
-        
+        // Simple fixed results for advanced characterization
         return {
-            result1: 'Characterization completed',
-            result2: 'Material quality: Excellent',
-            result3: 'Analysis report generated'
+            characterizationStatus: 'Characterization completed',
+            materialQuality: 'Material quality: Good',
+            analysisReport: 'Analysis report generated'
         };
+    }
+
+    updateOutputs(results = null) {
+        const finalResults = results || this.results;
+        
+        document.getElementById(`characterizationStatus_${this.featureId}`).textContent = finalResults.characterizationStatus;
+        document.getElementById(`materialQuality_${this.featureId}`).textContent = finalResults.materialQuality;
+        document.getElementById(`analysisReport_${this.featureId}`).textContent = finalResults.analysisReport;
     }
 }
 

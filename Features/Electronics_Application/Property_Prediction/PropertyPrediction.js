@@ -1,4 +1,4 @@
-// Property Prediction
+// Property Prediction Feature
 class PropertyPredictionFeature extends BaseFeature {
     constructor() {
         super(11, 'Property Prediction', 'Electronic property prediction and optimization for semiconductor applications');
@@ -20,14 +20,38 @@ class PropertyPredictionFeature extends BaseFeature {
         `;
     }
 
+    createOutputsHTML() {
+        return `
+            <p>Electronic property prediction results</p>
+            <div class="output-display" id="outputDisplay_${this.featureId}">
+                <div class="output-item">
+                    <strong>Prediction Status:</strong> <span id="predictionStatus_${this.featureId}">Pending...</span>
+                </div>
+                <div class="output-item">
+                    <strong>Band Gap:</strong> <span id="bandGap_${this.featureId}">Pending...</span>
+                </div>
+                <div class="output-item">
+                    <strong>Carrier Mobility:</strong> <span id="carrierMobility_${this.featureId}">Pending...</span>
+                </div>
+            </div>
+        `;
+    }
+
     async processFeature() {
-        await this.simulateProcessing();
-        
+        // Simple fixed results for property prediction
         return {
-            result1: 'Electronic properties predicted',
-            result2: 'Band gap: 2.3 eV (direct)',
-            result3: 'Mobility: 850 cm²/Vs'
+            predictionStatus: 'Electronic properties predicted',
+            bandGap: '2.7 eV (direct)',
+            carrierMobility: '745 cm²/Vs'
         };
+    }
+
+    updateOutputs(results = null) {
+        const finalResults = results || this.results;
+        
+        document.getElementById(`predictionStatus_${this.featureId}`).textContent = finalResults.predictionStatus;
+        document.getElementById(`bandGap_${this.featureId}`).textContent = finalResults.bandGap;
+        document.getElementById(`carrierMobility_${this.featureId}`).textContent = finalResults.carrierMobility;
     }
 }
 

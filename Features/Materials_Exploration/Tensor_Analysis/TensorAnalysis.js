@@ -1,4 +1,4 @@
-// Tensor Analysis
+// Tensor Analysis Feature
 class TensorAnalysisFeature extends BaseFeature {
     constructor() {
         super(8, 'Tensor Analysis', 'Comprehensive analysis tools for understanding material structure-property relationships');
@@ -20,14 +20,38 @@ class TensorAnalysisFeature extends BaseFeature {
         `;
     }
 
+    createOutputsHTML() {
+        return `
+            <p>Tensor analysis results and structure-property relationships</p>
+            <div class="output-display" id="outputDisplay_${this.featureId}">
+                <div class="output-item">
+                    <strong>Analysis Status:</strong> <span id="analysisComplete_${this.featureId}">Pending...</span>
+                </div>
+                <div class="output-item">
+                    <strong>Structure-Property Correlation:</strong> <span id="correlationValue_${this.featureId}">Pending...</span>
+                </div>
+                <div class="output-item">
+                    <strong>Visualization Data:</strong> <span id="visualizationData_${this.featureId}">Pending...</span>
+                </div>
+            </div>
+        `;
+    }
+
     async processFeature() {
-        await this.simulateProcessing();
-        
+        // Simple fixed results for tensor analysis
         return {
-            result1: 'Comprehensive analysis complete',
-            result2: 'Structure-property correlation: 0.87',
-            result3: 'Visualization data ready'
+            analysisComplete: 'Comprehensive analysis complete',
+            correlationValue: 'Structure-property correlation: 0.84',
+            visualizationData: 'Visualization data ready'
         };
+    }
+
+    updateOutputs(results = null) {
+        const finalResults = results || this.results;
+        
+        document.getElementById(`analysisComplete_${this.featureId}`).textContent = finalResults.analysisComplete;
+        document.getElementById(`correlationValue_${this.featureId}`).textContent = finalResults.correlationValue;
+        document.getElementById(`visualizationData_${this.featureId}`).textContent = finalResults.visualizationData;
     }
 }
 

@@ -1,4 +1,4 @@
-// Reliability Assessment
+// Reliability Assessment Feature
 class ReliabilityAssessmentFeature extends BaseFeature {
     constructor() {
         super(14, 'Reliability Assessment', 'Reliability assessment and failure analysis for electronic materials');
@@ -20,14 +20,38 @@ class ReliabilityAssessmentFeature extends BaseFeature {
         `;
     }
 
+    createOutputsHTML() {
+        return `
+            <p>Reliability assessment results and failure analysis</p>
+            <div class="output-display" id="outputDisplay_${this.featureId}">
+                <div class="output-item">
+                    <strong>Assessment Status:</strong> <span id="assessmentStatus_${this.featureId}">Pending...</span>
+                </div>
+                <div class="output-item">
+                    <strong>MTTF (Mean Time to Failure):</strong> <span id="mttfValue_${this.featureId}">Pending...</span>
+                </div>
+                <div class="output-item">
+                    <strong>Failure Analysis:</strong> <span id="failureAnalysis_${this.featureId}">Pending...</span>
+                </div>
+            </div>
+        `;
+    }
+
     async processFeature() {
-        await this.simulateProcessing();
-        
+        // Simple fixed results for reliability assessment
         return {
-            result1: 'Reliability assessment completed',
-            result2: 'MTTF: 15,000 hours',
-            result3: 'Failure modes identified'
+            assessmentStatus: 'Reliability assessment completed',
+            mttfValue: '18,750 hours',
+            failureAnalysis: 'Failure modes identified'
         };
+    }
+
+    updateOutputs(results = null) {
+        const finalResults = results || this.results;
+        
+        document.getElementById(`assessmentStatus_${this.featureId}`).textContent = finalResults.assessmentStatus;
+        document.getElementById(`mttfValue_${this.featureId}`).textContent = finalResults.mttfValue;
+        document.getElementById(`failureAnalysis_${this.featureId}`).textContent = finalResults.failureAnalysis;
     }
 }
 

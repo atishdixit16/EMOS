@@ -1,4 +1,4 @@
-// Crystallographic Analysis
+// Crystallographic Analysis Feature
 class CrystallographicAnalysisFeature extends BaseFeature {
     constructor() {
         super(6, 'Crystallographic Analysis', 'Simulation and modeling tools for predicting material behavior under various conditions');
@@ -20,14 +20,38 @@ class CrystallographicAnalysisFeature extends BaseFeature {
         `;
     }
 
+    createOutputsHTML() {
+        return `
+            <p>Crystallographic analysis results and structural predictions</p>
+            <div class="output-display" id="outputDisplay_${this.featureId}">
+                <div class="output-item">
+                    <strong>Simulation Status:</strong> <span id="simulationStatus_${this.featureId}">Pending...</span>
+                </div>
+                <div class="output-item">
+                    <strong>Model Validation:</strong> <span id="modelValidation_${this.featureId}">Pending...</span>
+                </div>
+                <div class="output-item">
+                    <strong>Predictions:</strong> <span id="predictions_${this.featureId}">Pending...</span>
+                </div>
+            </div>
+        `;
+    }
+
     async processFeature() {
-        await this.simulateProcessing();
-        
+        // Simple fixed results for crystallographic analysis
         return {
-            result1: 'Simulation completed successfully',
-            result2: 'Model validation: 92% accuracy',
-            result3: 'Predictions generated'
+            simulationStatus: 'Simulation completed successfully',
+            modelValidation: 'Model validation: 91.3% accuracy',
+            predictions: 'Structural predictions generated'
         };
+    }
+
+    updateOutputs(results = null) {
+        const finalResults = results || this.results;
+        
+        document.getElementById(`simulationStatus_${this.featureId}`).textContent = finalResults.simulationStatus;
+        document.getElementById(`modelValidation_${this.featureId}`).textContent = finalResults.modelValidation;
+        document.getElementById(`predictions_${this.featureId}`).textContent = finalResults.predictions;
     }
 }
 

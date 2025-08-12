@@ -1,4 +1,4 @@
-// Thermal Management
+// Thermal Management Feature
 class ThermalManagementFeature extends BaseFeature {
     constructor() {
         super(13, 'Thermal Management', 'Thermal management analysis for electronic device performance optimization');
@@ -20,14 +20,38 @@ class ThermalManagementFeature extends BaseFeature {
         `;
     }
 
+    createOutputsHTML() {
+        return `
+            <p>Thermal management analysis results and optimization</p>
+            <div class="output-display" id="outputDisplay_${this.featureId}">
+                <div class="output-item">
+                    <strong>Optimization Status:</strong> <span id="optimizationStatus_${this.featureId}">Pending...</span>
+                </div>
+                <div class="output-item">
+                    <strong>Maximum Temperature:</strong> <span id="maxTemperature_${this.featureId}">Pending...</span>
+                </div>
+                <div class="output-item">
+                    <strong>Cooling Solution:</strong> <span id="coolingSolution_${this.featureId}">Pending...</span>
+                </div>
+            </div>
+        `;
+    }
+
     async processFeature() {
-        await this.simulateProcessing();
-        
+        // Simple fixed results for thermal management
         return {
-            result1: 'Thermal management optimized',
-            result2: 'Max temperature: 87°C',
-            result3: 'Cooling solution recommended'
+            optimizationStatus: 'Thermal management optimized',
+            maxTemperature: '73.5°C',
+            coolingSolution: 'Cooling solution recommended'
         };
+    }
+
+    updateOutputs(results = null) {
+        const finalResults = results || this.results;
+        
+        document.getElementById(`optimizationStatus_${this.featureId}`).textContent = finalResults.optimizationStatus;
+        document.getElementById(`maxTemperature_${this.featureId}`).textContent = finalResults.maxTemperature;
+        document.getElementById(`coolingSolution_${this.featureId}`).textContent = finalResults.coolingSolution;
     }
 }
 

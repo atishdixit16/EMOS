@@ -1,4 +1,4 @@
-// Quantum Mechanics
+// Quantum Mechanics Feature
 class QuantumMechanicsFeature extends BaseFeature {
     constructor() {
         super(7, 'Quantum Mechanics', 'Advanced computational methods for materials discovery and design');
@@ -20,14 +20,38 @@ class QuantumMechanicsFeature extends BaseFeature {
         `;
     }
 
+    createOutputsHTML() {
+        return `
+            <p>Quantum mechanics computation results and analysis</p>
+            <div class="output-display" id="outputDisplay_${this.featureId}">
+                <div class="output-item">
+                    <strong>Computation Status:</strong> <span id="computationStatus_${this.featureId}">Pending...</span>
+                </div>
+                <div class="output-item">
+                    <strong>Discovery Potential:</strong> <span id="discoveryPotential_${this.featureId}">Pending...</span>
+                </div>
+                <div class="output-item">
+                    <strong>Database Export:</strong> <span id="databaseExport_${this.featureId}">Pending...</span>
+                </div>
+            </div>
+        `;
+    }
+
     async processFeature() {
-        await this.simulateProcessing();
-        
+        // Simple fixed results for quantum mechanics
         return {
-            result1: 'Computational analysis finished',
-            result2: 'Discovery potential: High',
-            result3: 'Results exported to database'
+            computationStatus: 'Computational analysis finished',
+            discoveryPotential: 'Discovery potential: High',
+            databaseExport: 'Results exported to database'
         };
+    }
+
+    updateOutputs(results = null) {
+        const finalResults = results || this.results;
+        
+        document.getElementById(`computationStatus_${this.featureId}`).textContent = finalResults.computationStatus;
+        document.getElementById(`discoveryPotential_${this.featureId}`).textContent = finalResults.discoveryPotential;
+        document.getElementById(`databaseExport_${this.featureId}`).textContent = finalResults.databaseExport;
     }
 }
 

@@ -1,4 +1,4 @@
-// DFT Calculation
+// DFT Calculation Feature
 class DFTCalculationFeature extends BaseFeature {
     constructor() {
         super(5, 'DFT Calculation', 'Materials optimization workflows for enhanced performance characteristics');
@@ -20,14 +20,38 @@ class DFTCalculationFeature extends BaseFeature {
         `;
     }
 
+    createOutputsHTML() {
+        return `
+            <p>DFT calculation results and optimization status</p>
+            <div class="output-display" id="outputDisplay_${this.featureId}">
+                <div class="output-item">
+                    <strong>Convergence Status:</strong> <span id="convergenceStatus_${this.featureId}">Pending...</span>
+                </div>
+                <div class="output-item">
+                    <strong>Performance Improvement:</strong> <span id="performanceImprovement_${this.featureId}">Pending...</span>
+                </div>
+                <div class="output-item">
+                    <strong>Configuration:</strong> <span id="configurationStatus_${this.featureId}">Pending...</span>
+                </div>
+            </div>
+        `;
+    }
+
     async processFeature() {
-        await this.simulateProcessing();
-        
+        // Simple fixed results for DFT calculation
         return {
-            result1: 'Optimization converged in 45 iterations',
-            result2: 'Performance improved by 23%',
-            result3: 'Configuration saved'
+            convergenceStatus: 'Optimization converged in 67 iterations',
+            performanceImprovement: 'Performance improved by 18.5%',
+            configurationStatus: 'Configuration saved'
         };
+    }
+
+    updateOutputs(results = null) {
+        const finalResults = results || this.results;
+        
+        document.getElementById(`convergenceStatus_${this.featureId}`).textContent = finalResults.convergenceStatus;
+        document.getElementById(`performanceImprovement_${this.featureId}`).textContent = finalResults.performanceImprovement;
+        document.getElementById(`configurationStatus_${this.featureId}`).textContent = finalResults.configurationStatus;
     }
 }
 

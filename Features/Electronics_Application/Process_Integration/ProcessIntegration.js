@@ -1,4 +1,4 @@
-// Process Integration
+// Process Integration Feature
 class ProcessIntegrationFeature extends BaseFeature {
     constructor() {
         super(15, 'Process Integration', 'Process integration workflows for electronic device manufacturing');
@@ -21,14 +21,38 @@ class ProcessIntegrationFeature extends BaseFeature {
         `;
     }
 
+    createOutputsHTML() {
+        return `
+            <p>Process integration results and optimization status</p>
+            <div class="output-display" id="outputDisplay_${this.featureId}">
+                <div class="output-item">
+                    <strong>Integration Status:</strong> <span id="integrationStatus_${this.featureId}">Pending...</span>
+                </div>
+                <div class="output-item">
+                    <strong>Yield Prediction:</strong> <span id="yieldPrediction_${this.featureId}">Pending...</span>
+                </div>
+                <div class="output-item">
+                    <strong>Recipe Parameters:</strong> <span id="recipeParameters_${this.featureId}">Pending...</span>
+                </div>
+            </div>
+        `;
+    }
+
     async processFeature() {
-        await this.simulateProcessing();
-        
+        // Simple fixed results for process integration
         return {
-            result1: 'Process integration optimized',
-            result2: 'Yield prediction: 89%',
-            result3: 'Recipe parameters saved'
+            integrationStatus: 'Process integration optimized',
+            yieldPrediction: 'Yield prediction: 82.3%',
+            recipeParameters: 'Recipe parameters saved'
         };
+    }
+
+    updateOutputs(results = null) {
+        const finalResults = results || this.results;
+        
+        document.getElementById(`integrationStatus_${this.featureId}`).textContent = finalResults.integrationStatus;
+        document.getElementById(`yieldPrediction_${this.featureId}`).textContent = finalResults.yieldPrediction;
+        document.getElementById(`recipeParameters_${this.featureId}`).textContent = finalResults.recipeParameters;
     }
 }
 

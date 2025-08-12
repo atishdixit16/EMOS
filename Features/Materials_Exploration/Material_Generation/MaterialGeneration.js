@@ -53,18 +53,11 @@ class MaterialGenerationFeature extends BaseFeature {
     }
 
     async processFeature() {
-        const targetProperty = this.getInputValue(`targetProperty_${this.featureId}`);
-        const baseElements = this.getInputValue(`baseElements_${this.featureId}`);
-        const numCompositions = this.getInputValue(`numCompositions_${this.featureId}`);
-        const targetValue = this.getInputValue(`targetValue_${this.featureId}`);
-
-        // Simulate AI generation
-        const compositions = this.generateMockCompositions(baseElements, parseInt(numCompositions));
-        
+        // Simple fixed results for material generation
         return {
-            generatedCount: compositions.length,
-            bestCandidate: compositions[0],
-            predictedPerformance: `${(parseFloat(targetValue) * 0.85).toFixed(2)} (85% of target)`,
+            generatedCount: '15 compositions generated',
+            bestCandidate: 'Ti3Al2C (MAX Phase)',
+            predictedPerformance: '8.5 GPa (92% of target)',
             synthesisDifficulty: 'Medium',
             exportData: 'compositions.json (Ready)'
         };

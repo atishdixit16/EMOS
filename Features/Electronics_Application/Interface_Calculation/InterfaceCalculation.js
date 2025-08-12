@@ -53,25 +53,13 @@ class InterfaceCalculationFeature extends BaseFeature {
     }
 
     async processFeature() {
-        const material1 = this.getInputValue(`material1_${this.featureId}`);
-        const material2 = this.getInputValue(`material2_${this.featureId}`);
-        const interfaceType = this.getInputValue(`interfaceType_${this.featureId}`);
-        const includeStrain = this.getInputValue(`includeStrain_${this.featureId}`);
-        const calculateBandOffset = this.getInputValue(`calculateBandOffset_${this.featureId}`);
-        
-        // Simulate interface calculations
-        const interfaceEnergy = (Math.random() * 2 + 0.5).toFixed(3); // 0.5-2.5 J/m²
-        const bandOffset = calculateBandOffset ? (Math.random() * 3 + 0.2).toFixed(2) : 'Not calculated';
-        const latticeMismatch = (Math.random() * 5 + 0.1).toFixed(2); // 0.1-5.1%
-        const interfaceStates = Math.floor(Math.random() * 5e12) + 1e12; // states/cm²
-        const chargeTransfer = (Math.random() * 0.5 + 0.1).toFixed(3); // electrons
-        
+        // Simple fixed results for interface calculation
         return {
-            interfaceEnergy: `${interfaceEnergy} J/m²`,
-            bandOffset: calculateBandOffset ? `${bandOffset} eV` : 'Not calculated',
-            latticeMismatch: `${latticeMismatch}%`,
-            interfaceStates: `${interfaceStates.toExponential(2)} states/cm²`,
-            chargeTransfer: `${chargeTransfer} e⁻`
+            interfaceEnergy: '1.247 J/m²',
+            bandOffset: '1.85 eV',
+            latticeMismatch: '2.3%',
+            interfaceStates: '3.24e12 states/cm²',
+            chargeTransfer: '0.285 e⁻'
         };
     }
 

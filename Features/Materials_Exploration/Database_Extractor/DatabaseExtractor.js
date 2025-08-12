@@ -53,20 +53,12 @@ class DatabaseExtractorFeature extends BaseFeature {
     }
 
     async processFeature() {
-        const databaseSource = this.getInputValue(`databaseSource_${this.featureId}`);
-        const extractionType = this.getInputValue(`extractionType_${this.featureId}`);
-        const maxEntries = this.getInputValue(`maxEntries_${this.featureId}`);
-        const includeMetadata = this.getInputValue(`includeMetadata_${this.featureId}`);
-
-        // Simulate database extraction
-        const extractedCount = Math.min(parseInt(maxEntries) || 1000, Math.floor(Math.random() * 5000) + 500);
-        const dataSize = (extractedCount * 0.15).toFixed(2); // MB
-        
+        // Simple fixed results for database extraction
         return {
-            recordsExtracted: extractedCount.toLocaleString(),
-            dataSize: `${dataSize} MB`,
-            fileFormat: includeMetadata ? 'JSON with metadata' : 'CSV format',
-            processingTime: `${(extractedCount / 100).toFixed(1)} seconds`,
+            recordsExtracted: '2,847 records',
+            dataSize: '425.3 MB',
+            fileFormat: 'JSON with metadata',
+            processingTime: '28.5 seconds',
             downloadPackage: 'extracted_data.zip (Ready)'
         };
     }

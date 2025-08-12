@@ -57,22 +57,13 @@ class DeviceSynthesizabilityFeature extends BaseFeature {
     }
 
     async processFeature() {
-        const deviceType = this.getInputValue(`deviceType_${this.featureId}`);
-        const material = this.getInputValue(`materialComposition_${this.featureId}`);
-        const fabricationMethod = this.getInputValue(`fabricationMethod_${this.featureId}`);
-        
-        // Simulate synthesis analysis
-        const feasibilityScore = Math.floor(Math.random() * 40) + 60; // 60-100%
-        const cost = Math.floor(Math.random() * 500) + 100; // $100-600
-        const processTemp = Math.floor(Math.random() * 500) + 400; // 400-900°C
-        const yieldPercentage = Math.floor(Math.random() * 30) + 70; // 70-100%
-        
+        // Simple fixed results for device synthesizability
         return {
-            feasibility: `${feasibilityScore}% (${feasibilityScore > 80 ? 'High' : feasibilityScore > 60 ? 'Medium' : 'Low'})`,
-            recommendedProcess: `${fabricationMethod.toUpperCase()} with 3-step annealing`,
-            estimatedCost: `$${cost}/wafer`,
-            processTemp: `${processTemp}°C`,
-            yieldPrediction: `${yieldPercentage}%`
+            feasibility: '78% (High)',
+            recommendedProcess: 'MOCVD with 3-step annealing',
+            estimatedCost: '$245/wafer',
+            processTemp: '650°C',
+            yieldPrediction: '85%'
         };
     }
 
