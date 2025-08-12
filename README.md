@@ -11,21 +11,24 @@ A modern web-based platform for electronics materials science research and analy
 ## 🚀 Features
 
 ### Materials Exploration
+- **Material Search**: Search and explore materials from comprehensive databases using various criteria
 - **Material Generation**: Generate new material compositions using AI-powered algorithms and predictive models
 - **Database Extractor**: Extract and analyze specific material properties and data from integrated databases
-- **Advanced Analysis Tools**: Comprehensive materials analysis and characterization tools
-- **Materials Optimization**: Workflows for enhanced performance characteristics
-- **Simulation & Modeling**: Tools for predicting material behavior under various conditions
+- **Material Characterization**: Advanced materials analysis and characterization tools for comprehensive evaluation
+- **DFT Calculation**: Density Functional Theory calculations for electronic structure analysis
+- **Crystallographic Analysis**: Crystal structure analysis and symmetry determination tools
+- **Quantum Mechanics**: Quantum mechanical calculations for electronic and optical properties
+- **Tensor Analysis**: Tensor calculus and analysis for material property tensors
 
 ### Electronics Applications
-- **Device Synthesizability**: Evaluate feasibility and methods for synthesizing electronic devices
-- **Interface Calculation**: Calculate and analyze interfaces between different materials
-- **Electronic Property Prediction**: Optimization for semiconductor applications
-- **Band Structure Calculations**: Electronic transport property analysis
-- **Thermal Management**: Analysis for electronic device performance optimization
-- **Reliability Assessment**: Failure analysis for electronic materials
-- **Process Integration**: Workflows for electronic device manufacturing
-- **Advanced Characterization**: Techniques for electronic materials evaluation
+- **Device Synthesizability**: Evaluate feasibility and methods for synthesizing electronic devices from selected materials
+- **Interface Calculation**: Calculate and analyze interfaces between different materials in electronic applications
+- **Property Prediction**: Electronic property prediction and optimization for semiconductor applications
+- **Band Structure**: Band structure calculations and electronic transport property analysis
+- **Thermal Management**: Thermal management analysis for electronic device performance optimization
+- **Reliability Assessment**: Reliability assessment and failure analysis for electronic materials
+- **Process Integration**: Process integration workflows for electronic device manufacturing
+- **Advanced Characterization**: Advanced characterization techniques for electronic materials evaluation
 
 ### AI Assistant
 - **LLM Integration**: Built-in AI assistant for materials science queries
@@ -35,21 +38,60 @@ A modern web-based platform for electronics materials science research and analy
 ## 🛠️ Technology Stack
 
 - **Frontend**: HTML5, CSS3, JavaScript (ES6+)
+- **Architecture**: Modular component-based structure with dynamic feature loading
 - **UI/UX**: Modern responsive design with glassmorphism effects
 - **Icons**: SVG graphics for scalable interface elements
-- **Architecture**: Modular component-based structure
+- **Feature System**: BaseFeature class with inheritance for specialized implementations
 
 ## 📁 Project Structure
 
 ```
 EMOS/
-├── index.html          # Main application interface
-├── script.js          # Core JavaScript functionality
-├── styles.css         # Application styling
-├── images/            # Graphics and logos
-│   ├── logo.svg       # Main EMOS logo
-│   └── dark_logo.svg  # Dark theme logo variant
-└── databases/         # [Work in Progress]
+├── index.html                    # Main application interface
+├── script.js                     # Core JavaScript functionality & dynamic loading
+├── styles.css                    # Application styling
+├── README.md                     # Project documentation
+├── images/                       # Graphics and logos
+│   ├── logo.svg                  # Main EMOS logo
+│   ├── logo_dark.svg            # Dark theme logo variant
+│   ├── logo_name.svg            # Logo with name (light)
+│   └── logo_name_dark.svg       # Logo with name (dark)
+└── Features/                     # Modular feature implementations
+    ├── BaseFeature.js           # Foundation class for all features
+    ├── Materials_Exploration/    # Materials science features
+    │   ├── Material_Search/
+    │   │   └── MaterialSearch.js
+    │   ├── Material_Generation/
+    │   │   └── MaterialGeneration.js
+    │   ├── Database_Extractor/
+    │   │   └── DatabaseExtractor.js
+    │   ├── Material_Characterization/
+    │   │   └── MaterialCharacterization.js
+    │   ├── DFT_Calculation/
+    │   │   └── DFTCalculation.js
+    │   ├── Crystallographic_Analysis/
+    │   │   └── CrystallographicAnalysis.js
+    │   ├── Quantum_Mechanics/
+    │   │   └── QuantumMechanics.js
+    │   └── Tensor_Analysis/
+    │       └── TensorAnalysis.js
+    └── Electronics_Application/  # Electronics-focused features
+        ├── Device_Synthesizability/
+        │   └── DeviceSynthesizability.js
+        ├── Interface_Calculation/
+        │   └── InterfaceCalculation.js
+        ├── Property_Prediction/
+        │   └── PropertyPrediction.js
+        ├── Band_Structure/
+        │   └── BandStructure.js
+        ├── Thermal_Management/
+        │   └── ThermalManagement.js
+        ├── Reliability_Assessment/
+        │   └── ReliabilityAssessment.js
+        ├── Process_Integration/
+        │   └── ProcessIntegration.js
+        └── Advanced_Characterization/
+            └── AdvancedCharacterization.js
 ```
 
 ## 🎯 Getting Started
@@ -124,16 +166,55 @@ The EMOS interface is divided into two main panels:
 
 ## 🔧 Development
 
+### Architecture Overview
+
+EMOS uses a modular architecture with dynamic feature loading:
+
+- **BaseFeature Class**: Foundation class providing common functionality for all features
+- **Feature Inheritance**: Each feature extends BaseFeature with specialized implementations
+- **Dynamic Loading**: Features are loaded on-demand using ES6 modules
+- **Consistent Interface**: All features provide standardized input/output interfaces
+
+### Feature Development
+
+Each feature is a self-contained module with:
+
+```javascript
+class YourFeature extends BaseFeature {
+    constructor() {
+        super(id, 'Feature Name', 'Description');
+    }
+    
+    createInputsHTML() {
+        // Custom input interface
+    }
+    
+    createOutputsHTML() {
+        // Custom output interface  
+    }
+    
+    async processFeature() {
+        // Feature-specific logic
+    }
+    
+    updateOutputs(results) {
+        // Update UI with results
+    }
+}
+```
+
 ### File Organization
-- `index.html`: Main HTML structure and layout
-- `script.js`: Application logic, event handlers, and AI responses
+- `index.html`: Main HTML structure with dynamic content areas
+- `script.js`: Application logic, feature loading, and AI responses
 - `styles.css`: Complete styling including responsive design and animations
+- `Features/BaseFeature.js`: Base class with common utilities
+- `Features/*/`: Individual feature implementations
 
 ### Key JavaScript Functions
+- `loadFeatureModule()`: Dynamically loads and initializes features
 - `showFeatureView()`: Displays feature-specific interface
 - `showLLMView()`: Opens AI assistant chat
-- `startProcessing()`: Handles feature execution
-- `sendChatMessage()`: Manages AI interactions
+- `createGenericFeatureView()`: Fallback UI for error handling
 
 ### Styling Architecture
 - CSS Grid and Flexbox for layout
@@ -154,9 +235,20 @@ We welcome contributions to EMOS! Here's how you can help:
 
 ### Development Guidelines
 - Follow existing code style and structure
+- Extend BaseFeature class for new features
+- Use descriptive names (max 3 words) for features
+- Implement error handling and fallback mechanisms
 - Test functionality across different browsers
 - Ensure responsive design compatibility
 - Document new features or changes
+
+### Adding New Features
+
+1. **Create Feature Directory**: `Features/Category/Feature_Name/`
+2. **Implement Feature Class**: Extend BaseFeature with custom methods
+3. **Update Mappings**: Add to `featureClasses` and `featureFiles` in script.js
+4. **Add UI Button**: Include in index.html with proper data attributes
+5. **Test Integration**: Verify loading and functionality
 
 ## 📝 License
 
