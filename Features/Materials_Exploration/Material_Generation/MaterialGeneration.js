@@ -63,30 +63,6 @@ class MaterialGenerationFeature extends BaseFeature {
         };
     }
 
-    generateMockCompositions(baseElements, count) {
-        const compositions = [];
-        const elementGroups = {
-            metals: ['Fe', 'Al', 'Ti', 'Ni', 'Cu'],
-            ceramics: ['Si', 'Al', 'O', 'N', 'C'],
-            polymers: ['C', 'H', 'O', 'N', 'S'],
-            composites: ['Al2O3/SiC', 'Ti/C', 'Fe/B4C']
-        };
-        
-        const elements = elementGroups[baseElements] || elementGroups.metals;
-        
-        for (let i = 0; i < Math.min(count, 10); i++) {
-            if (baseElements === 'composites') {
-                compositions.push(elements[i % elements.length]);
-            } else {
-                const elem1 = elements[Math.floor(Math.random() * elements.length)];
-                const elem2 = elements[Math.floor(Math.random() * elements.length)];
-                compositions.push(`${elem1}${Math.floor(Math.random() * 3) + 1}${elem2}${Math.floor(Math.random() * 4) + 1}`);
-            }
-        }
-        
-        return compositions;
-    }
-
     updateOutputs(results = null) {
         const finalResults = results || this.results;
         
