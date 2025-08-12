@@ -424,9 +424,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Process button functionality
+    // Process button functionality - Only for fallback/generic features
     document.addEventListener('click', (e) => {
-        if (e.target.classList.contains('process-btn')) {
+        // Only handle process buttons that don't have a specific onclick handler
+        if (e.target.classList.contains('process-btn') && !e.target.onclick) {
             startProcessing();
         }
     });
