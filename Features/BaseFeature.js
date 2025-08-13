@@ -152,14 +152,22 @@ class BaseFeature {
         }
         
         try {
+            // Try Python backend first
+            console.log(`Calling Python backend for feature ${this.featureId}`);
+            const results = await this.callPythonBackend();
+            this.results = results;
+            this.updateOutputs();
+        } catch (error) {
+            console.log('Backend failed, using local processing:', error);
             // Simulate processing time
             await new Promise(resolve => setTimeout(resolve, 2000));
             
-            // Get results from the specific feature implementation
+            // Fallback to local processFeature
             this.results = await this.processFeature();
             this.updateOutputs();
-            
-        } catch (error) {
+        }
+        
+        try {
             console.error('Processing error:', error);
             this.updateOutputs({ error: error.message });
         } finally {
@@ -219,6 +227,38 @@ class BaseFeature {
             return element.checked;
         }
         return element.value;
+    }
+
+    async callPythonBackend() {
+        // Collect input data for this feature
+        const inputs = this.collectInputData();
+        
+        // Call Python backend
+        const response = await fetch(`http://localhost:5001/api/process/${this.featureId}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(inputs)
+        });
+        
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return await response.json();
+    }
+
+    collectInputData() {
+        // Collect all input values for this feature
+        const inputs = {};
+        const inputElements = document.querySelectorAll(`[id$="_${this.featureId}"]`);
+        
+        inputElements.forEach(element => {
+            const key = element.id.replace(`_${this.featureId}`, '');
+            if (element.type === 'checkbox') {
+                inputs[key] = element.checked;
+            } else {
+                inputs[key] = element.value;
+            }
+        });
+        
+        return inputs;
     }
 }
 
