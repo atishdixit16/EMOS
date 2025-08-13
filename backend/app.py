@@ -10,11 +10,35 @@ CORS(app)
 # Add the parent directory to Python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-@app.route('/api/process/3', methods=['POST'])
-def process_database_extractor():
+# Feature ID to folder mapping
+FEATURE_PATHS = {
+    1: 'Features/Materials_Exploration/Material_Search',
+    2: 'Features/Materials_Exploration/Material_Generation',
+    3: 'Features/Materials_Exploration/Database_Extractor',
+    4: 'Features/Materials_Exploration/Material_Characterization',
+    5: 'Features/Materials_Exploration/DFT_Calculation',
+    6: 'Features/Materials_Exploration/Crystallographic_Analysis',
+    7: 'Features/Materials_Exploration/Quantum_Mechanics',
+    8: 'Features/Materials_Exploration/Tensor_Analysis',
+    9: 'Features/Electronics_Application/Device_Synthesizability',
+    10: 'Features/Electronics_Application/Interface_Calculation',
+    11: 'Features/Electronics_Application/Property_Prediction',
+    12: 'Features/Electronics_Application/Band_Structure',
+    13: 'Features/Electronics_Application/Thermal_Management',
+    14: 'Features/Electronics_Application/Reliability_Assessment',
+    15: 'Features/Electronics_Application/Process_Integration',
+    16: 'Features/Electronics_Application/Advanced_Characterization'
+}
+
+@app.route('/api/process/<int:feature_id>', methods=['POST'])
+def process_feature(feature_id):
     try:
-        # Load the Database Extractor processor module
-        processor_path = os.path.join('..', 'Features', 'Materials_Exploration', 'Database_Extractor', 'processor.py')
+        # Get the feature path
+        if feature_id not in FEATURE_PATHS:
+            return jsonify({'error': f'Feature {feature_id} not found'}), 404
+        
+        # Load the processor module
+        processor_path = os.path.join('..', FEATURE_PATHS[feature_id], 'processor.py')
         processor_path = os.path.abspath(processor_path)
         
         spec = importlib.util.spec_from_file_location("processor", processor_path)
@@ -31,6 +55,8 @@ def process_database_extractor():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    print("Starting Flask server for Database Extractor...")
-    print("Database Extractor endpoint: http://localhost:5001/api/process/3")
+    print("Starting Flask server for all EMOS features...")
+    print("Available endpoints:")
+    for feature_id, path in FEATURE_PATHS.items():
+        print(f"  Feature {feature_id}: http://localhost:5001/api/process/{feature_id}")
     app.run(debug=True, port=5001)
