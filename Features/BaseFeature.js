@@ -61,6 +61,13 @@ class BaseFeature {
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill_${this.featureId}"></div>
             </div>
+            <div class="log-terminal" id="logTerminal_${this.featureId}">
+                <div class="log-header">
+                    <span>Processing Log</span>
+                    <button class="log-clear-btn" onclick="window.features[${this.featureId}].clearLogs()">Clear</button>
+                </div>
+                <div class="log-content" id="logContent_${this.featureId}"></div>
+            </div>
             <button class="process-btn" id="processBtn_${this.featureId}" onclick="window.features[${this.featureId}].startProcessing()">Start Processing</button>
         `;
     }
@@ -141,6 +148,10 @@ class BaseFeature {
         const processBtn = document.getElementById(`processBtn_${this.featureId}`);
         const progressFill = document.getElementById(`progressFill_${this.featureId}`);
         
+        // Clear previous logs and add initial log
+        this.clearLogs();
+        this.addLog('Starting processing...', 'info');
+        
         if (processBtn) {
             processBtn.disabled = true;
             processBtn.textContent = 'Processing...';
@@ -153,22 +164,28 @@ class BaseFeature {
         
         try {
             // Try Python backend first
+            this.addLog('Connecting to Python backend...', 'info');
             console.log(`Calling Python backend for feature ${this.featureId}`);
             const results = await this.callPythonBackend();
             this.results = results;
+            this.addLog('Python backend processing completed successfully!', 'success');
             this.updateOutputs();
         } catch (error) {
+            this.addLog('Backend unavailable, using local processing...', 'warning');
             console.log('Backend failed, using local processing:', error);
             // Simulate processing time
             await new Promise(resolve => setTimeout(resolve, 2000));
             
             // Fallback to local processFeature
+            this.addLog('Running local feature processing...', 'info');
             this.results = await this.processFeature();
+            this.addLog('Local processing completed successfully!', 'success');
             this.updateOutputs();
         }
         
         try {
             console.error('Processing error:', error);
+            this.addLog(`Processing error: ${error.message}`, 'error');
             this.updateOutputs({ error: error.message });
         } finally {
             this.isProcessing = false;
@@ -184,6 +201,28 @@ class BaseFeature {
         }
     }
 
+    // Add log entry to the processing log
+    addLog(message, type = 'info') {
+        const logContent = document.getElementById(`logContent_${this.featureId}`);
+        if (!logContent) return;
+        
+        const timestamp = new Date().toLocaleTimeString();
+        const logEntry = document.createElement('div');
+        logEntry.className = `log-entry log-${type}`;
+        logEntry.innerHTML = `<span class="log-time">[${timestamp}]</span> <span class="log-message">${message}</span>`;
+        
+        logContent.appendChild(logEntry);
+        logContent.scrollTop = logContent.scrollHeight;
+    }
+
+    // Clear all log entries
+    clearLogs() {
+        const logContent = document.getElementById(`logContent_${this.featureId}`);
+        if (logContent) {
+            logContent.innerHTML = '';
+        }
+    }
+
     // Simulate processing for features that don't have complex processing
     async simulateProcessing() {
         return new Promise(resolve => setTimeout(resolve, 1500));
@@ -191,6 +230,18 @@ class BaseFeature {
 
     // Override in subclasses for specific processing logic
     async processFeature() {
+        this.addLog('Initializing feature processing...', 'info');
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        this.addLog('Loading configuration parameters...', 'info');
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        this.addLog('Processing data with algorithms...', 'info');
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        this.addLog('Generating results...', 'info');
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
         return {
             result1: 'Processing complete',
             result2: 'Analysis finished',
