@@ -1,8 +1,9 @@
-def process(input_data):
+def process(input_data, logger=None):
     """
     Process device synthesizability with user inputs
     Args:
         input_data (dict): User input values from the form
+        logger: Optional logger for capturing logs
     Returns:
         dict: Results matching the feature's expected output format
     """
@@ -14,7 +15,8 @@ def process(input_data):
     fabrication_method = input_data.get('fabricationMethod', 'mocvd')
     
     # Processing logic based on inputs
-    # ... (left empty as requested) ...
+    if logger:
+        logger.log('Device synthesizability process - python', 'info')
     
     # Return results matching DeviceSynthesizability.js output format with 'python' string
     return {

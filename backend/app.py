@@ -7,6 +7,20 @@ import sys
 app = Flask(__name__)
 CORS(app)
 
+# Simple logger class
+class SimpleLogger:
+    def __init__(self):
+        self.logs = []
+    
+    def log(self, message, level='info'):
+        self.logs.append({
+            'message': message,
+            'level': level
+        })
+    
+    def get_logs(self):
+        return self.logs
+
 # Add the parent directory to Python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -37,6 +51,9 @@ def process_feature(feature_id):
         if feature_id not in FEATURE_PATHS:
             return jsonify({'error': f'Feature {feature_id} not found'}), 404
         
+        # Create logger
+        logger = SimpleLogger()
+        
         # Load the processor module
         processor_path = os.path.join('..', FEATURE_PATHS[feature_id], 'processor.py')
         processor_path = os.path.abspath(processor_path)
@@ -47,9 +64,19 @@ def process_feature(feature_id):
         
         # Get input data and process
         input_data = request.json or {}
-        results = processor_module.process(input_data)
         
-        return jsonify(results)
+        # Try to pass logger to processor
+        try:
+            results = processor_module.process(input_data, logger)
+        except TypeError:
+            # Fallback if processor doesn't accept logger
+            results = processor_module.process(input_data)
+        
+        # Return results with logs
+        return jsonify({
+            'results': results,
+            'logs': logger.get_logs()
+        })
         
     except Exception as e:
         return jsonify({'error': str(e)}), 500

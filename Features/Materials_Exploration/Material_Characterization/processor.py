@@ -1,8 +1,9 @@
-def process(input_data):
+def process(input_data, logger=None):
     """
     Process material characterization with user inputs
     Args:
         input_data (dict): User input values from the form
+        logger: Optional logger for capturing logs
     Returns:
         dict: Results matching the feature's expected output format
     """
@@ -13,7 +14,8 @@ def process(input_data):
     analysis_depth = input_data.get('analysisDepth', 'surface')
     
     # Processing logic based on inputs
-    # ... (left empty as requested) ...
+    if logger:
+        logger.log('Material characterization process - python', 'info')
     
     # Return results matching MaterialCharacterization.js output format with 'python' string
     return {

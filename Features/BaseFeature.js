@@ -292,7 +292,18 @@ class BaseFeature {
         });
         
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        return await response.json();
+        
+        const data = await response.json();
+        
+        // Display logs if available
+        if (data.logs && Array.isArray(data.logs)) {
+            data.logs.forEach(log => {
+                this.addLog(log.message, log.level);
+            });
+        }
+        
+        // Return the actual results
+        return data.results || data;
     }
 
     collectInputData() {

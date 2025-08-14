@@ -1,8 +1,9 @@
-def process(input_data):
+def process(input_data, logger=None):
     """
     Process material generation with user inputs
     Args:
         input_data (dict): User input values from the form
+        logger: Optional logger for capturing logs
     Returns:
         dict: Results matching the feature's expected output format
     """
@@ -15,7 +16,8 @@ def process(input_data):
     optimize_for_cost = input_data.get('optimizeForCost', True)
     
     # Processing logic based on inputs
-    # ... (left empty as requested) ...
+    if logger:
+        logger.log('Material generation process - python', 'info')
     
     # Return results matching MaterialGeneration.js output format with 'python' string
     return {

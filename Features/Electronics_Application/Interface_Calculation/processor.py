@@ -1,8 +1,9 @@
-def process(input_data):
+def process(input_data, logger=None):
     """
     Process interface calculation with user inputs
     Args:
         input_data (dict): User input values from the form
+        logger: Optional logger for capturing logs
     Returns:
         dict: Results matching the feature's expected output format
     """
@@ -16,7 +17,8 @@ def process(input_data):
     calculate_band_offset = input_data.get('calculateBandOffset', True)
     
     # Processing logic based on inputs
-    # ... (left empty as requested) ...
+    if logger:
+        logger.log('Interface calculation process - python', 'info')
     
     # Return results matching InterfaceCalculation.js output format with 'python' string
     return {

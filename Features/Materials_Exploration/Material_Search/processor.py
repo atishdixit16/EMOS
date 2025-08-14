@@ -1,8 +1,9 @@
-def process(input_data):
+def process(input_data, logger=None):
     """
     Process material search with user inputs
     Args:
         input_data (dict): User input values from the form
+        logger: Optional logger for capturing logs
     Returns:
         dict: Results matching the feature's expected output format
     """
@@ -14,7 +15,8 @@ def process(input_data):
     crystal_system = input_data.get('crystalSystem', 'cubic')
     
     # Processing logic based on inputs
-    # ... (left empty as requested) ...
+    if logger:
+        logger.log('Material search process - python', 'info')
     
     # Return results matching MaterialSearch.js output format with 'python' string
     return {

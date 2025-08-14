@@ -1,8 +1,9 @@
-def process(input_data):
+def process(input_data, logger=None):
     """
     Process crystallographic analysis with user inputs
     Args:
         input_data (dict): User input values from the form
+        logger: Optional logger for capturing logs
     Returns:
         dict: Results matching the feature's expected output format
     """
@@ -13,7 +14,8 @@ def process(input_data):
     verbose_output = input_data.get('verboseOutput', False)
     
     # Processing logic based on inputs
-    # ... (left empty as requested) ...
+    if logger:
+        logger.log('Crystallographic analysis process - python', 'info')
     
     # Return results matching CrystallographicAnalysis.js output format with 'python' string
     return {
