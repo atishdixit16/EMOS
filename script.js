@@ -382,6 +382,25 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('BaseFeature loaded successfully');
     };
     document.head.appendChild(baseFeatureScript);
+
+    //Generator selection functionality
+    const checkboxes = document.querySelectorAll("#generatorsList input[type='checkbox']");
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener("change", function() {
+            const className = this.dataset.value;
+            const checked = this.checked;
+
+            fetch("/toggle_generator", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ class_name: className, active: checked })
+            }).then(response => response.json())
+              .then(data => console.log(data.message));
+        });
+    });
     
     // Feature button functionality - SINGLE EVENT LISTENER
     featureButtons.forEach(button => {

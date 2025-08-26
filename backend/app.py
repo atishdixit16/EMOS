@@ -3,6 +3,11 @@ from flask_cors import CORS
 import importlib.util
 import os
 import sys
+import pathlib
+sys.path.append(pathlib.Path(__file__).parent.resolve().parents[0].as_posix())
+#generator creators & destroyers
+
+from Information_Units.Generators.GeneratorFactory import generator_factory, generator_registry
 
 app = Flask(__name__)
 CORS(app)
@@ -43,6 +48,29 @@ FEATURE_PATHS = {
     15: 'Features/Electronics_Application/Process_Integration',
     16: 'Features/Electronics_Application/Advanced_Characterization'
 }
+
+
+
+
+@app.route('/api/iu/toggle_generator', methods=["POST"])
+def toggle_generator():
+    data = request.get_json()
+    class_name = data.get("class_name")
+    active = data.get("active")
+
+    if class_name not in generator_factory:
+        return jsonify({"message": "Unknown class"}), 400
+
+    if active:
+        # Instantiate and store
+        generator_registry[class_name] = generator_factory[class_name]()
+        return jsonify({"message": f"{class_name} instantiated"})
+    else:
+        # Remove instance if present
+        generator_registry.pop(class_name, None)
+        return jsonify({"message": f"{class_name} removed"})
+
+
 
 @app.route('/api/process/<int:feature_id>', methods=['POST'])
 def process_feature(feature_id):
