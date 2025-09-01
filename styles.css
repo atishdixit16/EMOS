@@ -285,17 +285,39 @@ header p {
 .welcome-message {
     text-align: center;
     color: #6c757d;
+    position: relative;
+    display: inline-block;
 }
 
 .welcome-logo {
-    margin-bottom: 20px;
+    margin-bottom: 0;
     opacity: 0.8;
+    display: block;
 }
 
 .welcome-message h2 {
-    margin-bottom: 15px;
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
     color: #495057;
-    font-size: 2rem;
+    font-size: 3rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    z-index: 10;
+    white-space: nowrap;
+}
+
+.welcome-message p {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    font-size: 1.5rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    z-index: 10;
+    white-space: nowrap;
 }
 
 /* Hidden class */
