@@ -72,23 +72,102 @@ EMOS/
    cd EMOS
    ```
 
-2. **Open in browser**
-   - Simply open `index.html` in your web browser, or
-   - Use a local development server:
+2. **Install Python dependencies** (for backend features)
    ```bash
-   # Using Python
+   pip install flask flask-cors numpy scipy matplotlib pandas
+   ```
+
+## 🏃‍♂️ Running the Application
+
+EMOS consists of two components that work together:
+
+### Frontend (Website)
+
+The frontend can be run in several ways:
+
+#### Option 1: Direct File Access
+- Simply open `index.html` directly in your web browser
+- Navigate to: `file:///path/to/EMOS/index.html`
+
+#### Option 2: Local Development Server (Recommended)
+Using a local server prevents CORS issues and provides better development experience:
+
+```bash
+# Using Python 3
+python -m http.server 8000
+
+# Using Python 2 (if Python 3 not available)
+python -m SimpleHTTPServer 8000
+
+# Using Node.js (if you have it installed)
+npx serve .
+
+# Using PHP (if you have it installed)
+php -S localhost:8000
+```
+
+Then access the application at: `http://localhost:8000`
+
+### Backend (Flask Server)
+
+For full functionality including advanced calculations and processing, you need to run the Flask backend:
+
+1. **Navigate to the backend directory**
+   ```bash
+   cd backend
+   ```
+
+2. **Run the Flask server**
+   ```bash
+   python app.py
+   ```
+   
+   Or with explicit Flask command:
+   ```bash
+   flask run
+   ```
+
+3. **Verify server is running**
+   The Flask server will start on `http://localhost:5000` by default.
+   You should see output similar to:
+   ```
+   * Running on http://127.0.0.1:5000
+   * Debug mode: on
+   ```
+
+### Complete Setup (Frontend + Backend)
+
+For the full EMOS experience with all features enabled:
+
+1. **Terminal 1 - Start Flask Backend**
+   ```bash
+   cd EMOS/backend
+   python app.py
+   ```
+
+2. **Terminal 2 - Start Frontend Server**
+   ```bash
+   cd EMOS
    python -m http.server 8000
-   
-   # Using Node.js
-   npx serve .
-   
-   # Using PHP
-   php -S localhost:8000
    ```
 
 3. **Access the application**
-   - Direct file: `file:///path/to/EMOS/index.html`
-   - Local server: `http://localhost:8000`
+   - Frontend: `http://localhost:8000`
+   - Backend API: `http://localhost:5000`
+
+### Troubleshooting
+
+- **CORS Issues**: Use a local server instead of opening the HTML file directly
+- **Flask Import Errors**: Ensure all Python dependencies are installed: `pip install flask flask-cors`
+- **Port Conflicts**: If ports 8000 or 5000 are in use, specify different ports:
+  ```bash
+  python -m http.server 3000  # Frontend on port 3000
+  flask run --port 5001       # Backend on port 5001
+  ```
+
+3. **Access the application**
+   - Frontend: `http://localhost:8000` (or your chosen port)
+   - Backend API: `http://localhost:5000` (or your chosen port)
 
 ## 🖥️ Usage
 
