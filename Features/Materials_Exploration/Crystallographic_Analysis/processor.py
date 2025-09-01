@@ -13,9 +13,20 @@ def process(input_data, logger=None):
     config_file = input_data.get('configFile', '')
     verbose_output = input_data.get('verboseOutput', False)
     
-    # Processing logic based on inputs
+    # Extract and log active generators
+    active_generators = input_data.get('active_generators', [])
+    
     if logger:
-        logger.log('Crystallographic analysis process - python', 'info')
+        logger.log('Initializing crystallographic analysis...', 'info')
+        
+        # Log active generators
+        if not active_generators:
+            logger.log('No active generators found.', 'warning')
+        else:
+            generator_names = ', '.join(gen["name"] for gen in active_generators)
+            logger.log(f'Active generators ({len(active_generators)}): {generator_names}', 'info')
+    
+    # Processing logic based on inputs
     
     # Return results matching CrystallographicAnalysis.js output format with 'python' string
     return {

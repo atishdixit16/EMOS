@@ -320,6 +320,18 @@ class BaseFeature {
             }
         });
         
+        // Collect active generators
+        const generatorCheckboxes = document.querySelectorAll("#generatorsList input[type='checkbox']:checked");
+        const activeGenerators = [];
+        generatorCheckboxes.forEach(checkbox => {
+            const generatorName = checkbox.parentElement.textContent.trim();
+            activeGenerators.push({
+                value: checkbox.value,
+                name: generatorName
+            });
+        });
+        inputs['active_generators'] = activeGenerators;
+        
         return inputs;
     }
 }
