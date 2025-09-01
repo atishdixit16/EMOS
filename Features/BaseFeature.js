@@ -332,6 +332,18 @@ class BaseFeature {
         });
         inputs['active_generators'] = activeGenerators;
         
+        // Collect active predictors
+        const predictorCheckboxes = document.querySelectorAll("#predictorsList input[type='checkbox']:checked");
+        const activePredictors = [];
+        predictorCheckboxes.forEach(checkbox => {
+            const predictorName = checkbox.parentElement.textContent.trim();
+            activePredictors.push({
+                value: checkbox.value,
+                name: predictorName
+            });
+        });
+        inputs['active_predictors'] = activePredictors;
+        
         return inputs;
     }
 }

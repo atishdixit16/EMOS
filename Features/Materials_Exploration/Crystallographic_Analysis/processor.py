@@ -15,6 +15,8 @@ def process(input_data, logger=None):
     
     # Extract and log active generators
     active_generators = input_data.get('active_generators', [])
+    # Extract and log active predictors
+    active_predictors = input_data.get('active_predictors', [])
     
     if logger:
         logger.log('Initializing crystallographic analysis...', 'info')
@@ -25,6 +27,13 @@ def process(input_data, logger=None):
         else:
             generator_names = ', '.join(gen["name"] for gen in active_generators)
             logger.log(f'Active generators ({len(active_generators)}): {generator_names}', 'info')
+        
+        # Log active predictors
+        if not active_predictors:
+            logger.log('No active predictors found.', 'warning')
+        else:
+            predictor_names = ', '.join(pred["name"] for pred in active_predictors)
+            logger.log(f'Active predictors ({len(active_predictors)}): {predictor_names}', 'info')
     
     # Processing logic based on inputs
     
