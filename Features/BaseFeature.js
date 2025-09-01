@@ -344,6 +344,18 @@ class BaseFeature {
         });
         inputs['active_predictors'] = activePredictors;
         
+        // Collect active databases
+        const databaseCheckboxes = document.querySelectorAll("#databasesList input[type='checkbox']:checked");
+        const activeDatabases = [];
+        databaseCheckboxes.forEach(checkbox => {
+            const databaseName = checkbox.parentElement.textContent.trim();
+            activeDatabases.push({
+                value: checkbox.value,
+                name: databaseName
+            });
+        });
+        inputs['active_databases'] = activeDatabases;
+        
         return inputs;
     }
 }
