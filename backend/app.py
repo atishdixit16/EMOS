@@ -4,9 +4,15 @@ import importlib.util
 import os
 import sys
 import pathlib
-sys.path.append(pathlib.Path(__file__).parent.resolve().parents[0].as_posix())
-#generator creators & destroyers
 
+# Get absolute paths regardless of where the script is run from
+BACKEND_DIR = pathlib.Path(__file__).parent.resolve()  # /home/soe/EMOS/backend
+PROJECT_ROOT = BACKEND_DIR.parent.resolve()  # /home/soe/EMOS
+
+# Add the project root to Python path
+sys.path.append(str(PROJECT_ROOT))
+
+#generator creators & destroyers
 from Information_Units.Generators.GeneratorFactory import generator_factory, generator_registry
 
 app = Flask(__name__)
@@ -25,9 +31,6 @@ class SimpleLogger:
     
     def get_logs(self):
         return self.logs
-
-# Add the parent directory to Python path
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Feature ID to folder mapping
 FEATURE_PATHS = {
@@ -82,11 +85,19 @@ def process_feature(feature_id):
         # Create logger
         logger = SimpleLogger()
         
-        # Load the processor module
-        processor_path = os.path.join('..', FEATURE_PATHS[feature_id], 'processor.py')
-        processor_path = os.path.abspath(processor_path)
+        # Construct absolute path to processor.py
+        processor_path = PROJECT_ROOT / FEATURE_PATHS[feature_id] / 'processor.py'
         
-        spec = importlib.util.spec_from_file_location("processor", processor_path)
+        # Debug info
+        print(f"Project root: {PROJECT_ROOT}")
+        print(f"Looking for processor at: {processor_path}")
+        print(f"File exists: {processor_path.exists()}")
+        
+        if not processor_path.exists():
+            return jsonify({'error': f'Processor file not found: {processor_path}'}), 404
+        
+        # Load the processor module
+        spec = importlib.util.spec_from_file_location("processor", str(processor_path))
         processor_module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(processor_module)
         
@@ -107,11 +118,15 @@ def process_feature(feature_id):
         })
         
     except Exception as e:
+        print(f"Error in process_feature: {str(e)}")
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     print("Starting Flask server for all EMOS features...")
+    print(f"Project root: {PROJECT_ROOT}")
     print("Available endpoints:")
     for feature_id, path in FEATURE_PATHS.items():
-        print(f"  Feature {feature_id}: http://localhost:5001/api/process/{feature_id}")
+        full_path = PROJECT_ROOT / path / 'processor.py'
+        status = "✅" if full_path.exists() else "❌"
+        print(f"  {status} Feature {feature_id}: http://localhost:5001/api/process/{feature_id}")
     app.run(debug=True, port=5001)
