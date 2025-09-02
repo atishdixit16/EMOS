@@ -54,6 +54,35 @@ const featureFiles = {
 window.features = {};
 let currentFeatureInstance = null;
 
+// Resolve backend url for finding scripts
+async function resolveBackendBaseUrl() {
+    const meta = document.querySelector('meta[name="emos-backend"]');
+    if (meta?.content) return meta.content.replace(/\/$/, '');
+    if (window.EMOS_BACKEND_BASE_URL) return String(window.EMOS_BACKEND_BASE_URL).replace(/\/$/, '');
+
+    const { protocol, hostname, port } = window.location;
+    const devStaticPorts = new Set(['5500', '8000', '8080', '5173']);
+    const devBackend = `${protocol}//${hostname}:5001`;
+
+    // Skip same-origin probe on common dev ports to avoid 404 noise
+    if (port && devStaticPorts.has(port)) {
+        try {
+            const res = await fetch(`${devBackend}/api/health`);
+            if (res.ok) return devBackend;
+        } catch (_) { /* ignore */ }
+        return devBackend;
+    }
+
+    // Try same-origin when proxied
+    try {
+        const res = await fetch('/api/health');
+        if (res.ok) return window.location.origin;
+    } catch (_) { /* ignore */ }
+
+    return devBackend;
+}
+
+
 // Functions
 async function showFeatureView(featureNumber, featureName, featureDesc) {
     // Hide other views
@@ -292,6 +321,8 @@ function addMessage(content, type) {
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
+
+
 function generateBotResponse(userMessage) {
     const responses = [
         "That's an interesting question about materials science! Let me help you with that.",
@@ -374,7 +405,7 @@ function resetProcessing() {
 }
 
 // Initialize application
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     // Load BaseFeature class first
     const baseFeatureScript = document.createElement('script');
     baseFeatureScript.src = '/Features/BaseFeature.js';
@@ -383,22 +414,41 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     document.head.appendChild(baseFeatureScript);
 
+
+    // Resolve backend URL once and reuse
+    const BACKEND_BASE_URL = await resolveBackendBaseUrl();
+    window.BACKEND_BASE_URL = BACKEND_BASE_URL; // optional exposure for debugging
+    console.log('Backend base URL:', BACKEND_BASE_URL);
+
     //Generator selection functionality
     const checkboxes = document.querySelectorAll("#generatorsList input[type='checkbox']");
 
     checkboxes.forEach(checkbox => {
-        checkbox.addEventListener("change", function() {
-            const className = this.dataset.value;
-            const checked = this.checked;
+        checkbox.addEventListener("change", async function() {
+            const className = this.value; // use value attribute
+            const active = this.checked;
 
-            fetch("/toggle_generator", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ class_name: className, active: checked })
-            }).then(response => response.json())
-              .then(data => console.log(data.message));
+            try {
+                const res = await fetch(`${BACKEND_BASE_URL}/api/process/toggle_generator`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ class_name: className, active })
+                });
+                const data = await res.json();
+
+                if (!res.ok) {
+                    // revert UI if backend rejected the toggle
+                    this.checked = !active;
+                    console.error(data?.message || data?.error || "Unknown error");
+                    return;
+                }
+
+                console.log(data.message);
+            } catch (err) {
+                // revert UI on request failure
+                this.checked = !active;
+                console.error("Toggle generator failed:", err);
+            }
         });
     });
     

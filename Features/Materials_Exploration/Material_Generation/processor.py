@@ -1,3 +1,5 @@
+from Information_Units.Generators.GeneratorFactory import generator_registry
+
 def process(input_data, logger=None):
     """
     Process material generation with user inputs
@@ -38,6 +40,8 @@ def process(input_data, logger=None):
         else:
             generator_names = ', '.join(gen["name"] for gen in active_generators)
             logger.log(f'Active generators ({len(active_generators)}): {generator_names}', 'info')
+            for gnrtr in active_generators:
+                logger.log(generator_registry[gnrtr['value']].info(), 'info')
         
         # Log active predictors
         if not active_predictors:
@@ -49,6 +53,10 @@ def process(input_data, logger=None):
         logger.log('Material generation process - python', 'info')
     
     # Processing logic based on inputs
+    output_files=[]
+    for gnrtr in active_generators:
+        output_files.append(generator_registry[gnrtr['value']].generate(input_data))
+
     
     # Return results matching MaterialGeneration.js output format with 'python' string
     return {
@@ -56,5 +64,5 @@ def process(input_data, logger=None):
         'bestCandidate': 'Ti3Al2C (MAX Phase) - python',
         'predictedPerformance': '8.5 GPa (92% of target) - python',
         'synthesisDifficulty': 'Medium - python',
-        'exportData': 'compositions.json (Ready) - python'
+        'exportData': f'{str(output_files)} (Ready) - python'
     }

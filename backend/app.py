@@ -16,7 +16,17 @@ sys.path.append(str(PROJECT_ROOT))
 from Information_Units.Generators.GeneratorFactory import generator_factory, generator_registry
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "*"}})
+
+# Ensure CORS headers even on errors
+@app.after_request
+def add_cors_headers(response):
+    origin = request.headers.get('Origin')
+    response.headers['Access-Control-Allow-Origin'] = origin or '*'
+    response.headers['Vary'] = 'Origin'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+    return response
 
 # Simple logger class
 class SimpleLogger:
@@ -31,6 +41,9 @@ class SimpleLogger:
     
     def get_logs(self):
         return self.logs
+    
+# Create universal logger
+logger = SimpleLogger()
 
 # Feature ID to folder mapping
 FEATURE_PATHS = {
@@ -53,26 +66,41 @@ FEATURE_PATHS = {
 }
 
 
+@app.route('/api/health', methods=['GET', 'OPTIONS'])
+def health():
+    return jsonify({'status': 'ok'}), 200
 
 
-@app.route('/api/iu/toggle_generator', methods=["POST"])
+@app.route('/api/process/toggle_generator', methods=["POST", "OPTIONS"])
 def toggle_generator():
-    data = request.get_json()
-    class_name = data.get("class_name")
-    active = data.get("active")
+    if request.method == 'OPTIONS':
+        return ('', 204)
+    try:
+        data = request.get_json() or {}
+        class_name = data.get("class_name")
+        active = data.get("active")
 
-    if class_name not in generator_factory:
-        return jsonify({"message": "Unknown class"}), 400
+        if not class_name:
+            return jsonify({"message": "Missing class_name"}), 400
+        if active is None:
+            return jsonify({"message": "Missing active"}), 400
+        if class_name not in generator_factory:
+            return jsonify({"message": "Unknown class"}), 400
 
-    if active:
-        # Instantiate and store
-        generator_registry[class_name] = generator_factory[class_name]()
-        return jsonify({"message": f"{class_name} instantiated"})
-    else:
-        # Remove instance if present
-        generator_registry.pop(class_name, None)
-        return jsonify({"message": f"{class_name} removed"})
-
+        if active:
+            # Instantiate and store
+            cls = generator_factory[class_name]
+            instance = cls(class_name, logger)  # will raise if factory mapped to an instance
+            generator_registry[class_name] = instance
+            return jsonify({"message": f"{class_name} instantiated"})
+        else:
+            generator_registry.pop(class_name, None)
+            return jsonify({"message": f"{class_name} removed"})
+    except TypeError as e:
+        # Most common: factory mapped to an instance, not a class
+        return jsonify({"message": f"Instantiation failed for {class_name}: {e}"}), 500
+    except Exception as e:
+        return jsonify({"message": f"Toggle failed: {e}"}), 500
 
 
 @app.route('/api/process/<int:feature_id>', methods=['POST'])
@@ -81,9 +109,6 @@ def process_feature(feature_id):
         # Get the feature path
         if feature_id not in FEATURE_PATHS:
             return jsonify({'error': f'Feature {feature_id} not found'}), 404
-        
-        # Create logger
-        logger = SimpleLogger()
         
         # Construct absolute path to processor.py
         processor_path = PROJECT_ROOT / FEATURE_PATHS[feature_id] / 'processor.py'

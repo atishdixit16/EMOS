@@ -65,7 +65,6 @@ class MaterialGenerationFeature extends BaseFeature {
 
     updateOutputs(results = null) {
         const finalResults = results || this.results;
-        
         document.getElementById(`generatedCount_${this.featureId}`).textContent = finalResults.generatedCount;
         document.getElementById(`bestCandidate_${this.featureId}`).textContent = finalResults.bestCandidate;
         document.getElementById(`predictedPerformance_${this.featureId}`).textContent = finalResults.predictedPerformance;
