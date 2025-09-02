@@ -1,4 +1,7 @@
 from Information_Units.Generators.GeneratorFactory import generator_registry
+from Information_Units.Databases.DatabaseFactory import database_registry
+from Information_Units.Predictors.PredictorFactory import predictor_registry
+
 
 def process(input_data, logger=None):
     """
@@ -33,6 +36,8 @@ def process(input_data, logger=None):
         else:
             database_names = ', '.join(db["name"] for db in active_databases)
             logger.log(f'Active databases ({len(active_databases)}): {database_names}', 'info')
+            for dtbs in active_databases:
+                logger.log(database_registry[dtbs['value']].info(), 'info')
     
         # Log active generators
         if not active_generators:
@@ -49,6 +54,8 @@ def process(input_data, logger=None):
         else:
             predictor_names = ', '.join(pred["name"] for pred in active_predictors)
             logger.log(f'Active predictors ({len(active_predictors)}): {predictor_names}', 'info')
+            for prdctr in active_predictors:
+                logger.log(predictor_registry[prdctr['value']].info(), 'info')
         
         logger.log('Material generation process - python', 'info')
     

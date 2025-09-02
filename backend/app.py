@@ -12,8 +12,11 @@ PROJECT_ROOT = BACKEND_DIR.parent.resolve()  # /home/soe/EMOS
 # Add the project root to Python path
 sys.path.append(str(PROJECT_ROOT))
 
-#generator creators & destroyers
+#information units creators & destroyers
 from Information_Units.Generators.GeneratorFactory import generator_factory, generator_registry
+from Information_Units.Databases.DatabaseFactory import database_factory, database_registry
+from Information_Units.Predictors.PredictorFactory import predictor_factory, predictor_registry
+
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
@@ -71,36 +74,58 @@ def health():
     return jsonify({'status': 'ok'}), 200
 
 
-@app.route('/api/process/toggle_generator', methods=["POST", "OPTIONS"])
-def toggle_generator():
+@app.route('/api/process/toggle_IU', methods=["POST", "OPTIONS"])
+def toggle_IU():
     if request.method == 'OPTIONS':
         return ('', 204)
     try:
         data = request.get_json() or {}
         class_name = data.get("class_name")
         active = data.get("active")
-
+        ui_type = data.get("class_type")
+        
         if not class_name:
             return jsonify({"message": "Missing class_name"}), 400
         if active is None:
             return jsonify({"message": "Missing active"}), 400
-        if class_name not in generator_factory:
+        if (class_name not in generator_factory) and (class_name not in database_factory) and (class_name not in predictor_factory):
             return jsonify({"message": "Unknown class"}), 400
 
         if active:
             # Instantiate and store
-            cls = generator_factory[class_name]
-            instance = cls(class_name, logger)  # will raise if factory mapped to an instance
-            generator_registry[class_name] = instance
+            if ui_type=="generator":
+                cls = generator_factory[class_name]
+                instance = cls(class_name, logger)  # will raise if factory mapped to an instance
+                generator_registry[class_name] = instance
+            elif ui_type=="database":
+                cls = database_factory[class_name]
+                instance = cls(class_name, logger)  # will raise if factory mapped to an instance
+                database_registry[class_name] = instance
+            elif ui_type=="predictor":
+                cls = predictor_factory[class_name]
+                instance = cls(class_name, logger)  # will raise if factory mapped to an instance
+                predictor_registry[class_name] = instance
+            else:
+                return jsonify({"message": "Unknown type"}), 400
+ 
             return jsonify({"message": f"{class_name} instantiated"})
         else:
-            generator_registry.pop(class_name, None)
+            if ui_type=="generator":
+                generator_registry.pop(class_name, None)
+            elif ui_type=="database":
+                database_registry.pop(class_name, None)
+            elif ui_type=="predictor":
+                predictor_registry.pop(class_name, None)
+            else:
+                return  jsonify({"message": "Unknown type"}), 400
+            
             return jsonify({"message": f"{class_name} removed"})
     except TypeError as e:
         # Most common: factory mapped to an instance, not a class
         return jsonify({"message": f"Instantiation failed for {class_name}: {e}"}), 500
     except Exception as e:
         return jsonify({"message": f"Toggle failed: {e}"}), 500
+
 
 
 @app.route('/api/process/<int:feature_id>', methods=['POST'])

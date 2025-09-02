@@ -421,18 +421,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.log('Backend base URL:', BACKEND_BASE_URL);
 
     //Generator selection functionality
-    const checkboxes = document.querySelectorAll("#generatorsList input[type='checkbox']");
+    const checkboxes = document.querySelectorAll("input[type='checkbox']");
 
     checkboxes.forEach(checkbox => {
         checkbox.addEventListener("change", async function() {
+            const ui_type = this.getAttribute("ui-type");
             const className = this.value; // use value attribute
             const active = this.checked;
 
             try {
-                const res = await fetch(`${BACKEND_BASE_URL}/api/process/toggle_generator`, {
+                const res = await fetch(`${BACKEND_BASE_URL}/api/process/toggle_IU`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ class_name: className, active })
+                    body: JSON.stringify({ class_name: className, class_type: ui_type, active })
                 });
                 const data = await res.json();
 

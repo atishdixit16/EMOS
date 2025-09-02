@@ -1,7 +1,7 @@
-from Information_Units.Generators.MatterGen import MatterGenGenerator
+from Information_Units.Generators.MatterGen import MatterGen
 
 generator_factory = {
-    "mattergen": MatterGenGenerator
+    "mattergen": MatterGen
     # Add more when implemented:
     # "gnome": GNoMEGenerator,
     # "imatgen": IMatGenGenerator,
