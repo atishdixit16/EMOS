@@ -1,5 +1,5 @@
-from Information_Units.Databases.ICSD import ICSD
-from Information_Units.Databases.COD import COD
+from Information_Units.Databases.ICSD.ICSD import ICSD
+from Information_Units.Databases.COD.COD import COD
 
 database_factory = {
     "icsd": ICSD,

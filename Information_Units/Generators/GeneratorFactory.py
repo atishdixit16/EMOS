@@ -1,4 +1,4 @@
-from Information_Units.Generators.MatterGen import MatterGen
+from Information_Units.Generators.MatterGen.MatterGen import MatterGen
 
 generator_factory = {
     "mattergen": MatterGen
