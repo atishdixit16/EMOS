@@ -173,20 +173,21 @@ class BaseFeature {
         } catch (error) {
             this.addLog('Backend unavailable, using local processing...', 'warning');
             console.log('Backend failed, using local processing:', error);
-            // Simulate processing time
-            await new Promise(resolve => setTimeout(resolve, 2000));
             
-            // Fallback to local processFeature
-            this.addLog('Running local feature processing...', 'info');
-            this.results = await this.processFeature();
-            this.addLog('Local processing completed successfully!', 'success');
-            this.updateOutputs();
-        }
-        
-        try {
-            console.error('Processing error:', error);
-            this.addLog(`Processing error: ${error.message}`, 'error');
-            this.updateOutputs({ error: error.message });
+            try {
+                // Simulate processing time
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // Fallback to local processFeature
+                this.addLog('Running local feature processing...', 'info');
+                this.results = await this.processFeature();
+                this.addLog('Local processing completed successfully!', 'success');
+                this.updateOutputs();
+            } catch (localError) {
+                console.error('Processing error:', localError);
+                this.addLog(`Processing error: ${localError.message}`, 'error');
+                this.updateOutputs({ error: localError.message });
+            }
         } finally {
             this.isProcessing = false;
             if (processBtn) {
@@ -295,7 +296,7 @@ class BaseFeature {
         
         const data = await response.json();
         
-        // Display logs if available
+        // Display logs if available (but don't clear existing logs - they should already be cleared)
         if (data.logs && Array.isArray(data.logs)) {
             data.logs.forEach(log => {
                 this.addLog(log.message, log.level);

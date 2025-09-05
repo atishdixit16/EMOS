@@ -45,6 +45,9 @@ class SimpleLogger:
     def get_logs(self):
         return self.logs
     
+    def clear_logs(self):
+        self.logs = []
+    
 # Create universal logger
 logger = SimpleLogger()
 
@@ -131,6 +134,9 @@ def toggle_IU():
 @app.route('/api/process/<int:feature_id>', methods=['POST'])
 def process_feature(feature_id):
     try:
+        # Clear previous logs at the start of each request
+        logger.clear_logs()
+        
         # Get the feature path
         if feature_id not in FEATURE_PATHS:
             return jsonify({'error': f'Feature {feature_id} not found'}), 404
