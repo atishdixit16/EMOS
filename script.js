@@ -429,6 +429,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             const className = this.value; // use value attribute
             const active = this.checked;
 
+            // Always log the local change first
+            console.log(`${ui_type} ${className} ${active ? 'checked' : 'unchecked'} locally`);
+
             try {
                 const res = await fetch(`${BACKEND_BASE_URL}/api/process/toggle_IU`, {
                     method: "POST",
@@ -438,17 +441,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const data = await res.json();
 
                 if (!res.ok) {
-                    // revert UI if backend rejected the toggle
-                    this.checked = !active;
-                    console.error(data?.message || data?.error || "Unknown error");
+                    console.warn(`Backend response not OK for ${className}: ${data?.message || data?.error || "Unknown error"}`);
                     return;
                 }
 
-                console.log(data.message);
+                console.log(`Backend success: ${data.message}`);
             } catch (err) {
-                // revert UI on request failure
-                this.checked = !active;
-                console.error("Toggle generator failed:", err);
+                console.warn(`Backend unavailable for ${className}:`, err.message);
             }
         });
     });
