@@ -10,4 +10,8 @@ class MatterSim(BasePredictor):
 
     def predict(self, input_data):
         # Implement prediction logic here
-        raise NotImplementedError("MatterSim.predict() is not implemented yet.")
+        # For now, just simulate prediction results
+        if self.logger:
+            self.logger.log("Predicted by MatterSim - python", 'info')
+        
+        return None

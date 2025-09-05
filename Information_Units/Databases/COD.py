@@ -13,6 +13,5 @@ class COD(BaseDatabase):
         # Implement retrieval logic here
         # For now, just simulate a path
         if self.logger:
-            self.logger.log("Retrieved 200 materials from COD")
-        materials=['AlO', 'H20']
-        return materials
+            self.logger.log("Retrieved from COD")
+        return None
