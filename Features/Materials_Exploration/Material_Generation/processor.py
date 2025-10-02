@@ -59,12 +59,6 @@ def process(input_data, logger=None):
         
         logger.log('Material generation process - python', 'info')
     
-    # Processing logic based on inputs
-    output_files=[]
-    for gnrtr in active_generators:
-        output_files.append(generator_registry[gnrtr['value']].generate(input_data))
-
-    
     # Return results matching MaterialGeneration.js output format with 'python' string
     return {
         'generatedCount': '15 compositions generated - python',
