@@ -1,6 +1,6 @@
-from Information_Units.Generators.GeneratorFactory import generator_registry
-from Information_Units.Databases.DatabaseFactory import database_registry
-from Information_Units.Predictors.PredictorFactory import predictor_registry
+from Information_Units.Generators.GeneratorFactory import generator_factory
+from Information_Units.Databases.DatabaseFactory import database_factory
+from Information_Units.Predictors.PredictorFactory import predictor_factory
 
 
 def process(input_data, logger=None):
@@ -37,7 +37,13 @@ def process(input_data, logger=None):
             database_names = ', '.join(db["name"] for db in active_databases)
             logger.log(f'Active databases ({len(active_databases)}): {database_names}', 'info')
             for dtbs in active_databases:
-                logger.log(database_registry[dtbs['value']].info(), 'info')
+                db_key = dtbs['value']
+                if db_key in database_factory:
+                    # Create instance and call info method
+                    db_instance = database_factory[db_key](db_key, logger)
+                    logger.log(db_instance.info(), 'info')
+                else:
+                    logger.log(f'Database {db_key} not found in factory', 'warning')
     
         # Log active generators
         if not active_generators:
@@ -46,7 +52,13 @@ def process(input_data, logger=None):
             generator_names = ', '.join(gen["name"] for gen in active_generators)
             logger.log(f'Active generators ({len(active_generators)}): {generator_names}', 'info')
             for gnrtr in active_generators:
-                logger.log(generator_registry[gnrtr['value']].info(), 'info')
+                gen_key = gnrtr['value']
+                if gen_key in generator_factory:
+                    # Create instance and call info method
+                    gen_instance = generator_factory[gen_key](gen_key, logger)
+                    logger.log(gen_instance.info(), 'info')
+                else:
+                    logger.log(f'Generator {gen_key} not found in factory', 'warning')
         
         # Log active predictors
         if not active_predictors:
@@ -55,7 +67,13 @@ def process(input_data, logger=None):
             predictor_names = ', '.join(pred["name"] for pred in active_predictors)
             logger.log(f'Active predictors ({len(active_predictors)}): {predictor_names}', 'info')
             for prdctr in active_predictors:
-                logger.log(predictor_registry[prdctr['value']].info(), 'info')
+                pred_key = prdctr['value']
+                if pred_key in predictor_factory:
+                    # Create instance and call info method
+                    pred_instance = predictor_factory[pred_key](pred_key, logger)
+                    logger.log(pred_instance.info(), 'info')
+                else:
+                    logger.log(f'Predictor {pred_key} not found in factory', 'warning')
         
         logger.log('Material generation process - python', 'info')
     
@@ -65,5 +83,5 @@ def process(input_data, logger=None):
         'bestCandidate': 'Ti3Al2C (MAX Phase) - python',
         'predictedPerformance': '8.5 GPa (92% of target) - python',
         'synthesisDifficulty': 'Medium - python',
-        'exportData': f'{str(output_files)} (Ready) - python'
+        'exportData': 'Generated materials ready for export - python'
     }
