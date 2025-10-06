@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import importlib.util
 import os
 import sys
 import pathlib
@@ -16,6 +15,13 @@ sys.path.append(str(PROJECT_ROOT))
 from Information_Units.Generators.GeneratorFactory import generator_factory, generator_registry
 from Information_Units.Databases.DatabaseFactory import database_factory, database_registry
 from Information_Units.Predictors.PredictorFactory import predictor_factory, predictor_registry
+
+# New Feature architecture - try to import, fallback if not available
+try:
+    from Features.FeatureFactory import create_feature, get_available_features, get_feature_info
+    NEW_FEATURE_ARCHITECTURE = True
+except ImportError:
+    NEW_FEATURE_ARCHITECTURE = False
 
 
 app = Flask(__name__)
@@ -51,25 +57,47 @@ class SimpleLogger:
 # Create universal logger
 logger = SimpleLogger()
 
-# Feature ID to folder mapping
-FEATURE_PATHS = {
-    1: 'Features/Materials_Exploration/Material_Search',
-    2: 'Features/Materials_Exploration/Material_Generation',
-    3: 'Features/Materials_Exploration/Database_Extractor',
-    4: 'Features/Materials_Exploration/Material_Characterization',
-    5: 'Features/Materials_Exploration/DFT_Calculation',
-    6: 'Features/Materials_Exploration/Crystallographic_Analysis',
-    7: 'Features/Materials_Exploration/Quantum_Mechanics',
-    8: 'Features/Materials_Exploration/Tensor_Analysis',
-    9: 'Features/Electronics_Application/Device_Synthesizability',
-    10: 'Features/Electronics_Application/Interface_Calculation',
-    11: 'Features/Electronics_Application/Property_Prediction',
-    12: 'Features/Electronics_Application/Band_Structure',
-    13: 'Features/Electronics_Application/Thermal_Management',
-    14: 'Features/Electronics_Application/Reliability_Assessment',
-    15: 'Features/Electronics_Application/Process_Integration',
-    16: 'Features/Electronics_Application/Advanced_Characterization'
-}
+
+@app.route('/api/features/info', methods=['GET'])
+def get_features_info():
+    """Get information about available features and their architectures"""
+    try:
+        feature_info = {}
+        
+        if NEW_FEATURE_ARCHITECTURE:
+            available_features = get_available_features()
+            feature_info['new_architecture'] = {
+                'available': True,
+                'feature_count': len(available_features),
+                'feature_ids': available_features,
+                'feature_details': {}
+            }
+            
+            # Get info for each feature
+            for feature_id in available_features:
+                try:
+                    info = get_feature_info(feature_id)
+                    feature_info['new_architecture']['feature_details'][feature_id] = info
+                except Exception as e:
+                    feature_info['new_architecture']['feature_details'][feature_id] = f"Error: {str(e)}"
+        else:
+            feature_info['new_architecture'] = {
+                'available': False,
+                'error': 'Feature factory import failed'
+            }
+        
+        # Legacy processor info
+        feature_info['legacy_processors'] = {}
+        for feature_id, path in FEATURE_PATHS.items():
+            processor_path = PROJECT_ROOT / path / 'processor.py'
+            feature_info['legacy_processors'][feature_id] = {
+                'path': str(path),
+                'processor_exists': processor_path.exists()
+            }
+        
+        return jsonify(feature_info)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
 @app.route('/api/health', methods=['GET', 'OPTIONS'])
@@ -137,42 +165,26 @@ def process_feature(feature_id):
         # Clear previous logs at the start of each request
         logger.clear_logs()
         
-        # Get the feature path
-        if feature_id not in FEATURE_PATHS:
-            return jsonify({'error': f'Feature {feature_id} not found'}), 404
-        
-        # Construct absolute path to processor.py
-        processor_path = PROJECT_ROOT / FEATURE_PATHS[feature_id] / 'processor.py'
-        
-        # Debug info
-        print(f"Project root: {PROJECT_ROOT}")
-        print(f"Looking for processor at: {processor_path}")
-        print(f"File exists: {processor_path.exists()}")
-        
-        if not processor_path.exists():
-            return jsonify({'error': f'Processor file not found: {processor_path}'}), 404
-        
-        # Load the processor module
-        spec = importlib.util.spec_from_file_location("processor", str(processor_path))
-        processor_module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(processor_module)
-        
-        # Get input data and process
+        # Get input data
         input_data = request.json or {}
         
-        # Try to pass logger to processor
-        try:
-            results = processor_module.process(input_data, logger)
-        except TypeError:
-            # Fallback if processor doesn't accept logger
-            results = processor_module.process(input_data)
+        # Use new Feature architecture (processor.py files have been removed)
+        if NEW_FEATURE_ARCHITECTURE:
+            print(f"Using Feature architecture for feature {feature_id}")
+            feature = create_feature(str(feature_id), logger)
+            results = feature.process(input_data)
+            
+            return jsonify({
+                'results': results,
+                'logs': logger.get_logs(),
+                'architecture': 'feature_class'
+            })
+        else:
+            return jsonify({'error': 'Feature architecture not available'}), 500
         
-        # Return results with logs
-        return jsonify({
-            'results': results,
-            'logs': logger.get_logs()
-        })
-        
+    except ValueError as e:
+        print(f"Feature {feature_id} not found: {str(e)}")
+        return jsonify({'error': f'Feature {feature_id} not found'}), 404
     except Exception as e:
         print(f"Error in process_feature: {str(e)}")
         return jsonify({'error': str(e)}), 500
