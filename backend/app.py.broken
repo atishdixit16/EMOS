@@ -11,6 +11,13 @@ PROJECT_ROOT = BACKEND_DIR.parent.resolve()  # /home/soe/EMOS
 # Add the project root to Python path
 sys.path.append(str(PROJECT_ROOT))
 
+# Get absolute paths regardless of where the script is run from
+BACKEND_DIR = pathlib.Path(__file__).parent.resolve()  # /home/soe/EMOS/backend
+PROJECT_ROOT = BACKEND_DIR.parent.resolve()  # /home/soe/EMOS
+
+# Add the project root to Python path
+sys.path.append(str(PROJECT_ROOT))
+
 #information units creators & destroyers
 from Information_Units.Generators.GeneratorFactory import generator_factory, generator_registry
 from Information_Units.Databases.DatabaseFactory import database_factory, database_registry
@@ -30,11 +37,12 @@ CORS(app, resources={r"/api/*": {"origins": "*"}})
 # Ensure CORS headers even on errors
 @app.after_request
 def add_cors_headers(response):
-    response.headers['Access-Control-Allow-Origin'] = '*'
-    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
+    origin = request.headers.get('Origin')
+    response.headers['Access-Control-Allow-Origin'] = origin or '*'
+    response.headers['Vary'] = 'Origin'
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
     return response
-
 
 # Simple logger class
 class SimpleLogger:
@@ -43,8 +51,8 @@ class SimpleLogger:
     
     def log(self, message, level='info'):
         self.logs.append({
-            'level': level,
-            'message': message
+            'message': message,
+            'level': level
         })
     
     def get_logs(self):
@@ -52,7 +60,7 @@ class SimpleLogger:
     
     def clear_logs(self):
         self.logs = []
-
+    
 # Create universal logger
 logger = SimpleLogger()
 
@@ -85,6 +93,15 @@ def get_features_info():
                 'error': 'Feature factory import failed'
             }
         
+        # Legacy processor info
+        feature_info['legacy_processors'] = {}
+        for feature_id, path in FEATURE_PATHS.items():
+            processor_path = PROJECT_ROOT / path / 'processor.py'
+            feature_info['legacy_processors'][feature_id] = {
+                'path': str(path),
+                'processor_exists': processor_path.exists()
+            }
+        
         return jsonify(feature_info)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
@@ -106,11 +123,11 @@ def toggle_IU():
         ui_type = data.get("class_type")
         
         if not class_name:
-            return jsonify({"message": "class_name required"}), 400
+            return jsonify({"message": "Missing class_name"}), 400
         if active is None:
-            return jsonify({"message": "active flag required"}), 400
+            return jsonify({"message": "Missing active"}), 400
         if (class_name not in generator_factory) and (class_name not in database_factory) and (class_name not in predictor_factory):
-            return jsonify({"message": f"Class {class_name} not found in any factory"}), 404
+            return jsonify({"message": "Unknown class"}), 400
 
         if active:
             # Instantiate and store
@@ -138,7 +155,7 @@ def toggle_IU():
             elif ui_type=="predictor":
                 predictor_registry.pop(class_name, None)
             else:
-                return jsonify({"message": "Unknown type"}), 400
+                return  jsonify({"message": "Unknown type"}), 400
             
             return jsonify({"message": f"{class_name} removed"})
     except TypeError as e:
@@ -146,6 +163,7 @@ def toggle_IU():
         return jsonify({"message": f"Instantiation failed for {class_name}: {e}"}), 500
     except Exception as e:
         return jsonify({"message": f"Toggle failed: {e}"}), 500
+
 
 
 @app.route('/api/process/<int:feature_id>', methods=['POST'])
