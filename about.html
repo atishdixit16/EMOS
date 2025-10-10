@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - EMOS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+    <link rel="icon" type="image/svg+xml" href="images/logo_dark.svg" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="navigation.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation Menu -->
+        <nav class="nav-menu" id="navMenu">
+            <div class="nav-header">
+                <img src="images/logo.svg" width="40" height="40" alt="EMOS Logo">
+                <span>EMOS</span>
+                <button class="nav-close" id="navClose">&times;</button>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">EMOS App</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="team.html">Team</a></li>
+            </ul>
+        </nav>
+        
+        <!-- Menu Toggle Button -->
+        <button class="nav-toggle" id="navToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <header>
+            <div class="header-content">
+                <img src="images/logo.svg" width="80" height="80" alt="EMOS Logo" class="logo">
+                <div class="header-text">
+                    <h1>About EMOS</h1>
+                    <p>Electronics Materials Operating System</p>
+                </div>
+            </div>
+        </header>
+        
+        <div class="page-content">
+            <section class="content-section">
+                <h2>What is EMOS?</h2>
+                <p>EMOS (Electronics Materials Operating System) is a comprehensive web-based platform designed to accelerate the discovery and development of electronic materials. Our system integrates cutting-edge computational tools, extensive material databases, and advanced machine learning models to provide researchers with a unified environment for material exploration and characterization.</p>
+            </section>
+            
+            <section class="content-section">
+                <h2>Key Features</h2>
+                <div class="about-feature-grid">
+                    <div class="about-feature-card">
+                        <h3>Materials Exploration</h3>
+                        <ul>
+                            <li>Material Search & Discovery</li>
+                            <li>AI-Powered Material Generation</li>
+                            <li>Database Integration & Extraction</li>
+                            <li>Advanced Material Characterization</li>
+                        </ul>
+                    </div>
+                    <div class="about-feature-card">
+                        <h3>Electronics Applications</h3>
+                        <ul>
+                            <li>Device Synthesizability Analysis</li>
+                            <li>Electronic Property Prediction</li>
+                            <li>Band Structure Calculations</li>
+                            <li>Thermal Management Solutions</li>
+                        </ul>
+                    </div>
+                    <div class="about-feature-card">
+                        <h3>Information Units</h3>
+                        <ul>
+                            <li>Multi-Database Access (ICSD, COD, MP, etc.)</li>
+                            <li>AI Material Generators (MatterGen, GNoME)</li>
+                            <li>ML Property Predictors (M3GNet, DeepMD)</li>
+                            <li>Seamless Integration Workflow</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="content-section">
+                <h2>System Architecture</h2>
+                <p>EMOS employs a modular, object-oriented architecture with clear separation between frontend interface, backend processing, and information units. This design ensures scalability, maintainability, and easy integration of new computational tools and databases.</p>
+                
+                <div class="architecture-diagram">
+                    <div class="arch-layer">
+                        <h4>Frontend Layer</h4>
+                        <p>Interactive web interface for feature selection and result visualization</p>
+                    </div>
+                    <div class="arch-layer">
+                        <h4>Backend Processing</h4>
+                        <p>Flask-based API with feature factories and processing engines</p>
+                    </div>
+                    <div class="arch-layer">
+                        <h4>Information Units</h4>
+                        <p>Modular components for databases, generators, and predictors</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="content-section">
+                <h2>Impact & Applications</h2>
+                <p>EMOS aims to accelerate materials discovery for next-generation electronics, from quantum devices to energy storage solutions. By providing researchers with powerful computational tools in an accessible web interface, we're democratizing advanced materials research and fostering innovation in the electronics industry.</p>
+            </section>
+        </div>
+    </div>
+    
+    <script src="navigation.js"></script>
+</body>
+</html>

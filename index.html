@@ -11,9 +11,31 @@
     <link rel="icon" type="image/svg+xml" href="images/logo_dark.svg" media="(prefers-color-scheme: dark)">
     <link rel="apple-touch-icon" href="images/logo.svg">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="navigation.css">
 </head>
 <body>
     <div class="container">
+        <!-- Navigation Menu -->
+        <nav class="nav-menu" id="navMenu">
+            <div class="nav-header">
+                <img src="images/logo.svg" width="40" height="40" alt="EMOS Logo">
+                <span>EMOS</span>
+                <button class="nav-close" id="navClose">&times;</button>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">EMOS App</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="team.html">Team</a></li>
+            </ul>
+        </nav>
+        
+        <!-- Menu Toggle Button -->
+        <button class="nav-toggle" id="navToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
         <header>
             <div class="header-content">
                 <img src="images/logo.svg" width="80" height="80" alt="EMOS - Electronics Materials Operating System Logo" class="logo">
@@ -158,5 +180,6 @@
         </div>
     </div>
 
+    <script src="navigation.js"></script>
     <script src="script.js"></script>
 </body>
