@@ -137,7 +137,10 @@
                 <!-- LLM Section -->
                 <section class="control-section">
                     <h2>LLM</h2>
-                    <button class="llm-btn" id="llmBtn">LLM for EMOS</button>
+                    <button class="llm-btn" id="llmBtn">
+                        LLM for EMOS
+                        <span class="beta-badge">BETA</span>
+                    </button>
                 </section>
             </div>
 
@@ -159,7 +162,7 @@
                 <!-- LLM Chat View (hidden by default) -->
                 <div id="llmView" class="llm-view hidden">
                     <div class="chat-header">
-                        <h3>EMOS Assistant</h3>
+                        <h3>EMOS Assistant <span class="beta-badge-header">BETA</span></h3>
                         <button class="close-chat" id="closeChat">×</button>
                     </div>
                     <div class="chat-container">
@@ -167,6 +170,11 @@
                             <div class="message bot-message">
                                 <div class="message-content">
                                     Hello! I'm the EMOS Assistant. How can I help you with electronics materials science today?
+                                </div>
+                            </div>
+                            <div class="message system-message">
+                                <div class="message-content">
+                                    <span class="beta-icon">⚠️</span> <strong>Beta Notice:</strong> This LLM feature is currently in development. Responses are simulated and may not reflect actual AI capabilities. Full LLM integration coming soon!
                                 </div>
                             </div>
                         </div>

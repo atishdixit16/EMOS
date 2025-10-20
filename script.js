@@ -282,9 +282,30 @@ function showWelcomeView() {
     // Show operating area
     operatingArea.classList.remove('hidden');
     
+    // Clear chat history when closing LLM view
+    clearChatHistory();
+    
     // Clean up current feature instance
     if (currentFeatureInstance) {
         currentFeatureInstance = null;
+    }
+}
+
+function clearChatHistory() {
+    // Reset chat messages to initial state with welcome and beta notice
+    if (chatMessages) {
+        chatMessages.innerHTML = `
+            <div class="message bot-message">
+                <div class="message-content">
+                    Hello! I'm the EMOS Assistant. How can I help you with electronics materials science today?
+                </div>
+            </div>
+            <div class="message system-message">
+                <div class="message-content">
+                    <span class="beta-icon">⚠️</span> <strong>Beta Notice:</strong> This LLM feature is currently in development. Responses are simulated and may not reflect actual AI capabilities. Full LLM integration coming soon!
+                </div>
+            </div>
+        `;
     }
 }
 

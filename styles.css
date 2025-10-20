@@ -259,11 +259,29 @@ header p {
     font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     transition: all 0.3s ease;
     box-shadow: 0 6px 20px rgba(245, 87, 108, 0.3);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 .llm-btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 25px rgba(245, 87, 108, 0.4);
+}
+
+.beta-badge {
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(5px);
 }
 
 /* Right Panel */
@@ -593,6 +611,21 @@ header p {
 .chat-header h3 {
     margin: 0;
     font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.beta-badge-header {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    font-size: 0.6rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .close-chat {
@@ -650,6 +683,27 @@ header p {
     padding: 12px 16px;
     border-radius: 18px 18px 4px 18px;
     max-width: 80%;
+}
+
+.system-message {
+    justify-content: center;
+    margin: 15px 0;
+}
+
+.system-message .message-content {
+    background: linear-gradient(45deg, #fff3e0, #ffcc80);
+    color: #e65100;
+    padding: 12px 16px;
+    border-radius: 12px;
+    max-width: 90%;
+    text-align: center;
+    font-size: 0.9rem;
+    border: 1px solid #ffb74d;
+    box-shadow: 0 2px 8px rgba(255, 183, 77, 0.2);
+}
+
+.beta-icon {
+    margin-right: 5px;
 }
 
 .chat-input-container {
