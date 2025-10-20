@@ -27,62 +27,21 @@ EMOS implements a three-tier architecture that separates data access, computatio
 ## Information Units Layer
 
 ### Databases
-Provide access to external materials databases with standardized retrieval interfaces:
-
-- **ICSD**: Inorganic Crystal Structure Database
-- **COD**: Crystallography Open Database  
-- **OQMD**: Open Quantum Materials Database
-- **AFLOWLIB**: Automatic-FLOW database
-- **MP**: Materials Project database
-- **Alexandria**: Comprehensive materials database
-- **NOMAD**: Novel Materials Discovery repository
-- **JARVIS**: Joint Automated Repository for Various Integrated Simulations
+Databases serve as the foundational data sources for EMOS, providing access to vast repositories of experimental and computational materials data. These components implement standardized retrieval interfaces that allow features to search, filter, and extract materials information based on various criteria such as composition, crystal structure, properties, and experimental conditions. EMOS integrates with 8 major materials databases, each offering unique strengths: for example, **ICSD** provides high-quality experimentally determined crystal structures with precise atomic positions, while **Materials Project (MP)** offers comprehensive computational data including formation energies, band gaps, and stability predictions. The **JARVIS** database specializes in machine learning-ready datasets with consistent computational parameters, making it ideal for training and validating prediction models.
 
 ### Generators
-AI-powered tools for creating new materials and structures:
-
-- **MatterGen**: Microsoft's generative model for crystal structures
-- **GNoME**: Graph Networks for Materials Exploration
-- **iMatGen**: Inverse Materials Generator
-- **MatGAN**: Materials Generative Adversarial Network
-- **MolGAN**: Molecular Generative Adversarial Network
-- **CondDFCVAE**: Conditional Deep Feature Consistent Variational Autoencoder
+Generators are AI-powered computational engines that create novel materials and structures using advanced machine learning techniques. These components leverage trained models to design new materials with targeted properties, expanding the materials discovery space beyond what exists in current databases. Each generator employs different approaches: **MatterGen** uses diffusion models to generate crystal structures with specific symmetries and compositions, while **GNoME** employs graph neural networks to explore chemical space systematically. The generators can work conditionally (targeting specific properties like a particular band gap) or unconditionally (exploring general chemical space), and they often incorporate physics-based constraints to ensure the generated structures are chemically reasonable and potentially synthesizable.
 
 ### Predictors
-Machine learning models for property prediction and analysis:
-
-- **MatterSim**: Materials simulation predictor
-- **M3GNet**: Materials 3D Graph Network
-- **PFP**: Property Fingerprint Predictor
-- **DeepMD**: Deep Molecular Dynamics
-- **SynthNN**: Synthesis Neural Network
-- **eSEN**: Electronic Structure Estimation Network
+Predictors are sophisticated machine learning models that estimate materials properties from structural and compositional information. These components bridge the gap between materials discovery and property evaluation by providing rapid, accurate property predictions without the need for expensive experimental measurements or time-consuming first-principles calculations. EMOS includes 8 state-of-the-art predictors, each with specialized capabilities: **M3GNet** excels at predicting mechanical, electronic, and thermodynamic properties using graph neural networks that understand 3D crystal structures, while **MatterSim** provides universal property prediction across diverse materials classes. **DeepMD** specializes in molecular dynamics and interfacial properties, making it particularly valuable for studying materials behavior under different conditions and understanding structure-property relationships at the atomic scale.
 
 ## Features Layer
 
 ### Materials Exploration Features
-Focus on discovering, generating, and analyzing materials:
-
-1. **Material Search**: Database querying and filtering
-2. **Material Generation**: AI-powered material creation
-3. **Database Extractor**: Bulk data extraction and analysis
-4. **Material Characterization**: Property analysis and characterization
-5. **DFT Calculation**: Density Functional Theory calculations
-6. **Crystallographic Analysis**: Crystal structure analysis
-7. **Quantum Mechanics**: Quantum mechanical property calculations
-8. **Tensor Analysis**: Tensor property calculations and analysis
+These features focus on the fundamental aspects of materials research, providing comprehensive tools for discovering, generating, and analyzing materials from the atomic level up. They implement sophisticated workflows that combine database searching, AI-powered generation, and advanced computational methods to accelerate materials discovery. For example, the **Material Search** feature enables researchers to query multiple databases simultaneously using complex criteria like crystal structure, composition, and property ranges, while the **Material Generation** feature leverages state-of-the-art AI models to create entirely new materials with targeted properties. The **DFT Calculation** feature provides access to quantum mechanical simulations for accurate property prediction, and **Crystallographic Analysis** offers deep insights into structure-property relationships through advanced structural analysis algorithms.
 
 ### Electronics Application Features
-Specialized tools for electronic device development:
-
-1. **Device Synthesizability**: Assess manufacturing feasibility
-2. **Interface Calculation**: Interface properties and band alignments
-3. **Property Prediction**: Electronic and material property prediction
-4. **Band Structure**: Electronic band structure calculations
-5. **Thermal Management**: Thermal property analysis and optimization
-6. **Reliability Assessment**: Device reliability and lifetime prediction
-7. **Process Integration**: Manufacturing process optimization
-8. **Advanced Characterization**: Advanced electronic characterization
+These features are specifically designed for electronic device development and optimization, addressing the unique challenges of translating materials discoveries into functional electronic components. They provide specialized computational tools that bridge the gap between materials science and electronics engineering. The **Interface Calculation** feature, for instance, analyzes how different materials interact at interfaces, calculating crucial properties like band alignments and interface energies that determine device performance. **Band Structure** calculations reveal the electronic transport properties essential for semiconductor applications, while **Thermal Management** helps optimize heat dissipation in high-power devices. The **Reliability Assessment** feature predicts device lifetime and failure modes, enabling the design of robust electronic systems that can withstand real-world operating conditions.
 
 ## Data Flow
 

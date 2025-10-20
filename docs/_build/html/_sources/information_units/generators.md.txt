@@ -258,46 +258,6 @@ for gen_id in generators:
 # Filter and rank combined results
 ```
 
-## Generation Strategies
-
-### Composition-Based Generation
-Start with target chemical composition and generate possible structures:
-- Useful for exploring polymorphs
-- Good for known element combinations
-- Enables systematic exploration
-
-### Property-Based Generation
-Target specific material properties:
-- Band gap engineering
-- Mechanical property optimization
-- Thermal property targeting
-
-### Hybrid Approaches
-Combine multiple generation strategies:
-- Initial composition filtering
-- Property refinement
-- Stability validation
-
-## Validation and Quality Control
-
-### Structural Validation
-- Crystallographic validity checks
-- Bond length and angle validation
-- Space group consistency
-- Density reasonableness
-
-### Property Validation
-- Physics-based constraints
-- Experimental data comparison
-- Cross-generator consistency
-- Outlier detection
-
-### Synthesizability Assessment
-- Known synthesis routes
-- Precursor availability
-- Thermodynamic stability
-- Kinetic accessibility
-
 ## Best Practices
 
 ### Generator Selection

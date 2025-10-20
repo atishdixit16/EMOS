@@ -130,12 +130,6 @@
 <li class="toctree-l3"><a class="reference internal" href="information_units/index.html#consistent-usage-pattern">Consistent Usage Pattern</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="information_units/index.html#component-categories">Component Categories</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="information_units/index.html#databases-8-available">Databases (8 Available)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="information_units/index.html#generators-8-available">Generators (8 Available)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="information_units/index.html#predictors-8-available">Predictors (8 Available)</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="information_units/index.html#adding-new-information-units">Adding New Information Units</a></li>
 </ul>
 </li>
@@ -397,72 +391,26 @@
 <h2>Information Units Layer<a class="headerlink" href="#information-units-layer" title="Link to this heading"></a></h2>
 <section id="databases">
 <h3>Databases<a class="headerlink" href="#databases" title="Link to this heading"></a></h3>
-<p>Provide access to external materials databases with standardized retrieval interfaces:</p>
-<ul class="simple">
-<li><p><strong>ICSD</strong>: Inorganic Crystal Structure Database</p></li>
-<li><p><strong>COD</strong>: Crystallography Open Database</p></li>
-<li><p><strong>OQMD</strong>: Open Quantum Materials Database</p></li>
-<li><p><strong>AFLOWLIB</strong>: Automatic-FLOW database</p></li>
-<li><p><strong>MP</strong>: Materials Project database</p></li>
-<li><p><strong>Alexandria</strong>: Comprehensive materials database</p></li>
-<li><p><strong>NOMAD</strong>: Novel Materials Discovery repository</p></li>
-<li><p><strong>JARVIS</strong>: Joint Automated Repository for Various Integrated Simulations</p></li>
-</ul>
+<p>Databases serve as the foundational data sources for EMOS, providing access to vast repositories of experimental and computational materials data. These components implement standardized retrieval interfaces that allow features to search, filter, and extract materials information based on various criteria such as composition, crystal structure, properties, and experimental conditions. EMOS integrates with 8 major materials databases, each offering unique strengths: for example, <strong>ICSD</strong> provides high-quality experimentally determined crystal structures with precise atomic positions, while <strong>Materials Project (MP)</strong> offers comprehensive computational data including formation energies, band gaps, and stability predictions. The <strong>JARVIS</strong> database specializes in machine learning-ready datasets with consistent computational parameters, making it ideal for training and validating prediction models.</p>
 </section>
 <section id="generators">
 <h3>Generators<a class="headerlink" href="#generators" title="Link to this heading"></a></h3>
-<p>AI-powered tools for creating new materials and structures:</p>
-<ul class="simple">
-<li><p><strong>MatterGen</strong>: Microsoft’s generative model for crystal structures</p></li>
-<li><p><strong>GNoME</strong>: Graph Networks for Materials Exploration</p></li>
-<li><p><strong>iMatGen</strong>: Inverse Materials Generator</p></li>
-<li><p><strong>MatGAN</strong>: Materials Generative Adversarial Network</p></li>
-<li><p><strong>MolGAN</strong>: Molecular Generative Adversarial Network</p></li>
-<li><p><strong>CondDFCVAE</strong>: Conditional Deep Feature Consistent Variational Autoencoder</p></li>
-</ul>
+<p>Generators are AI-powered computational engines that create novel materials and structures using advanced machine learning techniques. These components leverage trained models to design new materials with targeted properties, expanding the materials discovery space beyond what exists in current databases. Each generator employs different approaches: <strong>MatterGen</strong> uses diffusion models to generate crystal structures with specific symmetries and compositions, while <strong>GNoME</strong> employs graph neural networks to explore chemical space systematically. The generators can work conditionally (targeting specific properties like a particular band gap) or unconditionally (exploring general chemical space), and they often incorporate physics-based constraints to ensure the generated structures are chemically reasonable and potentially synthesizable.</p>
 </section>
 <section id="predictors">
 <h3>Predictors<a class="headerlink" href="#predictors" title="Link to this heading"></a></h3>
-<p>Machine learning models for property prediction and analysis:</p>
-<ul class="simple">
-<li><p><strong>MatterSim</strong>: Materials simulation predictor</p></li>
-<li><p><strong>M3GNet</strong>: Materials 3D Graph Network</p></li>
-<li><p><strong>PFP</strong>: Property Fingerprint Predictor</p></li>
-<li><p><strong>DeepMD</strong>: Deep Molecular Dynamics</p></li>
-<li><p><strong>SynthNN</strong>: Synthesis Neural Network</p></li>
-<li><p><strong>eSEN</strong>: Electronic Structure Estimation Network</p></li>
-</ul>
+<p>Predictors are sophisticated machine learning models that estimate materials properties from structural and compositional information. These components bridge the gap between materials discovery and property evaluation by providing rapid, accurate property predictions without the need for expensive experimental measurements or time-consuming first-principles calculations. EMOS includes 8 state-of-the-art predictors, each with specialized capabilities: <strong>M3GNet</strong> excels at predicting mechanical, electronic, and thermodynamic properties using graph neural networks that understand 3D crystal structures, while <strong>MatterSim</strong> provides universal property prediction across diverse materials classes. <strong>DeepMD</strong> specializes in molecular dynamics and interfacial properties, making it particularly valuable for studying materials behavior under different conditions and understanding structure-property relationships at the atomic scale.</p>
 </section>
 </section>
 <section id="features-layer">
 <h2>Features Layer<a class="headerlink" href="#features-layer" title="Link to this heading"></a></h2>
 <section id="materials-exploration-features">
 <h3>Materials Exploration Features<a class="headerlink" href="#materials-exploration-features" title="Link to this heading"></a></h3>
-<p>Focus on discovering, generating, and analyzing materials:</p>
-<ol class="arabic simple">
-<li><p><strong>Material Search</strong>: Database querying and filtering</p></li>
-<li><p><strong>Material Generation</strong>: AI-powered material creation</p></li>
-<li><p><strong>Database Extractor</strong>: Bulk data extraction and analysis</p></li>
-<li><p><strong>Material Characterization</strong>: Property analysis and characterization</p></li>
-<li><p><strong>DFT Calculation</strong>: Density Functional Theory calculations</p></li>
-<li><p><strong>Crystallographic Analysis</strong>: Crystal structure analysis</p></li>
-<li><p><strong>Quantum Mechanics</strong>: Quantum mechanical property calculations</p></li>
-<li><p><strong>Tensor Analysis</strong>: Tensor property calculations and analysis</p></li>
-</ol>
+<p>These features focus on the fundamental aspects of materials research, providing comprehensive tools for discovering, generating, and analyzing materials from the atomic level up. They implement sophisticated workflows that combine database searching, AI-powered generation, and advanced computational methods to accelerate materials discovery. For example, the <strong>Material Search</strong> feature enables researchers to query multiple databases simultaneously using complex criteria like crystal structure, composition, and property ranges, while the <strong>Material Generation</strong> feature leverages state-of-the-art AI models to create entirely new materials with targeted properties. The <strong>DFT Calculation</strong> feature provides access to quantum mechanical simulations for accurate property prediction, and <strong>Crystallographic Analysis</strong> offers deep insights into structure-property relationships through advanced structural analysis algorithms.</p>
 </section>
 <section id="electronics-application-features">
 <h3>Electronics Application Features<a class="headerlink" href="#electronics-application-features" title="Link to this heading"></a></h3>
-<p>Specialized tools for electronic device development:</p>
-<ol class="arabic simple">
-<li><p><strong>Device Synthesizability</strong>: Assess manufacturing feasibility</p></li>
-<li><p><strong>Interface Calculation</strong>: Interface properties and band alignments</p></li>
-<li><p><strong>Property Prediction</strong>: Electronic and material property prediction</p></li>
-<li><p><strong>Band Structure</strong>: Electronic band structure calculations</p></li>
-<li><p><strong>Thermal Management</strong>: Thermal property analysis and optimization</p></li>
-<li><p><strong>Reliability Assessment</strong>: Device reliability and lifetime prediction</p></li>
-<li><p><strong>Process Integration</strong>: Manufacturing process optimization</p></li>
-<li><p><strong>Advanced Characterization</strong>: Advanced electronic characterization</p></li>
-</ol>
+<p>These features are specifically designed for electronic device development and optimization, addressing the unique challenges of translating materials discoveries into functional electronic components. They provide specialized computational tools that bridge the gap between materials science and electronics engineering. The <strong>Interface Calculation</strong> feature, for instance, analyzes how different materials interact at interfaces, calculating crucial properties like band alignments and interface energies that determine device performance. <strong>Band Structure</strong> calculations reveal the electronic transport properties essential for semiconductor applications, while <strong>Thermal Management</strong> helps optimize heat dissipation in high-power devices. The <strong>Reliability Assessment</strong> feature predicts device lifetime and failure modes, enabling the design of robust electronic systems that can withstand real-world operating conditions.</p>
 </section>
 </section>
 <section id="data-flow">

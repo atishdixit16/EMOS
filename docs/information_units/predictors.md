@@ -292,36 +292,6 @@ for material in materials_list:
         screening_results.append((material, detailed_props))
 ```
 
-## Prediction Strategies
-
-### Hierarchical Screening
-1. **Fast Initial Screening**: Use PFP for rapid elimination
-2. **Detailed Analysis**: Apply M3GNet or MatterSim to promising candidates
-3. **Specialized Validation**: Use domain-specific predictors (eSEN, SynthNN)
-
-### Ensemble Prediction
-- Combine multiple predictors for better accuracy
-- Quantify prediction uncertainty
-- Identify model consensus and disagreement
-
-### Property Validation
-- Cross-reference with experimental data
-- Use multiple prediction methods
-- Assess prediction confidence
-
-## Accuracy and Limitations
-
-### Accuracy Levels
-- **DFT-level**: M3GNet, MatterSim (for trained properties)
-- **Semi-quantitative**: PFP, eSEN (good for screening)
-- **Qualitative**: SynthNN (relative rankings)
-
-### Common Limitations
-- **Training Data Coverage**: Performance degrades for materials far from training data
-- **Property Scope**: Each predictor covers different property sets
-- **Computational Cost**: Accuracy often trades off with speed
-- **Uncertainty Quantification**: Not all models provide uncertainty estimates
-
 ## Best Practices
 
 ### Predictor Selection

@@ -130,12 +130,6 @@
 <li class="toctree-l3"><a class="reference internal" href="index.html#consistent-usage-pattern">Consistent Usage Pattern</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#component-categories">Component Categories</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="index.html#databases-8-available">Databases (8 Available)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#generators-8-available">Generators (8 Available)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#predictors-8-available">Predictors (8 Available)</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#adding-new-information-units">Adding New Information Units</a></li>
 </ul>
 </li>
@@ -183,18 +177,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#multi-generator-workflow">Multi-Generator Workflow</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#generation-strategies">Generation Strategies</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#composition-based-generation">Composition-Based Generation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#property-based-generation">Property-Based Generation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#hybrid-approaches">Hybrid Approaches</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#validation-and-quality-control">Validation and Quality Control</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#structural-validation">Structural Validation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#property-validation">Property Validation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#synthesizability-assessment">Synthesizability Assessment</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#generator-selection">Generator Selection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#input-design">Input Design</a></li>
@@ -220,17 +202,6 @@
 <li class="toctree-l3"><a class="reference internal" href="predictors.html#basic-property-prediction">Basic Property Prediction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="predictors.html#multi-predictor-validation">Multi-Predictor Validation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="predictors.html#property-screening-workflow">Property Screening Workflow</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="predictors.html#prediction-strategies">Prediction Strategies</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="predictors.html#hierarchical-screening">Hierarchical Screening</a></li>
-<li class="toctree-l3"><a class="reference internal" href="predictors.html#ensemble-prediction">Ensemble Prediction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="predictors.html#property-validation">Property Validation</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="predictors.html#accuracy-and-limitations">Accuracy and Limitations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="predictors.html#accuracy-levels">Accuracy Levels</a></li>
-<li class="toctree-l3"><a class="reference internal" href="predictors.html#common-limitations">Common Limitations</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="predictors.html#best-practices">Best Practices</a><ul>
@@ -657,66 +628,6 @@
 <span class="c1"># Filter and rank combined results</span>
 </pre></div>
 </div>
-</section>
-</section>
-<section id="generation-strategies">
-<h2>Generation Strategies<a class="headerlink" href="#generation-strategies" title="Link to this heading"></a></h2>
-<section id="composition-based-generation">
-<h3>Composition-Based Generation<a class="headerlink" href="#composition-based-generation" title="Link to this heading"></a></h3>
-<p>Start with target chemical composition and generate possible structures:</p>
-<ul class="simple">
-<li><p>Useful for exploring polymorphs</p></li>
-<li><p>Good for known element combinations</p></li>
-<li><p>Enables systematic exploration</p></li>
-</ul>
-</section>
-<section id="property-based-generation">
-<h3>Property-Based Generation<a class="headerlink" href="#property-based-generation" title="Link to this heading"></a></h3>
-<p>Target specific material properties:</p>
-<ul class="simple">
-<li><p>Band gap engineering</p></li>
-<li><p>Mechanical property optimization</p></li>
-<li><p>Thermal property targeting</p></li>
-</ul>
-</section>
-<section id="hybrid-approaches">
-<h3>Hybrid Approaches<a class="headerlink" href="#hybrid-approaches" title="Link to this heading"></a></h3>
-<p>Combine multiple generation strategies:</p>
-<ul class="simple">
-<li><p>Initial composition filtering</p></li>
-<li><p>Property refinement</p></li>
-<li><p>Stability validation</p></li>
-</ul>
-</section>
-</section>
-<section id="validation-and-quality-control">
-<h2>Validation and Quality Control<a class="headerlink" href="#validation-and-quality-control" title="Link to this heading"></a></h2>
-<section id="structural-validation">
-<h3>Structural Validation<a class="headerlink" href="#structural-validation" title="Link to this heading"></a></h3>
-<ul class="simple">
-<li><p>Crystallographic validity checks</p></li>
-<li><p>Bond length and angle validation</p></li>
-<li><p>Space group consistency</p></li>
-<li><p>Density reasonableness</p></li>
-</ul>
-</section>
-<section id="property-validation">
-<h3>Property Validation<a class="headerlink" href="#property-validation" title="Link to this heading"></a></h3>
-<ul class="simple">
-<li><p>Physics-based constraints</p></li>
-<li><p>Experimental data comparison</p></li>
-<li><p>Cross-generator consistency</p></li>
-<li><p>Outlier detection</p></li>
-</ul>
-</section>
-<section id="synthesizability-assessment">
-<h3>Synthesizability Assessment<a class="headerlink" href="#synthesizability-assessment" title="Link to this heading"></a></h3>
-<ul class="simple">
-<li><p>Known synthesis routes</p></li>
-<li><p>Precursor availability</p></li>
-<li><p>Thermodynamic stability</p></li>
-<li><p>Kinetic accessibility</p></li>
-</ul>
 </section>
 </section>
 <section id="best-practices">

@@ -79,26 +79,6 @@ for db_config in active_databases:
         result = db_instance.retrieve(retrieve_inputs)
 ```
 
-## Component Categories
-
-### Databases (8 Available)
-Provide access to existing materials data and properties:
-- Research databases (ICSD, COD, NOMAD)
-- Computational databases (OQMD, AFLOWLIB, MP)
-- Specialized databases (Alexandria, JARVIS)
-
-### Generators (8 Available)
-Create new materials using AI and machine learning:
-- Deep learning models (MatterGen, GNoME)
-- Generative networks (MatGAN, MolGAN)
-- Variational autoencoders (CondDFCVAE)
-
-### Predictors (8 Available)
-Predict material properties from structure:
-- Graph neural networks (M3GNet, PFP)
-- Molecular dynamics (DeepMD, MatterSim)
-- Specialized models (SynthNN, eSEN)
-
 ## Adding New Information Units
 
 The modular design makes it easy to add new Information Units:
