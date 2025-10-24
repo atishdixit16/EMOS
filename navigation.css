@@ -253,7 +253,7 @@
 
 .arch-layer p {
     margin: 0;
-    opacity: 0.9;
+    color: #d0d0d0;
 }
 
 /* Team Styles */
@@ -413,6 +413,78 @@
     margin-right: 10px;
 }
 
+/* EMOS Introduction Section Styles */
+.emos-intro-container {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.emos-intro-text {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.emos-intro-text p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+.emos-intro-image {
+    flex: 0 0 auto;
+    max-width: 400px;
+    width: 100%;
+}
+
+.emos-cartoon {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.emos-cartoon:hover {
+    transform: scale(1.02);
+}
+
+.framework-description {
+    margin-top: 30px;
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.framework-description p {
+    flex: 1;
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #555;
+    text-align: justify;
+}
+
+.framework-image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.framework-diagram {
+    width: 100%;
+    height: auto;
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.framework-diagram:hover {
+    transform: scale(1.02);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .page-content {
@@ -426,6 +498,28 @@
     
     .team-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .emos-intro-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .emos-intro-text {
+        padding-right: 0;
+    }
+    
+    .emos-intro-image {
+        max-width: 100%;
+    }
+    
+    .framework-description {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .framework-image-container {
+        max-width: 100%;
     }
     
     .advisor-grid {

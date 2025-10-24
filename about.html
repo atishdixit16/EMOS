@@ -49,7 +49,14 @@
         <div class="page-content">
             <section class="content-section">
                 <h2>What is EMOS?</h2>
-                <p>EMOS (Electronics Materials Operating System) is a comprehensive web-based platform designed to accelerate the discovery and development of electronic materials. Our system integrates cutting-edge computational tools, extensive material databases, and advanced machine learning models to provide researchers with a unified environment for material exploration and characterization.</p>
+                <div class="emos-intro-container">
+                    <div class="emos-intro-text">
+                        <p>The Electronics Materials Operating System (EMOS) is an open, web-based platform that unifies fragmented resources in electronic materials research. It brings together diverse databases, interoperable computational tools, and benchmarkable AI models within a single, extensible ecosystem. By addressing duplication of effort and enabling reproducibility, EMOS empowers the community to collaboratively accelerate the discovery and development of next-generation electronic materials.</p>
+                    </div>
+                    <div class="emos-intro-image">
+                        <img src="images/emos_cartoon.png" alt="EMOS Illustration" class="emos-cartoon">
+                    </div>
+                </div>
             </section>
             
             <section class="content-section">
@@ -96,11 +103,18 @@
                     </div>
                     <div class="arch-layer">
                         <h4>Backend Processing</h4>
-                        <p>Flask-based API with feature factories and processing engines</p>
+                        <p>Flask-based API for python based scripts</p>
                     </div>
                     <div class="arch-layer">
-                        <h4>Information Units</h4>
-                        <p>Modular components for databases, generators, and predictors</p>
+                        <h4>Information Units and Features</h4>
+                        <p>Modular components for databases, generators, predictors and features</p>
+                    </div>
+                </div>
+                
+                <div class="framework-description">
+                    <p>The EMOS framework integrates diverse information sources into a unified, intelligent workflow for electronic materials research. At the top level, Information Units—including databases (like ICSD, MP), material generators (e.g., MatterGen, MatGAN), and predictors (e.g., GNoME, ALIGNN)—serve as the core data and model resources. These feed into feature modules such as material generation, database extraction, and device synthesizability, enabling both materials discovery and electronics applications. The entire system is powered by an LLM and web-based query interface, which connects users to the framework through natural language interaction and streamlined information processing. Together, this architecture ensures interoperability, efficiency, and accessibility across the electronic materials ecosystem.</p>
+                    <div class="framework-image-container">
+                        <img src="images/emos_framework.png" alt="EMOS Framework Architecture" class="framework-diagram">
                     </div>
                 </div>
             </section>
