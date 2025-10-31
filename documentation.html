@@ -200,21 +200,21 @@
                 <a href="#" class="doc-nav-item" onclick="loadDocSection('features/index.html')">⚡ Features</a>
                 <a href="#" class="doc-nav-item" onclick="loadDocSection('user_guide/index.html')">📖 User Guide</a>
                 <a href="#" class="doc-nav-item" onclick="loadDocSection('reference/index.html')">📚 Reference</a>
-                <a href="docs/_build/html/index.html" class="doc-nav-item external" target="_blank">🔗 Full Documentation</a>
+                <a href="docs/index.html" class="doc-nav-item external" target="_blank">🔗 Full Documentation</a>
             </div>
             
-            <iframe id="documentationFrame" class="documentation-frame" src="docs/_build/html/index.html"></iframe>
+            <iframe id="documentationFrame" class="documentation-frame" src="docs/index.html"></iframe>
         </div>
     </div>
 
     <script src="navigation.js"></script>
     <script>
         // Documentation page functionality
-        let currentDocPath = 'docs/_build/html/index.html';
+        let currentDocPath = 'docs/index.html';
         
         function loadDocSection(section) {
             const frame = document.getElementById('documentationFrame');
-            const newPath = `docs/_build/html/${section}`;
+            const newPath = `docs/${section}`;
             
             // Show loading state
             showLoading();
