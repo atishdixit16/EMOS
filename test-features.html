@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EMOS Feature Loading Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-box { border: 1px solid #ccc; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .success { background-color: #d4edda; }
+        .error { background-color: #f8d7da; }
+        .info { background-color: #d1ecf1; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 3px; overflow-x: auto; }
+        .log { max-height: 300px; overflow-y: auto; background: #f8f9fa; padding: 10px; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <h1>EMOS Feature Loading Test</h1>
+    
+    <div class="test-box info">
+        <h3>Test Environment</h3>
+        <p><strong>URL:</strong> <span id="currentUrl"></span></p>
+        <p><strong>Base Path:</strong> <span id="basePath"></span></p>
+    </div>
+
+    <div class="test-box">
+        <h3>Feature File Test</h3>
+        <button onclick="testFeatureFiles()">Test Feature File Loading</button>
+        <div id="featureFileResult"></div>
+    </div>
+
+    <div class="test-box">
+        <h3>BaseFeature Test</h3>
+        <button onclick="testBaseFeature()">Test BaseFeature Loading</button>
+        <div id="baseFeatureResult"></div>
+    </div>
+
+    <div class="test-box">
+        <h3>Feature Class Test</h3>
+        <button onclick="testFeatureClass()">Test Feature 1 (Material Search)</button>
+        <div id="featureClassResult"></div>
+    </div>
+
+    <div class="test-box">
+        <h3>Debug Log</h3>
+        <button onclick="clearLog()">Clear Log</button>
+        <div id="debugLog" class="log"></div>
+    </div>
+
+    <script>
+        // Initialize display
+        document.getElementById('currentUrl').textContent = window.location.href;
+        document.getElementById('basePath').textContent = window.location.origin + window.location.pathname;
+
+        // Debug logging
+        function addLog(message, type = 'info') {
+            const logDiv = document.getElementById('debugLog');
+            const timestamp = new Date().toLocaleTimeString();
+            logDiv.innerHTML += `[${timestamp}] ${type.toUpperCase()}: ${message}\n`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        function clearLog() {
+            document.getElementById('debugLog').innerHTML = '';
+        }
+
+        // Test feature file paths
+        async function testFeatureFiles() {
+            const resultDiv = document.getElementById('featureFileResult');
+            resultDiv.innerHTML = '<p>Testing feature file accessibility...</p>';
+            
+            const testFiles = [
+                './Features/BaseFeature.js',
+                './Features/Materials_Exploration/Material_Search/MaterialSearch.js',
+                './Features/Electronics_Application/Device_Synthesizability/DeviceSynthesizability.js'
+            ];
+            
+            let results = [];
+            for (const file of testFiles) {
+                try {
+                    const response = await fetch(file);
+                    if (response.ok) {
+                        results.push(`✅ ${file} - Found`);
+                        addLog(`Found: ${file}`, 'success');
+                    } else {
+                        results.push(`❌ ${file} - ${response.status}`);
+                        addLog(`Failed: ${file} (${response.status})`, 'error');
+                    }
+                } catch (error) {
+                    results.push(`❌ ${file} - ${error.message}`);
+                    addLog(`Error: ${file} - ${error.message}`, 'error');
+                }
+            }
+            
+            resultDiv.innerHTML = `
+                <div class="${results.every(r => r.includes('✅')) ? 'success' : 'error'}">
+                    <h4>Feature File Test Results:</h4>
+                    <pre>${results.join('\n')}</pre>
+                </div>
+            `;
+        }
+
+        // Test BaseFeature loading
+        async function testBaseFeature() {
+            const resultDiv = document.getElementById('baseFeatureResult');
+            resultDiv.innerHTML = '<p>Testing BaseFeature loading...</p>';
+            
+            try {
+                // Load BaseFeature
+                await loadScript('./Features/BaseFeature.js');
+                
+                if (window.BaseFeature) {
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            <h4>✅ BaseFeature Loaded Successfully!</h4>
+                            <p>BaseFeature class is available in window.BaseFeature</p>
+                        </div>
+                    `;
+                    addLog('BaseFeature loaded successfully', 'success');
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="error">
+                            <h4>❌ BaseFeature Not Found</h4>
+                            <p>Script loaded but window.BaseFeature is undefined</p>
+                        </div>
+                    `;
+                    addLog('BaseFeature script loaded but class not found', 'error');
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <h4>❌ BaseFeature Loading Failed</h4>
+                        <p><strong>Error:</strong> ${error.message}</p>
+                    </div>
+                `;
+                addLog(`BaseFeature loading failed: ${error.message}`, 'error');
+            }
+        }
+
+        // Test specific feature class
+        async function testFeatureClass() {
+            const resultDiv = document.getElementById('featureClassResult');
+            resultDiv.innerHTML = '<p>Testing feature class loading...</p>';
+            
+            try {
+                // Ensure BaseFeature is loaded first
+                if (!window.BaseFeature) {
+                    await loadScript('./Features/BaseFeature.js');
+                }
+                
+                // Load specific feature
+                await loadScript('./Features/Materials_Exploration/Material_Search/MaterialSearch.js');
+                
+                if (window.MaterialSearchFeature) {
+                    const feature = new window.MaterialSearchFeature();
+                    const html = feature.createFeatureHTML();
+                    
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            <h4>✅ MaterialSearchFeature Works!</h4>
+                            <p>Feature instance created and HTML generated successfully</p>
+                            <details>
+                                <summary>Generated HTML Preview (click to expand)</summary>
+                                <pre style="max-height: 200px; overflow-y: auto;">${html.substring(0, 500)}...</pre>
+                            </details>
+                        </div>
+                    `;
+                    addLog('MaterialSearchFeature instantiated successfully', 'success');
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="error">
+                            <h4>❌ MaterialSearchFeature Not Found</h4>
+                            <p>Script loaded but window.MaterialSearchFeature is undefined</p>
+                        </div>
+                    `;
+                    addLog('MaterialSearchFeature class not found after loading', 'error');
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <h4>❌ Feature Class Test Failed</h4>
+                        <p><strong>Error:</strong> ${error.message}</p>
+                    </div>
+                `;
+                addLog(`Feature class test failed: ${error.message}`, 'error');
+            }
+        }
+
+        // Script loading utility (copied from main script.js)
+        function loadScript(src) {
+            return new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = src;
+                script.onload = () => {
+                    addLog(`Script loaded: ${src}`, 'success');
+                    resolve();
+                };
+                script.onerror = () => {
+                    addLog(`Script failed to load: ${src}`, 'error');
+                    reject(new Error(`Failed to load script: ${src}`));
+                };
+                document.head.appendChild(script);
+            });
+        }
+
+        // Auto-run basic test
+        window.onload = () => {
+            addLog('Feature loading test page initialized', 'info');
+            setTimeout(testFeatureFiles, 1000);
+        };
+    </script>
+</body>
+</html>
