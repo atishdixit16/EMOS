@@ -171,6 +171,7 @@ class BaseFeature {
             this.addLog('Python backend processing completed successfully!', 'success');
             this.updateOutputs();
         } catch (error) {
+            this.addLog(`Backend error: ${error.message}`, 'error');
             this.addLog('Backend unavailable, using local processing...', 'warning');
             console.log('Backend failed, using local processing:', error);
             
@@ -204,6 +205,9 @@ class BaseFeature {
 
     // Add log entry to the processing log
     addLog(message, type = 'info') {
+        // Also log to console for debugging
+        console.log(`[Feature ${this.featureId}] ${type.toUpperCase()}: ${message}`);
+        
         const logContent = document.getElementById(`logContent_${this.featureId}`);
         if (!logContent) return;
         
@@ -285,8 +289,11 @@ class BaseFeature {
         // Collect input data for this feature
         const inputs = this.collectInputData();
         
+        // Get the backend URL from the global configuration
+        const backendUrl = window.EMOS_BACKEND_BASE_URL || window.BACKEND_BASE_URL || 'http://localhost:5001';
+        
         // Call Python backend
-        const response = await fetch(`http://localhost:5001/api/process/${this.featureId}`, {
+        const response = await fetch(`${backendUrl}/api/process/${this.featureId}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(inputs)
