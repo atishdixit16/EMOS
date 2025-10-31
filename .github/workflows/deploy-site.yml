@@ -48,12 +48,25 @@ jobs:
           cp styles.css navigation.css navigation.js script.js _site/
           cp -r images/ _site/
           
+          # Copy Features and Information_Units directories (CRITICAL for functionality)
+          cp -r Features/ _site/
+          cp -r Information_Units/ _site/
+          
+          # Copy backend files (for reference, though not used on GitHub Pages)
+          cp -r backend/ _site/
+          
           # Copy built Sphinx documentation
           cp -r docs/_build/html _site/docs
           
+          # Copy additional files that might be needed
+          cp test-backend.html _site/ 2>/dev/null || true
+          cp Procfile requirements.txt _site/ 2>/dev/null || true
+          
           # List contents to verify
           echo "Site contents:"
-          find _site -type f -name "*.html" | head -20
+          find _site -type f -name "*.js" | head -20
+          echo "Feature files:"
+          find _site/Features -name "*.js" 2>/dev/null | head -10 || echo "No Features directory found"
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
