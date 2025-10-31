@@ -1,5 +1,7 @@
 # EMOS - Electronics Materials Operating System
 
+🌐 **Live Site**: https://aprilaihub.github.io/EMOS
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="images/logo_name_dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="images/logo_name.svg">
