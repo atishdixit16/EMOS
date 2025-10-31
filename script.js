@@ -30,24 +30,24 @@ const featureClasses = {
     16: 'AdvancedCharacterizationFeature'
 };
 
-// Feature file paths for dynamic loading
+// Feature file paths for dynamic loading (relative paths for GitHub Pages compatibility)
 const featureFiles = {
-    1: '/Features/Materials_Exploration/Material_Search/MaterialSearch.js',
-    2: '/Features/Materials_Exploration/Material_Generation/MaterialGeneration.js',
-    3: '/Features/Materials_Exploration/Database_Extractor/DatabaseExtractor.js',
-    4: '/Features/Materials_Exploration/Material_Characterization/MaterialCharacterization.js',
-    5: '/Features/Materials_Exploration/DFT_Calculation/DFTCalculation.js',
-    6: '/Features/Materials_Exploration/Crystallographic_Analysis/CrystallographicAnalysis.js',
-    7: '/Features/Materials_Exploration/Quantum_Mechanics/QuantumMechanics.js',
-    8: '/Features/Materials_Exploration/Tensor_Analysis/TensorAnalysis.js',
-    9: '/Features/Electronics_Application/Device_Synthesizability/DeviceSynthesizability.js',
-    10: '/Features/Electronics_Application/Interface_Calculation/InterfaceCalculation.js',
-    11: '/Features/Electronics_Application/Property_Prediction/PropertyPrediction.js',
-    12: '/Features/Electronics_Application/Band_Structure/BandStructure.js',
-    13: '/Features/Electronics_Application/Thermal_Management/ThermalManagement.js',
-    14: '/Features/Electronics_Application/Reliability_Assessment/ReliabilityAssessment.js',
-    15: '/Features/Electronics_Application/Process_Integration/ProcessIntegration.js',
-    16: '/Features/Electronics_Application/Advanced_Characterization/AdvancedCharacterization.js'
+    1: './Features/Materials_Exploration/Material_Search/MaterialSearch.js',
+    2: './Features/Materials_Exploration/Material_Generation/MaterialGeneration.js',
+    3: './Features/Materials_Exploration/Database_Extractor/DatabaseExtractor.js',
+    4: './Features/Materials_Exploration/Material_Characterization/MaterialCharacterization.js',
+    5: './Features/Materials_Exploration/DFT_Calculation/DFTCalculation.js',
+    6: './Features/Materials_Exploration/Crystallographic_Analysis/CrystallographicAnalysis.js',
+    7: './Features/Materials_Exploration/Quantum_Mechanics/QuantumMechanics.js',
+    8: './Features/Materials_Exploration/Tensor_Analysis/TensorAnalysis.js',
+    9: './Features/Electronics_Application/Device_Synthesizability/DeviceSynthesizability.js',
+    10: './Features/Electronics_Application/Interface_Calculation/InterfaceCalculation.js',
+    11: './Features/Electronics_Application/Property_Prediction/PropertyPrediction.js',
+    12: './Features/Electronics_Application/Band_Structure/BandStructure.js',
+    13: './Features/Electronics_Application/Thermal_Management/ThermalManagement.js',
+    14: './Features/Electronics_Application/Reliability_Assessment/ReliabilityAssessment.js',
+    15: './Features/Electronics_Application/Process_Integration/ProcessIntegration.js',
+    16: './Features/Electronics_Application/Advanced_Characterization/AdvancedCharacterization.js'
 };
 
 // Global feature instances storage
@@ -114,7 +114,7 @@ async function loadFeatureModule(featureId, featureName, featureDesc) {
         // Check if we need to load the BaseFeature first
         if (!window.BaseFeature) {
             console.log('Loading BaseFeature...');
-            await loadScript('/Features/BaseFeature.js');
+            await loadScript('./Features/BaseFeature.js');
         }
         
         // Load the specific feature if available
@@ -125,7 +125,13 @@ async function loadFeatureModule(featureId, featureName, featureDesc) {
             // Check if the feature class is already loaded
             if (!window[featureClasses[featureId]]) {
                 console.log(`Loading feature script: ${featureFiles[featureId]}`);
-                await loadScript(featureFiles[featureId]);
+                try {
+                    await loadScript(featureFiles[featureId]);
+                    console.log(`Successfully loaded: ${featureFiles[featureId]}`);
+                } catch (scriptError) {
+                    console.error(`Failed to load script: ${featureFiles[featureId]}`, scriptError);
+                    throw scriptError;
+                }
             }
             
             // Create feature instance and initialize
