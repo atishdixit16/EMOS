@@ -187,10 +187,12 @@ if __name__ == '__main__':
         try:
             available_features = get_available_features()
             for feature_id in available_features:
-                print(f"  ✅ Feature {feature_id}: http://localhost:5001/api/process/{feature_id}")
+                print(f"  ✅ Feature {feature_id}: /api/process/{feature_id}")
         except Exception as e:
             print(f"  ❌ Error loading features: {e}")
     else:
         print("  ❌ Feature architecture not available")
     
-    app.run(debug=True, port=5001)
+    # Get port from environment variable for deployment
+    port = int(os.environ.get('PORT', 5001))
+    app.run(debug=False, host='0.0.0.0', port=port)
