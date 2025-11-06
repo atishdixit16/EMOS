@@ -200,21 +200,42 @@
                 <a href="#" class="doc-nav-item" onclick="loadDocSection('features/index.html')">⚡ Features</a>
                 <a href="#" class="doc-nav-item" onclick="loadDocSection('user_guide/index.html')">📖 User Guide</a>
                 <a href="#" class="doc-nav-item" onclick="loadDocSection('reference/index.html')">📚 Reference</a>
-                <a href="docs/index.html" class="doc-nav-item external" target="_blank">🔗 Full Documentation</a>
+                <a href="#" class="doc-nav-item external" target="_blank" id="fullDocsLink">🔗 Full Documentation</a>
             </div>
             
-            <iframe id="documentationFrame" class="documentation-frame" src="docs/index.html"></iframe>
+            <iframe id="documentationFrame" class="documentation-frame" src=""></iframe>
         </div>
     </div>
 
     <script src="navigation.js"></script>
     <script>
-        // Documentation page functionality
-        let currentDocPath = 'docs/index.html';
+        // Documentation page functionality - Auto-detect environment
+        function getDocumentationBasePath() {
+            const hostname = window.location.hostname;
+            const isGitHubPages = hostname.includes('github.io');
+            const isLocalDev = hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '';
+            
+            if (isGitHubPages) {
+                // GitHub Pages: docs are copied to docs/ during deployment
+                return 'docs';
+            } else {
+                // Local development: docs are in docs/_build/html/
+                return 'docs/_build/html';
+            }
+        }
+        
+        const DOC_BASE_PATH = getDocumentationBasePath();
+        let currentDocPath = `${DOC_BASE_PATH}/index.html`;
+        
+        console.log('Documentation environment detected:', {
+            hostname: window.location.hostname,
+            basePath: DOC_BASE_PATH,
+            initialPath: currentDocPath
+        });
         
         function loadDocSection(section) {
             const frame = document.getElementById('documentationFrame');
-            const newPath = `docs/${section}`;
+            const newPath = `${DOC_BASE_PATH}/${section}`;
             
             // Show loading state
             showLoading();
@@ -265,7 +286,14 @@
         
         // Handle iframe load events
         document.addEventListener('DOMContentLoaded', function() {
+            // Set initial iframe source and external link
             const frame = document.getElementById('documentationFrame');
+            const fullDocsLink = document.getElementById('fullDocsLink');
+            
+            frame.src = currentDocPath;
+            fullDocsLink.href = currentDocPath;
+            
+            console.log('Documentation initialized with path:', currentDocPath);
             
             frame.addEventListener('load', function() {
                 hideLoading();
