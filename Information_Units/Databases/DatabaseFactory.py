@@ -1,22 +1,21 @@
-from Information_Units.Databases.ICSD.ICSD import ICSD
-from Information_Units.Databases.COD.COD import COD
-from Information_Units.Databases.OQMD.OQMD import OQMD
-from Information_Units.Databases.AFLOWLIB.AFLOWLIB import AFLOWLIB
-from Information_Units.Databases.MP.MP import MP
-from Information_Units.Databases.Alexandria.Alexandria import Alexandria
-from Information_Units.Databases.NOMAD.NOMAD import NOMAD
-from Information_Units.Databases.JARVIS.JARVIS import JARVIS
+from Information_Units.Databases.ICSD.ICSDDatabase import ICSDDatabase
+from Information_Units.Databases.COD.CODDatabase import CODDatabase
+from Information_Units.Databases.OQMD.OQMDDatabase import OQMDDatabase
+from Information_Units.Databases.AFLOWLIB.AFLOWLIBDatabase import AFLOWLIBDatabase
+from Information_Units.Databases.MaterialsProject.MaterialsProjectDatabase import MaterialsProjectDatabase
+from Information_Units.Databases.Alexandria.AlexandriaDatabase import AlexandriaDatabase
+from Information_Units.Databases.NOMAD.NOMADDatabase import NOMADDatabase
+from Information_Units.Databases.JARVIS.JARVISDatabase import JARVISDatabase
 
 database_factory = {
-    "icsd": ICSD,
-    "cod": COD,
-    "oqmd": OQMD,
-    "aflowlib": AFLOWLIB,
-    "mp": MP,
-    "alexandria": Alexandria,
-    "nomad": NOMAD,
-    "jarvis": JARVIS
-    # Add more when implemented:
+    "icsd": ICSDDatabase,
+    "cod": CODDatabase,
+    "oqmd": OQMDDatabase,
+    "aflowlib": AFLOWLIBDatabase,
+    "materials_project": MaterialsProjectDatabase,
+    "alexandria": AlexandriaDatabase,
+    "nomad": NOMADDatabase,
+    "jarvis": JARVISDatabase
 }
 
 database_registry = {}

@@ -1,21 +1,21 @@
-from Information_Units.Generators.MatterGen.MatterGen import MatterGen
-from Information_Units.Generators.GNoME.GNoME import GNoME
-from Information_Units.Generators.iMatGen.iMatGen import iMatGen
-from Information_Units.Generators.MatGAN.MatGAN import MatGAN
-from Information_Units.Generators.MolGAN.MolGAN import MolGAN
-from Information_Units.Generators.CondDFCVAE.CondDFCVAE import CondDFCVAE
-from Information_Units.Generators.MyGen1.MyGen1 import MyGen1
-from Information_Units.Generators.MyGen2.MyGen2 import MyGen2
+from Information_Units.Generators.MatterGen.MatterGenGenerator import MatterGenGenerator
+from Information_Units.Generators.GNoME.GNoMEGenerator import GNoMEGenerator
+from Information_Units.Generators.Imatgen.ImatgenGenerator import ImatgenGenerator
+from Information_Units.Generators.MatGAN.MatGANGenerator import MatGANGenerator
+from Information_Units.Generators.MolGAN.MolGANGenerator import MolGANGenerator
+from Information_Units.Generators.Conddfcvae.ConddfcvaeGenerator import ConddfcvaeGenerator
+from Information_Units.Generators.MyGen1.MyGen1Generator import MyGen1Generator
+from Information_Units.Generators.MyGen2.MyGen2Generator import MyGen2Generator
 
 generator_factory = {
-    "mattergen": MatterGen,
-    "gnome": GNoME,
-    "imatgen": iMatGen,
-    "matgan": MatGAN,
-    "molgan": MolGAN,
-    "dfc-vae": CondDFCVAE,
-    "mygen1": MyGen1,
-    "mygen2": MyGen2
+    "mattergen": MatterGenGenerator,
+    "gnome": GNoMEGenerator,
+    "imatgen": ImatgenGenerator,
+    "matgan": MatGANGenerator,
+    "molgan": MolGANGenerator,
+    "cond_dfc_vae": ConddfcvaeGenerator,
+    "mygen1": MyGen1Generator,
+    "mygen2": MyGen2Generator
 }
 
 generator_registry = {}
