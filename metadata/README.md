@@ -24,36 +24,31 @@ Display Name → Folder Name → Class Name → File Name → ID
 
 | Display Name | Folder | ID | Class | File |
 |--------------|--------|----|----|------|
-| `eSEN` | `ESEN` | `esen` | `ESENPredictor` | `ESENPredictor.py` |
-| `Cond-DFC-VAE` | `CondDFCVAE` | `conddfc_vae` | `CondDFCVAEGenerator` | `CondDFCVAEGenerator.py` |
+| `Esen` | `Esen` | `esen` | `EsenPredictor` | `EsenPredictor.py` |
+| `Conddfcvae` | `Conddfcvae` | `conddfcvae` | `ConddfcvaeGenerator` | `ConddfcvaeGenerator.py` |
 | `Material Search` | `MaterialSearch` | `material_search` | `MaterialSearchFeature` | `MaterialSearchFeature.py` |
-| `Materials Project` | `MP` | `mp` | `MPDatabase` | `MPDatabase.py` |
+| `MaterialsProject` | `Materialsproject` | `materialsproject` | `MaterialsprojectDatabase` | `MaterialsprojectDatabase.py` |
 
 ### **Derivation Rules**
 
 #### 1. **Display Name → Folder Name (PascalCase)**
 ```python
-# Default rule: Remove special chars, capitalize words
+# Automatic rule: Remove special chars, capitalize words
 "Material Search" → "MaterialSearch"
-"DFT Calculation" → "DFTCalculation"
-
-# Special cases (handled explicitly):
-"eSEN" → "ESEN"
-"Cond-DFC-VAE" → "CondDFCVAE" 
-"iMatGen" → "IMatGen"
-"Materials Project" → "MP"
+"Dft Calculation" → "DftCalculation"
+"Esen" → "Esen"
+"Conddfcvae" → "Conddfcvae"
+"MaterialsProject" → "Materialsproject"
 ```
 
 #### 2. **Display Name → ID (snake_case)**
 ```python
-# Default rule: Lowercase, spaces/special chars → underscores
+# Automatic rule: Lowercase, spaces/special chars → underscores
 "Material Search" → "material_search"
 "Advanced Characterization" → "advanced_characterization"
-
-# Special cases:
-"eSEN" → "esen"
-"Cond-DFC-VAE" → "conddfc_vae"
-"iMatGen" → "imatgen"
+"Esen" → "esen"
+"Conddfcvae" → "conddfcvae"
+"MaterialsProject" → "materialsproject"
 ```
 
 #### 3. **Display Name → Class Name**
@@ -76,19 +71,19 @@ Display Name → Folder Name → Class Name → File Name → ID
 ### **Information Units (24 total)**
 
 #### **Databases (8)**
-- ICSD, COD, OQMD, AFLOWLIB, Materials Project, Alexandria, NOMAD, JARVIS
+- ICSD, COD, OQMD, AFLOWLIB, MaterialsProject, Alexandria, NOMAD, JARVIS
 
 #### **Generators (8)**  
-- MatterGen, GNoME, iMatGen, MatGAN, MolGAN, Cond-DFC-VAE, MyGen1, MyGen2
+- MatterGen, GNoME, Imatgen, MatGAN, MolGAN, Conddfcvae, MyGen1, MyGen2
 
 #### **Predictors (8)**
-- MatterSim, M3GNet, PFP, DeepMD, SynthNN, eSEN, MyPred1, MyPred2
+- MatterSim, M3GNet, PFP, DeepMD, SynthNN, Esen, MyPred1, MyPred2
 
 ### **Features (16 total)**
 
 #### **Materials Exploration (8)**
 - Material Search, Material Generation, Database Extractor, Material Characterization
-- DFT Calculation, Crystallographic Analysis, Quantum Mechanics, Tensor Analysis
+- Dft Calculation, Crystallographic Analysis, Quantum Mechanics, Tensor Analysis
 
 #### **Electronics Application (8)** 
 - Device Synthesizability, Interface Calculation, Property Prediction, Band Structure
@@ -108,14 +103,11 @@ This reads `core_metadata.json` and generates `metadata.json`.
 2. **Regenerate**: Run `python3 core_utilities.py` 
 3. **Everything auto-derives**: Folder names, IDs, class names, files
 
-### **3. Modify Special Cases**
-Edit the `special_cases` dictionaries in `core_utilities.py`:
-```python
-special_cases = {
-    "Your Display Name": "YourFolderName",  # folder mapping
-    "Another Name": "another_id"             # ID mapping
-}
-```
+### **3. Pure Automatic Conversion**
+No special cases needed! All names are derived automatically using consistent rules:
+- Display names are converted directly using algorithmic rules
+- No exceptions or manual mappings required
+- Predictable and maintainable naming system
 
 ## 📊 Metadata Structure
 
