@@ -4,7 +4,7 @@ Generators are AI-powered tools that create new materials and structures using m
 
 ## Available Generators
 
-### MatterGen - Microsoft's Crystal Structure Generator
+### Mattergen - Microsoft's Crystal Structure Generator
 **ID**: `mattergen`
 
 Generative model for crystal structures developed by Microsoft Research.
@@ -31,7 +31,7 @@ Generative model for crystal structures developed by Microsoft Research.
 - Structure prediction for given compositions
 - Crystal polymorph exploration
 
-### GNoME - Graph Networks for Materials Exploration
+### Gnome - Graph Networks for Materials Exploration
 **ID**: `gnome`
 
 Deep learning framework for materials discovery using graph neural networks.

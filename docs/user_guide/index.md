@@ -80,7 +80,7 @@ Input Configuration → Processing → Results Analysis
     'generation_method': 'conditional',
     'num_candidates': 100,
     'active_generators': [
-        {'value': 'mattergen', 'name': 'MatterGen'},
+        {'value': 'mattergen', 'name': 'Mattergen'},
         {'value': 'imatgen', 'name': 'iMatGen'}
     ]
 }

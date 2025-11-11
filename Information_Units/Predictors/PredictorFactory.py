@@ -1,21 +1,21 @@
-from Information_Units.Predictors.MatterSim.MatterSimPredictor import MatterSimPredictor
-from Information_Units.Predictors.M3GNet.M3GNetPredictor import M3GNetPredictor
-from Information_Units.Predictors.PFP.PFPPredictor import PFPPredictor
-from Information_Units.Predictors.DeepMD.DeepMDPredictor import DeepMDPredictor
-from Information_Units.Predictors.SynthNN.SynthNNPredictor import SynthNNPredictor
+from Information_Units.Predictors.Mattersim.MattersimPredictor import MattersimPredictor
+from Information_Units.Predictors.M3gnet.M3gnetPredictor import M3gnetPredictor
+from Information_Units.Predictors.Pfp.PfpPredictor import PfpPredictor
+from Information_Units.Predictors.Deepmd.DeepmdPredictor import DeepmdPredictor
+from Information_Units.Predictors.Synthnn.SynthnnPredictor import SynthnnPredictor
 from Information_Units.Predictors.Esen.EsenPredictor import EsenPredictor
-from Information_Units.Predictors.MyPred1.MyPred1Predictor import MyPred1Predictor
-from Information_Units.Predictors.MyPred2.MyPred2Predictor import MyPred2Predictor
+from Information_Units.Predictors.Mypred1.Mypred1Predictor import Mypred1Predictor
+from Information_Units.Predictors.Mypred2.Mypred2Predictor import Mypred2Predictor
 
 predictor_factory = {
-    "mattersim": MatterSimPredictor,
-    "m3gnet": M3GNetPredictor,
-    "pfp": PFPPredictor,
-    "deepmd": DeepMDPredictor,
-    "synthnn": SynthNNPredictor,
+    "mattersim": MattersimPredictor,
+    "m3gnet": M3gnetPredictor,
+    "pfp": PfpPredictor,
+    "deepmd": DeepmdPredictor,
+    "synthnn": SynthnnPredictor,
     "esen": EsenPredictor,
-    "mypred1": MyPred1Predictor,
-    "mypred2": MyPred2Predictor
+    "mypred1": Mypred1Predictor,
+    "mypred2": Mypred2Predictor
 }
 
 predictor_registry = {}

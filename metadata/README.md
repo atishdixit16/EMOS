@@ -56,7 +56,7 @@ Display Name → Folder Name → Class Name → File Name → ID
 # Rule: FolderName + ComponentType
 "Material Search" + "Feature" → "MaterialSearchFeature"
 "eSEN" + "Predictor" → "ESENPredictor"
-"ICSD" + "Database" → "ICSDDatabase"
+"ICSD" + "Database" → "IcsdDatabase"
 ```
 
 #### 4. **Display Name → File Name**

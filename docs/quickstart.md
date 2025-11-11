@@ -32,8 +32,8 @@ Select which databases, generators, and predictors to use:
 
 **Common Configurations:**
 - **Database-heavy**: ICSD + Materials Project + JARVIS
-- **Generation-focused**: MatterGen + iMatGen + M3GNet predictor
-- **Prediction-intensive**: M3GNet + MatterSim + DeepMD
+- **Generation-focused**: Mattergen + Imatgen + M3gnet predictor
+- **Prediction-intensive**: M3gnet + Mattersim + Deepmd
 
 ### Step 4: Provide Inputs
 
@@ -49,7 +49,7 @@ Enter the required parameters. Each feature has specific input requirements.
 1. Select "Material Search" feature (ID: 1)
 2. Configure Information Units:
    - Databases: Materials Project, JARVIS
-   - Predictors: M3GNet, MatterSim
+   - Predictors: M3gnet, Mattersim
 3. Input Parameters:
    - Search criteria: "high conductivity"
    - Property range: conductivity > 10^6 S/m
@@ -70,7 +70,7 @@ Enter the required parameters. Each feature has specific input requirements.
 1. Select "Interface Calculation" feature (ID: 10)
 2. Configure Information Units:
    - Databases: ICSD (for structure data)
-   - Predictors: M3GNet, DeepMD
+   - Predictors: M3gnet, Deepmd
 3. Input Parameters:
    - Interface Type: metal-semiconductor
    - Material A: Al (Aluminum)
@@ -93,8 +93,8 @@ Enter the required parameters. Each feature has specific input requirements.
 1. Select "Material Generation" feature (ID: 2)
 2. Configure Information Units:
    - Databases: Materials Project (for training data)
-   - Generators: MatterGen, GNoME
-   - Predictors: M3GNet (for property validation)
+   - Generators: Mattergen, Gnome
+   - Predictors: M3gnet (for property validation)
 3. Input Parameters:
    - Target properties: semiconductor, band gap 1-3 eV
    - Elements: Si, Ge, C, N

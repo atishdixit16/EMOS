@@ -1,17 +1,17 @@
 from Information_Units.Databases.BaseDatabase import BaseDatabase
 
-# Alexandria Database implementation
-class AlexandriaDatabase(BaseDatabase):
+# AFLOWLIB Database implementation
+class AflowlibDatabase(BaseDatabase):
     def __init__(self, database_name, logger=None):
         super().__init__(database_name, logger)
     
     def info(self):
-        msg="Alexandria: A comprehensive database for materials discovery and design"
+        msg="AFLOWLIB: Automatic-FLOW database for high-throughput materials discovery"
         return msg
 
     def retrieve(self, inputs: dict) -> str:
         # Implement retrieval logic here
         # For now, just simulate a path
         if self.logger:
-            self.logger.log("Retrieved from Alexandria")
+            self.logger.log("Retrieved from AFLOWLIB")
         return None

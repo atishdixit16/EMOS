@@ -10,7 +10,7 @@ class DatabaseExtractorFeature extends BaseFeature {
             <div class="input-controls">
                 ${this.createSelectInput(`databaseSource_${this.featureId}`, 'Database Source', [
                     { value: 'all', text: 'All Databases' },
-                    { value: 'materials_project', text: 'Materials Project' },
+                    { value: 'materialsproject', text: 'Materials Project' },
                     { value: 'oqmd', text: 'OQMD' },
                     { value: 'aflow', text: 'AFLOW' },
                     { value: 'crystallography', text: 'Crystallography DB' }

@@ -11,8 +11,8 @@ EMOS (Electronic Materials Optimization System) is a comprehensive web-based pla
 EMOS is built around three core types of **Information Units**:
 
 1. **Databases**: Access to multiple materials databases including ICSD, COD, OQMD, AFLOWLIB, Materials Project, Alexandria, NOMAD, and JARVIS
-2. **Generators**: AI-powered materials generation tools including MatterGen, GNoME, iMatGen, MatGAN, MolGAN, and others
-3. **Predictors**: Property prediction models such as MatterSim, M3GNet, PFP, DeepMD, SynthNN, and eSEN
+2. **Generators**: AI-powered materials generation tools including Mattergen, Gnome, Imatgen, Matgan, Molgan, and others
+3. **Predictors**: Property prediction models such as Mattersim, M3gnet, Pfp, Deepmd, Synthnn, and Esen
 
 ### Features
 

@@ -2,7 +2,7 @@ from pathlib import Path
 from Information_Units.Generators.BaseGenerator import BaseGenerator
 
 # Conditional Deep Feature Consistent VAE Generator implementation
-class CondDFCVAE(BaseGenerator):
+class ConddfcvaeGenerator(BaseGenerator):
     def __init__(self, generator_name, logger=None):
         super().__init__(generator_name, logger)
     

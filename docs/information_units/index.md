@@ -53,14 +53,14 @@ database_factory = {
 }
 
 generator_factory = {
-    "mattergen": MatterGen,
-    "gnome": GNoME,
+    "mattergen": MattergenGenerator,
+    "gnome": GnomeGenerator,
     # Easy to add new generators
 }
 
 predictor_factory = {
-    "m3gnet": M3GNet,
-    "mattersim": MatterSim,
+    "m3gnet": M3gnetPredictor,
+    "mattersim": MattersimPredictor,
     # Easy to add new predictors
 }
 ```
