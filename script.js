@@ -16,7 +16,7 @@ const featureClasses = {
     2: 'MaterialGenerationFeature', 
     3: 'DatabaseExtractorFeature',
     4: 'MaterialCharacterizationFeature',
-    5: 'DFTCalculationFeature',
+    5: 'DftcalculationFeature',
     6: 'CrystallographicAnalysisFeature',
     7: 'QuantumMechanicsFeature',
     8: 'TensorAnalysisFeature',
@@ -32,22 +32,22 @@ const featureClasses = {
 
 // Feature file paths for dynamic loading (relative paths for GitHub Pages compatibility)
 const featureFiles = {
-    1: './Features/Materials_Exploration/Material_Search/MaterialSearch.js',
-    2: './Features/Materials_Exploration/Material_Generation/MaterialGeneration.js',
-    3: './Features/Materials_Exploration/Database_Extractor/DatabaseExtractor.js',
-    4: './Features/Materials_Exploration/Material_Characterization/MaterialCharacterization.js',
-    5: './Features/Materials_Exploration/DFT_Calculation/DFTCalculation.js',
-    6: './Features/Materials_Exploration/Crystallographic_Analysis/CrystallographicAnalysis.js',
-    7: './Features/Materials_Exploration/Quantum_Mechanics/QuantumMechanics.js',
-    8: './Features/Materials_Exploration/Tensor_Analysis/TensorAnalysis.js',
-    9: './Features/Electronics_Application/Device_Synthesizability/DeviceSynthesizability.js',
-    10: './Features/Electronics_Application/Interface_Calculation/InterfaceCalculation.js',
-    11: './Features/Electronics_Application/Property_Prediction/PropertyPrediction.js',
-    12: './Features/Electronics_Application/Band_Structure/BandStructure.js',
-    13: './Features/Electronics_Application/Thermal_Management/ThermalManagement.js',
-    14: './Features/Electronics_Application/Reliability_Assessment/ReliabilityAssessment.js',
-    15: './Features/Electronics_Application/Process_Integration/ProcessIntegration.js',
-    16: './Features/Electronics_Application/Advanced_Characterization/AdvancedCharacterization.js'
+    1: './Features/Materials_Exploration/MaterialSearch/MaterialSearch.js',
+    2: './Features/Materials_Exploration/MaterialGeneration/MaterialGeneration.js',
+    3: './Features/Materials_Exploration/DatabaseExtractor/DatabaseExtractor.js',
+    4: './Features/Materials_Exploration/MaterialCharacterization/MaterialCharacterization.js',
+    5: './Features/Materials_Exploration/Dftcalculation/Dftcalculation.js',
+    6: './Features/Materials_Exploration/CrystallographicAnalysis/CrystallographicAnalysis.js',
+    7: './Features/Materials_Exploration/QuantumMechanics/QuantumMechanics.js',
+    8: './Features/Materials_Exploration/TensorAnalysis/TensorAnalysis.js',
+    9: './Features/Electronics_Application/DeviceSynthesizability/DeviceSynthesizability.js',
+    10: './Features/Electronics_Application/InterfaceCalculation/InterfaceCalculation.js',
+    11: './Features/Electronics_Application/PropertyPrediction/PropertyPrediction.js',
+    12: './Features/Electronics_Application/BandStructure/BandStructure.js',
+    13: './Features/Electronics_Application/ThermalManagement/ThermalManagement.js',
+    14: './Features/Electronics_Application/ReliabilityAssessment/ReliabilityAssessment.js',
+    15: './Features/Electronics_Application/ProcessIntegration/ProcessIntegration.js',
+    16: './Features/Electronics_Application/AdvancedCharacterization/AdvancedCharacterization.js'
 };
 
 // Global feature instances storage
