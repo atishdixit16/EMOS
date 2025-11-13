@@ -5,11 +5,11 @@ from Information_Units.Predictors.PredictorFactory import predictor_factory
 
 
 class CrystallographicAnalysisFeature(BaseFeature):
-    def __init__(self, feature_id, logger=None):
-        super().__init__(feature_id, 'Crystallographic Analysis', logger)
+    def __init__(self, logger=None):
+        super().__init__('Crystallographic Analysis', logger)
     
     def info(self):
-        return f"Feature {self.feature_id}: {self.feature_name} - Crystal structure analysis and symmetry determination"
+        return f"Feature: {self.feature_name} - Crystal structure analysis and symmetry determination"
     
     def extract_inputs(self, input_data):
         """Extract and validate input parameters"""

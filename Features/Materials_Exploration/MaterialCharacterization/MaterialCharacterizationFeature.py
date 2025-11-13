@@ -5,11 +5,11 @@ from Information_Units.Predictors.PredictorFactory import predictor_factory
 
 
 class MaterialCharacterizationFeature(BaseFeature):
-    def __init__(self, feature_id, logger=None):
-        super().__init__(feature_id, 'Material Characterization', logger)
+    def __init__(self, logger=None):
+        super().__init__('Material Characterization', logger)
     
     def info(self):
-        return f"Feature {self.feature_id}: {self.feature_name} - Advanced material property characterization and analysis"
+        return f"Feature: {self.feature_name} - Advanced material property characterization and analysis"
     
     def extract_inputs(self, input_data):
         """Extract and validate input parameters"""
