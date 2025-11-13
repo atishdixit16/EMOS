@@ -13,7 +13,110 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="navigation.css">
     <script>
-    window.EMOS_BACKEND_BASE_URL = 'https://emos-backend.onrender.com';
+    // EMOS Intelligent Backend Detection System
+    (async function() {
+        const BACKENDS = {
+            local: 'http://localhost:5001',
+            render: 'https://emos-backend.onrender.com'
+        };
+        
+        let selectedBackend = 'render'; // Default
+        let detectionMethod = 'default';
+        
+        // Step 1: Check URL parameters (highest priority)
+        const urlParams = new URLSearchParams(window.location.search);
+        const backendParam = urlParams.get('backend');
+        
+        if (backendParam && BACKENDS[backendParam]) {
+            selectedBackend = backendParam;
+            detectionMethod = 'url_parameter';
+            // Save preference for future visits
+            localStorage.setItem('emos_backend_preference', backendParam);
+        } 
+        // Step 2: Check saved preference in localStorage
+        else {
+            const savedPreference = localStorage.getItem('emos_backend_preference');
+            if (savedPreference && BACKENDS[savedPreference]) {
+                selectedBackend = savedPreference;
+                detectionMethod = 'saved_preference';
+            }
+        }
+        
+        // Step 3: Auto-detect local backend if no explicit choice
+        if (detectionMethod === 'default' || detectionMethod === 'saved_preference') {
+            try {
+                const response = await fetch(BACKENDS.local + '/api/health', { 
+                    method: 'GET',
+                    mode: 'cors',
+                    signal: AbortSignal.timeout(2000) // 2 second timeout
+                });
+                if (response.ok) {
+                    selectedBackend = 'local';
+                    detectionMethod = detectionMethod === 'default' ? 'auto_detected' : 'saved_preference_verified';
+                }
+            } catch (error) {
+                // Local backend not available, stick with current choice
+                if (detectionMethod === 'saved_preference' && selectedBackend === 'local') {
+                    // Saved preference was local but it's not available, fallback to render
+                    selectedBackend = 'render';
+                    detectionMethod = 'auto_fallback';
+                }
+            }
+        }
+        
+        // Set the backend URL
+        window.EMOS_BACKEND_BASE_URL = BACKENDS[selectedBackend];
+        
+        // Developer Console Helpers
+        window.switchBackend = function(backend) {
+            if (!BACKENDS[backend]) {
+                console.error('❌ Invalid backend. Available:', Object.keys(BACKENDS).join(', '));
+                return false;
+            }
+            localStorage.setItem('emos_backend_preference', backend);
+            window.EMOS_BACKEND_BASE_URL = BACKENDS[backend];
+            console.log(`🔄 Backend switched to: ${backend} (${BACKENDS[backend]})`);
+            console.log('🔄 Reload page to apply changes');
+            return true;
+        };
+        
+        window.getBackendInfo = function() {
+            return {
+                current: selectedBackend,
+                url: window.EMOS_BACKEND_BASE_URL,
+                method: detectionMethod,
+                available: Object.keys(BACKENDS)
+            };
+        };
+        
+        window.showBackendInfo = function() {
+            const info = window.getBackendInfo();
+            console.log(`🌐 Current Backend: ${info.current}`);
+            console.log(`🔗 URL: ${info.url}`);
+            console.log(`🔍 Detection: ${info.method}`);
+            console.log('💡 Commands:');
+            console.log('   switchBackend("local")  - Use local development');
+            console.log('   switchBackend("render") - Use production');
+            console.log('   getBackendInfo()        - Get backend details');
+            console.log('💡 URL params: ?backend=local or ?backend=render');
+        };
+        
+        // Show detection results
+        const statusEmoji = selectedBackend === 'local' ? '🔧' : '🌐';
+        const methodDesc = {
+            'url_parameter': 'URL parameter override',
+            'saved_preference': 'saved preference', 
+            'saved_preference_verified': 'saved preference (verified active)',
+            'auto_detected': 'auto-detected local backend',
+            'auto_fallback': 'fallback (local unavailable)',
+            'default': 'default configuration'
+        };
+        
+        console.log(`${statusEmoji} EMOS Backend: ${selectedBackend} (${methodDesc[detectionMethod]})`);
+        console.log(`🔗 ${window.EMOS_BACKEND_BASE_URL}`);
+        console.log('💡 Type showBackendInfo() for options');
+        
+    })().catch(console.error);
     </script> 
 </head>
 <body>
