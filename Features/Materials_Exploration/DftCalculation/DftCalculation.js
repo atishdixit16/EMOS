@@ -1,5 +1,5 @@
 // DFT Calculation Feature
-class DFTCalculationFeature extends BaseFeature {
+class DftCalculationFeature extends BaseFeature {
     constructor() {
         super(5, 'DFT Calculation', 'Materials optimization workflows for enhanced performance characteristics');
     }
@@ -55,4 +55,4 @@ class DFTCalculationFeature extends BaseFeature {
     }
 }
 
-window.DFTCalculationFeature = DFTCalculationFeature;
+window.DftCalculationFeature = DftCalculationFeature;

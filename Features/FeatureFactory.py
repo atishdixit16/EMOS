@@ -3,7 +3,7 @@ from Features.Materials_Exploration.MaterialSearch.MaterialSearchFeature import 
 from Features.Materials_Exploration.MaterialGeneration.MaterialGenerationFeature import MaterialGenerationFeature
 from Features.Materials_Exploration.DatabaseExtractor.DatabaseExtractorFeature import DatabaseExtractorFeature
 from Features.Materials_Exploration.MaterialCharacterization.MaterialCharacterizationFeature import MaterialCharacterizationFeature
-from Features.Materials_Exploration.Dftcalculation.DftcalculationFeature import DftcalculationFeature
+from Features.Materials_Exploration.DftCalculation.DftCalculationFeature import DftCalculationFeature
 from Features.Materials_Exploration.CrystallographicAnalysis.CrystallographicAnalysisFeature import CrystallographicAnalysisFeature
 from Features.Materials_Exploration.QuantumMechanics.QuantumMechanicsFeature import QuantumMechanicsFeature
 from Features.Materials_Exploration.TensorAnalysis.TensorAnalysisFeature import TensorAnalysisFeature
@@ -24,7 +24,7 @@ feature_factory = {
     "2": MaterialGenerationFeature,
     "3": DatabaseExtractorFeature,
     "4": MaterialCharacterizationFeature,
-    "5": DftcalculationFeature,
+    "5": DftCalculationFeature,
     "6": CrystallographicAnalysisFeature,
     "7": QuantumMechanicsFeature,
     "8": TensorAnalysisFeature,

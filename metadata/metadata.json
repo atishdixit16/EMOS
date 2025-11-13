@@ -99,7 +99,7 @@
       {
         "id": "imatgen",
         "name": "Imatgen",
-        "display_name": "Imatgen",
+        "display_name": "iMatGen",
         "description": "Inverse materials generation using deep learning",
         "folder_path": "Information_Units/Generators/Imatgen",
         "class_name": "ImatgenGenerator",
@@ -124,9 +124,9 @@
         "file_name": "MolganGenerator.py"
       },
       {
-        "id": "conddfcvae",
+        "id": "cond_dfc_vae",
         "name": "Conddfcvae",
-        "display_name": "Conddfcvae",
+        "display_name": "Cond-DFC-VAE",
         "description": "Conditional Deep Feature Consistent Variational Autoencoder",
         "folder_path": "Information_Units/Generators/Conddfcvae",
         "class_name": "ConddfcvaeGenerator",
@@ -200,7 +200,7 @@
       {
         "id": "esen",
         "name": "Esen",
-        "display_name": "Esen",
+        "display_name": "eSEN",
         "description": "Electronic Structure Estimation Network",
         "folder_path": "Information_Units/Predictors/Esen",
         "class_name": "EsenPredictor",
@@ -440,13 +440,13 @@
       },
       {
         "id": 5,
-        "name": "DftCalculation",
-        "display_name": "DftCalculation",
+        "name": "DFT Calculation",
+        "display_name": "DFT Calculation",
         "description": "Materials optimization workflows for enhanced performance characteristics",
-        "folder_path": "Features/Materials_Exploration/Dftcalculation",
-        "class_name": "DftcalculationFeature",
-        "file_name": "DftcalculationFeature.py",
-        "js_file_name": "Dftcalculation.js"
+        "folder_path": "Features/Materials_Exploration/DftCalculation",
+        "class_name": "DftCalculationFeature",
+        "file_name": "DftCalculationFeature.py",
+        "js_file_name": "DftCalculation.js"
       },
       {
         "id": 6,

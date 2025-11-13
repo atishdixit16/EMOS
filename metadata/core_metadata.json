@@ -31,10 +31,10 @@
     "generators": {
       "MatterGen": "Diffusion model for crystal structure generation",
       "GNoME": "Graph Networks for Materials Exploration", 
-      "Imatgen": "Inverse materials generation using deep learning",
+      "iMatGen": "Inverse materials generation using deep learning",
       "MatGAN": "Generative Adversarial Network for materials design",
       "MolGAN": "Molecular Generative Adversarial Network",
-      "Conddfcvae": "Conditional Deep Feature Consistent Variational Autoencoder",
+      "Cond-DFC-VAE": "Conditional Deep Feature Consistent Variational Autoencoder",
       "MyGen1": "Custom generator 1 - user-defined materials generation model",
       "MyGen2": "Custom generator 2 - user-defined materials generation model"
     },
@@ -44,7 +44,7 @@
       "PFP": "Property Fingerprint Predictor for materials properties",
       "DeepMD": "Deep potential molecular dynamics for materials simulation",
       "SynthNN": "Synthesis Neural Network for synthesizability prediction", 
-      "Esen": "Electronic Structure Estimation Network",
+      "eSEN": "Electronic Structure Estimation Network",
       "MyPred1": "Custom predictor 1 - user-defined materials property prediction model",
       "MyPred2": "Custom predictor 2 - user-defined materials property prediction model"
     }
@@ -55,7 +55,7 @@
       "Material Generation": "Generate new material compositions using AI-powered algorithms and predictive models",
       "Database Extractor": "Extract and analyze specific material properties and data from integrated databases", 
       "Material Characterization": "Advanced materials analysis and characterization tools for comprehensive evaluation",
-      "DftCalculation": "Materials optimization workflows for enhanced performance characteristics",
+      "DFT Calculation": "Materials optimization workflows for enhanced performance characteristics",
       "Crystallographic Analysis": "Simulation and modeling tools for predicting material behavior under various conditions",
       "Quantum Mechanics": "Advanced computational methods for materials discovery and design",
       "Tensor Analysis": "Comprehensive analysis tools for understanding material structure-property relationships"

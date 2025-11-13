@@ -4,7 +4,7 @@ from Information_Units.Databases.DatabaseFactory import database_factory
 from Information_Units.Predictors.PredictorFactory import predictor_factory
 
 
-class DftcalculationFeature(BaseFeature):
+class DftCalculationFeature(BaseFeature):
     def __init__(self, logger=None):
         super().__init__("DFT Calculation", logger)
     
